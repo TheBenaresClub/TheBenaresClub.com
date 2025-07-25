@@ -1,74 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>My Simple Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Benares</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    :root {
+      --bg-color: #000;
+      --text-color: #f0f0f0;
+      --accent-color: #ffffff;
+      --hover-color: #999;
+      --font-family: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: #f4f4f4;
-      color: #333;
     }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
     header {
-      background: #222;
-      color: #fff;
-      padding: 1rem;
+      background-color: var(--bg-color);
+      color: var(--accent-color);
       text-align: center;
+      padding: 1.5rem 1rem;
+      border-bottom: 2px solid var(--accent-color);
     }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
     nav {
-      background: #444;
-      padding: 0.5rem;
-      text-align: center;
+      background-color: var(--bg-color);
+      border-bottom: 1px solid #222;
     }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      list-style: none;
+      padding: 1rem;
+      gap: 1rem;
+    }
+
     nav a {
-      color: white;
-      margin: 0 1rem;
+      color: var(--accent-color);
       text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      transition: background 0.3s, color 0.3s;
     }
+
+    nav a:hover,
+    nav a:focus {
+      background-color: #222;
+      color: var(--hover-color);
+    }
+
     main {
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
-      background: #fff;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background-color: #111;
+      border-radius: 8px;
     }
+
+    main h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    main h3 {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+    }
+
+    main p,
+    main ul {
+      font-size: 1rem;
+    }
+
+    main ul {
+      margin-top: 0.5rem;
+      padding-left: 1.5rem;
+    }
+
     footer {
       text-align: center;
       padding: 1rem;
-      background: #222;
-      color: white;
-      margin-top: 2rem;
+      background-color: var(--bg-color);
+      color: var(--accent-color);
+      border-top: 1px solid #222;
+      font-size: 0.9rem;
+    }
+
+    /* Responsividade para telemóveis */
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      main {
+        margin: 1rem;
+        padding: 1rem;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Welcome to My Website</h1>
-    <p>All in one HTML file</p>
+    <h1>Club Benares</h1>
   </header>
 
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+  <nav aria-label="Menu principal">
+    <ul>
+        <li><a href="#">Eventos</a></li>
+      <li><a href="#">Biblioteca</a></li>
+      <li><a href="#">Cinemateca</a></li>
+      <li><a href="#">Laboratório</a></li>
+      <li><a href="#">Mercado</a></li>
+      <li><a href="#">Comunidad</a></li>
+      <li><a href="#">Contactos</a></li>
+    </ul>
   </nav>
 
   <main>
-    <h2>About This Page</h2>
-    <p>This is a simple example of a static website built using only HTML and internal CSS (no external files needed). Perfect for testing on CodePen or learning the basics of web structure.</p>
+    <h2>Bem-vindo ao Club Benares</h2>
+    <p>Este é um site exemplo com estrutura moderna, acessível e responsiva. Ideal para um projeto de comunidade criativa como o Club Benares.</p>
 
-    <h3>Features</h3>
+    <h3>Características</h3>
     <ul>
-      <li>Single file</li>
-      <li>Clean layout</li>
-      <li>Responsive text</li>
+      <li>Design escuro com contraste ideal</li>
+      <li>Menu adaptável para telemóvel</li>
+      <li>Texto legível com fonte Inter</li>
+      <li>Sem dependências externas além do Google Fonts</li>
     </ul>
   </main>
 
   <footer>
-    &copy; 2025 My Simple Website
+    &copy; 2025 Club Benares. Todos os direitos reservados.
   </footer>
 
 </body>
