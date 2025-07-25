@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Club Benares</title>
+  <title>Eventos | Club Benares</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -69,6 +69,11 @@
       color: var(--hover-color);
     }
 
+    nav a.active {
+      background-color: #333;
+      color: var(--accent-color);
+    }
+
     main {
       max-width: 900px;
       margin: 2rem auto;
@@ -95,6 +100,26 @@
     main ul {
       margin-top: 0.5rem;
       padding-left: 1.5rem;
+    }
+
+    .event-card {
+      background-color: #222;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--accent-color);
+    }
+
+    .event-date {
+      color: var(--hover-color);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
     }
 
     footer {
@@ -133,29 +158,39 @@
 
   <nav aria-label="Menu principal">
     <ul>
-        <li><a href="#">Eventos</a></li>
-      <li><a href="#">Biblioteca</a></li>
-      <li><a href="#">Cinemateca</a></li>
-      <li><a href="#">Laboratório</a></li>
-      <li><a href="#">Mercado</a></li>
-      <li><a href="#">Comunidad</a></li>
-      <li><a href="#">Contactos</a></li>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="eventos.html" class="active">Eventos</a></li>
+      <li><a href="biblioteca.html">Biblioteca</a></li>
+      <li><a href="cinemateca.html">Cinemateca</a></li>
+      <li><a href="laboratorio.html">Laboratório</a></li>
+      <li><a href="mercado.html">Mercado</a></li>
+      <li><a href="comunidad.html">Comunidad</a></li>
+      <li><a href="contactos.html">Contactos</a></li>
     </ul>
   </nav>
 
   <main>
-    <h2>Bem-vindo ao Club Benares <a href="SiteOriginal/A_Side/A00_Club_Benares/Club_Benares.html">Go to Club Benares</a>
+    <h2>Eventos</h2>
+    <p>Descubra os próximos eventos do Club Benares - encontros, workshops, performances e muito mais.</p>
 
-</h2>
-    <p>Este é um site exemplo com estrutura moderna, acessível e responsiva. Ideal para um projeto de comunidade criativa como o Club Benares.</p>
+    <div class="event-card">
+      <div class="event-date">15 de Fevereiro, 2025</div>
+      <h3 class="event-title">Noite de Cinema Experimental</h3>
+      <p>Uma sessão especial de cinema experimental com obras de artistas contemporâneos. Discussão pós-filme com os realizadores.</p>
+    </div>
 
-    <h3>Características</h3>
-    <ul>
-      <li>Design escuro com contraste ideal</li>
-      <li>Menu adaptável para telemóvel</li>
-      <li>Texto legível com fonte Inter</li>
-      <li>Sem dependências externas além do Google Fonts</li>
-    </ul>
+    <div class="event-card">
+      <div class="event-date">22 de Fevereiro, 2025</div>
+      <h3 class="event-title">Workshop de Fotografia Analógica</h3>
+      <p>Aprenda as técnicas clássicas da fotografia em filme 35mm. Material incluído, adequado para iniciantes.</p>
+    </div>
+
+    <div class="event-card">
+      <div class="event-date">1 de Março, 2025</div>
+      <h3 class="event-title">Lançamento de Livro</h3>
+      <p>Apresentação do novo livro "Memórias Urbanas" com sessão de autógrafos e conversa com o autor.</p>
+    </div>
+
   </main>
 
   <footer>
