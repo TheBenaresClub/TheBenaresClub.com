@@ -32,13 +32,12 @@
 
     .tv-screen {
       position: absolute;
-      top: 19%;
+      top: 12%;
       left: 8%;
       width: 70%;
-      height: 60%;
+      height: 66%;
       background: transparent;
       overflow: hidden;
-      min-height: 200px;
     }
 
     .tv-content {
@@ -61,41 +60,79 @@
       justify-content: center;
       font-family: 'Courier New', monospace;
       color: #666;
-      font-size: clamp(0.6rem, 2vw, 1rem);
+      font-size: 1rem;
       text-align: center;
     }
 
+    /* Updated TV Menu with percentage-based sizing */
     .tv-menu {
       background: transparent;
-      padding: 1.5rem;
+      padding: 0;
       color: white;
       font-family: 'Courier New', monospace;
       height: 100%;
-      overflow-y: auto;
-      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
     }
 
+    /* New top section - 15% of tv-menu height */
+    .menu-header {
+      height: 15%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5%;
+      box-sizing: border-box;
+    }
+
+    /* Main content section - 70% of tv-menu height */
+    .menu-content {
+      height: 70%;
+      display: flex;
+      flex-direction: column;
+      padding: 2% 5%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* Bottom controls section - 9% of tv-menu height */
+    .tv-internal-controls {
+      height: 9%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 5%;
+      box-sizing: border-box;
+    }
+
+    /* Grid takes full height of menu-content */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
-      margin-top: 1rem;
+      height: 100%;
+      width: 100%;
     }
 
+    /* Movie slots use percentage-based sizing */
     .movie-slot {
       background: transparent;
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 5px;
-      padding: 1.2rem;
+      padding: 4%;
       transition: all 0.3s ease;
       cursor: pointer;
-      min-height: 150px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
     }
 
     .movie-slot:hover {
       background: rgba(255,255,255,0.1);
       border-color: rgba(255,255,255,0.4);
-      transform: translateY(-5px);
     }
 
     .movie-slot.empty {
@@ -103,67 +140,72 @@
       cursor: not-allowed;
     }
 
+    .movie-top-section {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 3%;
+    }
+
     .movie-poster {
-      width: 70px;
-      height: 105px;
+      width: 30%;
+      height: 120px;
       background: #333;
       border-radius: 3px;
-      float: left;
-      margin-right: 1rem;
-      margin-bottom: 0.8rem;
-      background-size: cover;
+      margin-right: 4%;
+      background-size: contain;
       background-position: center;
+      background-repeat: no-repeat;
+      flex-shrink: 0;
+    }
+
+    .movie-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     .movie-info h3 {
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      margin-bottom: 2%;
       text-shadow: 0 0 8px rgba(255,255,255,0.5);
       line-height: 1.2;
+      flex-shrink: 0;
     }
 
     .movie-meta {
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       opacity: 0.8;
-      margin-bottom: 0.5rem;
+      margin-bottom: 2%;
+      flex-shrink: 0;
     }
 
     .movie-synopsis {
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       line-height: 1.4;
       opacity: 0.9;
-      clear: both;
       display: -webkit-box;
-      -webkit-line-clamp: 5;
+      -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       overflow: hidden;
-    }
-
-    /* TV Controls - Internal */
-    .tv-internal-controls {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
-      padding-top: 1rem;
+      flex: 1;
     }
 
     .tv-internal-button {
       background: #363636;
       border: 2px solid #000;
       color: white;
-      padding: 0.5rem 1rem;
+      padding: 0.3rem 0.6rem;
       font-family: 'Courier New', monospace;
       cursor: pointer;
       border-radius: 3px;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease;
       font-size: 0.7rem;
-      min-width: 80px;
+      min-width: 60px;
     }
 
     .tv-internal-button:hover {
       background: #555;
-      transform: scale(1.05);
     }
 
     .tv-internal-button:disabled {
@@ -183,17 +225,12 @@
       height: auto;
       cursor: pointer;
       z-index: 1001;
-      transition: all 0.3s ease;
     }
 
     .power-button img {
       width: 100%;
       height: auto;
       object-fit: contain;
-    }
-
-    .power-button:hover {
-      transform: scale(1.1);
     }
 
     /* Video Player */
@@ -236,131 +273,6 @@
       z-index: 1001;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .tv-screen {
-        top: 10%;
-        left: 18%;
-        width: 60%;
-        height: 58%;
-        min-height: 180px;
-      }
-
-      .tv-menu {
-        padding: 1rem;
-        min-height: 200px;
-      }
-
-      .tv-internal-controls {
-        gap: 0.5rem;
-        margin-top: 0.8rem;
-        padding-top: 0.8rem;
-      }
-
-      .tv-internal-button {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.6rem;
-        min-width: 70px;
-      }
-
-      .movie-slot {
-        padding: 1rem;
-        min-height: 130px;
-      }
-
-      .movie-poster {
-        width: 60px;
-        height: 90px;
-        margin-right: 0.8rem;
-      }
-
-      .movie-info h3 {
-        font-size: 0.8rem;
-      }
-
-      .movie-meta {
-        font-size: 0.7rem;
-      }
-
-      .movie-synopsis {
-        font-size: 0.7rem;
-        -webkit-line-clamp: 4;
-      }
-
-      .power-button {
-        width: 35%;
-        bottom: 12%;
-        right: 6%;
-      }
-
-      .video-player iframe {
-        width: 95%;
-        height: 80%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .tv-screen {
-        top: 8%;
-        left: 16%;
-        width: 62%;
-        height: 60%;
-        min-height: 150px;
-      }
-
-      .tv-menu {
-        padding: 0.8rem;
-        min-height: 170px;
-      }
-
-      .movie-slot {
-        padding: 0.8rem;
-        min-height: 110px;
-      }
-
-      .movie-poster {
-        width: 50px;
-        height: 75px;
-        margin-right: 0.6rem;
-      }
-
-      .movie-info h3 {
-        font-size: 0.7rem;
-      }
-
-      .movie-meta {
-        font-size: 0.6rem;
-      }
-
-      .movie-synopsis {
-        font-size: 0.65rem;
-        -webkit-line-clamp: 3;
-      }
-
-      .power-button {
-        width: 40%;
-        bottom: 10%;
-        right: 5%;
-      }
-
-      .video-player iframe {
-        width: 98%;
-        height: 85%;
-      }
-
-      .tv-internal-controls {
-        gap: 0.3rem;
-        margin-top: 0.6rem;
-        padding-top: 0.6rem;
-      }
-
-      .tv-internal-button {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.55rem;
-        min-width: 60px;
-      }
-    }
-
     /* Custom fonts for specific elements */
     .special-title {
       font-family: 'Courier New', monospace;
@@ -389,8 +301,16 @@
           <!-- TV On State -->
           <div id="tv-on" class="tv-content">
             <div class="tv-menu">
-              <div class="menu-grid" id="movie-grid">
-                <!-- Movies will be populated by JavaScript -->
+              <!-- New top header section -->
+              <div class="menu-header">
+                <!-- Content for top section goes here -->
+              </div>
+              
+              <!-- Main content section -->
+              <div class="menu-content">
+                <div class="menu-grid" id="movie-grid">
+                  <!-- Movies will be populated by JavaScript -->
+                </div>
               </div>
               
               <!-- Internal Navigation Controls -->
@@ -529,15 +449,26 @@
         }
 
         movieSlot.innerHTML = `
-          ${!movie.empty ? `<div class="movie-poster" style="background-image: url('${movie.poster}');"></div>` : ''}
-          <div class="movie-info">
-            ${!movie.empty ? `<div class="movie-meta">${movie.date} • ${movie.duration}</div>` : ''}
-            <h3 ${movie.specialTitle ? 'class="special-title"' : ''}>${movie.title}</h3>
-            ${!movie.empty ? `<div class="movie-meta">${movie.director}</div>` : ''}
+          ${!movie.empty ? `
+            <div class="movie-top-section">
+              <div class="movie-poster" style="background-image: url('${movie.poster}');"></div>
+              <div class="movie-info">
+                <div class="movie-meta">${movie.date} • ${movie.duration}</div>
+                <h3 ${movie.specialTitle ? 'class="special-title"' : ''}>${movie.title}</h3>
+                <div class="movie-meta">${movie.director}</div>
+              </div>
+            </div>
             <div class="movie-synopsis">
               ${movie.synopsis}
             </div>
-          </div>
+          ` : `
+            <div class="movie-info">
+              <h3>${movie.title}</h3>
+              <div class="movie-synopsis">
+                ${movie.synopsis}
+              </div>
+            </div>
+          `}
         `;
 
         movieGrid.appendChild(movieSlot);
@@ -610,6 +541,9 @@
         tvOn.classList.remove('active'); // Hide movie menu
         videoPlayer.classList.add('active');
         activeVideo = videoId;
+        // Disable navigation buttons
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
       }
     }
 
@@ -620,6 +554,9 @@
         activeVideo = null;
         tvBackground.src = './media/canal14_menu.png';
         tvOn.classList.add('active'); // Show movie menu again
+        // Re-enable navigation buttons
+        prevBtn.disabled = false;
+        nextBtn.disabled = false;
         
         // Pause the video
         const iframe = videoPlayer.querySelector('iframe');
@@ -640,6 +577,9 @@
       if (activeVideo) {
         tvBackground.src = './media/canal14_menu.png';
         tvOn.classList.add('active'); // Show movie menu again
+        // Re-enable navigation buttons
+        prevBtn.disabled = false;
+        nextBtn.disabled = false;
       }
       activeVideo = null;
     }
