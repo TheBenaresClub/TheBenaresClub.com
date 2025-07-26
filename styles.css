@@ -17,8 +17,18 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
+
+  /* Flexbox para que footer se quede abajo */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+main {
+  flex: 1;
+}
+
+/* HEADER */
 header {
   background-color: rgba(0, 0, 0, 0.4);
   color: var(--accent-color);
@@ -36,6 +46,7 @@ header h1 {
   font-weight: 500;
 }
 
+/* NAV */
 nav {
   background-color: rgba(0, 0, 0, 0.4);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
@@ -86,12 +97,53 @@ nav a.active {
   font-weight: 600;
 }
 
+/* FOOTER */
+footer {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: var(--accent-color);
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px 10px 0 0;
+  font-size: 0.75rem;
 
-/* Rest of your styles... */
 
-/* ============================== */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+footer .copyright {
+  flex: 1;
+  min-width: 200px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.social-icons a {
+  color: var(--accent-color);
+  font-size: 1rem;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #fff;
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.8),
+    0 0 12px rgba(255, 255, 255, 0.6),
+    0 0 20px rgba(255, 255, 255, 0.4);
+}
+
 /* FUNDOS PERSONALIZADOS POR PÁGINA */
-/* ============================== */
 
 body.bg-club {
   background-image: url("media/B01 Club Benares.png");
