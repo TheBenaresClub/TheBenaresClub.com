@@ -1,7 +1,7 @@
 function createHeader() {
   return `
     <header>
-      <h1>Club Benares</h1>
+      <h1>Club BenareX</h1>
     </header>
     
     <nav aria-label="Menu principal">
