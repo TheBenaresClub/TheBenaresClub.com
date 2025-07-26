@@ -227,11 +227,27 @@
       z-index: 1001;
     }
 
-    .power-button img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-    }
+.power-button img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  animation: pulse-brightness 2s infinite;
+  transition: filter 0.8s ease; /* Smooth fade-out */
+}
+
+@keyframes pulse-brightness {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.5);
+  }
+}
+
+.power-button img.stop-animation {
+  animation: none !important;
+  filter: none !important;
+}
 
     /* Video Player */
     .video-player {
@@ -487,28 +503,35 @@
     }
 
     // Power Button Functionality
-    powerBtn.addEventListener('click', function() {
-      playSound(powerSound);
-      
-      if (!tvIsOn) {
-        // Turn TV on - direct to menu
-        tvOff.classList.remove('active');
-        tvBackground.src = './media/canal14_menu.png';
-        tvOn.classList.add('active');
-        tvIsOn = true;
-        renderMovies();
-      } else {
-        // Turn TV off
-        closeAllVideos();
-        tvOn.classList.remove('active');
-        tvBackground.src = './media/canal14_off.png';
-        
-        setTimeout(() => {
-          tvOff.classList.add('active');
-          tvIsOn = false;
-        }, 300);
-      }
-    });
+powerBtn.addEventListener('click', function() {
+  // Stop pulsing after first click
+  const img = this.querySelector('img');
+  if (img && !img.classList.contains('stop-animation')) {
+    img.classList.add('stop-animation');
+  }
+
+  playSound(powerSound);
+  
+  if (!tvIsOn) {
+    // Turn TV on - direct to menu
+    tvOff.classList.remove('active');
+    tvBackground.src = './media/canal14_menu.png';
+    tvOn.classList.add('active');
+    tvIsOn = true;
+    renderMovies();
+  } else {
+    // Turn TV off
+    closeAllVideos();
+    tvOn.classList.remove('active');
+    tvBackground.src = './media/canal14_off.png';
+    
+    setTimeout(() => {
+      tvOff.classList.add('active');
+      tvIsOn = false;
+    }, 300);
+  }
+});
+
 
     // Navigation Buttons
     prevBtn.addEventListener('click', function() {
