@@ -1,12 +1,13 @@
 function createHeader() {
   return `
-    <header>
-      <h1>Club BenareX</h1>
+   <header>
+      <a href="club benares.html">
+        <img src="./media/A00_Logo_&_title_-_light.png" alt="Club Benares" style="height: 60px;">
+      </a>
     </header>
     
     <nav aria-label="Menu principal">
       <ul>
-        <li><a href="index.html">Início</a></li>
         <li><a href="eventos.html">Eventos</a></li>
         <li><a href="biblioteca.html">Biblioteca</a></li>
         <li><a href="cinemateca.html">Cinemateca</a></li>
