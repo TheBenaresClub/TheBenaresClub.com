@@ -67,3 +67,71 @@ nav a.active {
 }
 
 /* Rest of your styles... */
+
+/* ============================== */
+/* FUNDOS PERSONALIZADOS POR PÁGINA */
+/* ============================== */
+
+body.bg-club {
+  background-image: url("media/B01 Club Benares.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.bg-eventos {
+  background-image: url("media/B03 Eventos.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.bg-biblioteca {
+  background-image: url("media/B05 Biblioteca Nacional.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.bg-cinemateca {
+  background-image: url("media/B06 Canal 14.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.bg-laboratorio {
+  background-image: url("media/B07 Radiolina.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.bg-mercado {
+  background-image: url("media/B09 El Mercado Central.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.bg-comunidad {
+  background-image: url("media/B10 Comunidade.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.bg-contactos {
+  background-image: url("media/B08 Refugo Postal.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
