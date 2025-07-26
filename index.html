@@ -5,197 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Club Benares</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-color: #000;
-      --text-color: #f0f0f0;
-      --accent-color: #ffffff;
-      --hover-color: #999;
-      --font-family: 'Inter', sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: var(--font-family);
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: var(--bg-color);
-      color: var(--accent-color);
-      text-align: center;
-      padding: 1.5rem 1rem;
-      border-bottom: 2px solid var(--accent-color);
-    }
-
-    header h1 {
-      font-size: 2rem;
-      font-weight: 600;
-    }
-
-    nav {
-      background-color: var(--bg-color);
-      border-bottom: 1px solid #222;
-    }
-
-    nav ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      list-style: none;
-      padding: 1rem;
-      gap: 1rem;
-    }
-
-    nav a {
-      color: var(--accent-color);
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.5rem 0.75rem;
-      border-radius: 4px;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    nav a:hover,
-    nav a:focus {
-      background-color: #222;
-      color: var(--hover-color);
-    }
-
-    nav a.active {
-      background-color: #333;
-      color: var(--accent-color);
-    }
-
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1.5rem;
-      background-color: #111;
-      border-radius: 8px;
-    }
-
-    main h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    main h3 {
-      margin-top: 2rem;
-      font-size: 1.3rem;
-    }
-
-    main p,
-    main ul {
-      font-size: 1rem;
-    }
-
-    main ul {
-      margin-top: 0.5rem;
-      padding-left: 1.5rem;
-    }
-
-    .event-card {
-      background-color: #222;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      border-left: 4px solid var(--accent-color);
-    }
-
-    .event-date {
-      color: var(--hover-color);
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .event-title {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      color: var(--accent-color);
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: var(--bg-color);
-      color: var(--accent-color);
-      border-top: 1px solid #222;
-      font-size: 0.9rem;
-    }
-
-    /* Responsividade para telemóveis */
-    @media (max-width: 600px) {
-      nav ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      main {
-        margin: 1rem;
-        padding: 1rem;
-      }
-
-      header h1 {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="./media/A00 Logo - Light.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
+<body class="bg-club">
 
-  <header>
-    <h1>Club Benares</h1>
-  </header>
-
-  <nav aria-label="Menu principal">
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="eventos.html" class="active">Eventos</a></li>
-      <li><a href="biblioteca.html">Biblioteca</a></li>
-      <li><a href="cinemateca.html">Cinemateca</a></li>
-      <li><a href="laboratorio.html">Laboratório</a></li>
-      <li><a href="mercado.html">Mercado</a></li>
-      <li><a href="comunidad.html">Comunidad</a></li>
-      <li><a href="contactos.html">Contactos</a></li>
-    </ul>
-  </nav>
+  <!-- Header container where JavaScript will insert the header -->
+  <div id="header-container"></div>
 
   <main>
-    <h2>Eventos</h2>
-    <p>Descubra os próximos eventos do Club Benares - encontros, workshops, performances e muito mais.</p>
-
-    <div class="event-card">
-      <div class="event-date">15 de Fevereiro, 2025</div>
-      <h3 class="event-title">Noite de Cinema Experimental</h3>
-      <p>Uma sessão especial de cinema experimental com obras de artistas contemporâneos. Discussão pós-filme com os realizadores.</p>
-    </div>
-
-    <div class="event-card">
-      <div class="event-date">22 de Fevereiro, 2025</div>
-      <h3 class="event-title">Workshop de Fotografia Analógica</h3>
-      <p>Aprenda as técnicas clássicas da fotografia em filme 35mm. Material incluído, adequado para iniciantes.</p>
-    </div>
-
-    <div class="event-card">
-      <div class="event-date">1 de Março, 2025</div>
-      <h3 class="event-title">Lançamento de Livro</h3>
-      <p>Apresentação do novo livro "Memórias Urbanas" com sessão de autógrafos e conversa com o autor.</p>
-    </div>
+    
 
   </main>
 
   <footer>
-    &copy; 2025 Club Benares. Todos os direitos reservados.
+    <div class="copyright">
+      &copy; 2025 Club Benares. Todos os direitos reservados.
+    </div>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/thebenaresclub" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="mailto:charlie@thebenaresclub.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
   </footer>
+
+  <!-- Load shared header -->
+  <script src="shared-header.js"></script>
 
 </body>
 </html>
