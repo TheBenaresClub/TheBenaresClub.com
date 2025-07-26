@@ -6,8 +6,368 @@
   <title>Cinemateca | Club Benares</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="./media/A00 Logo - Light.png" type="image/png" />
+  <link rel="icon" href="./media/logo_light.png" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    /* TV Styles - Responsive */
+    .tv-container {
+      position: relative;
+      width: 100%;
+      max-width: 1300px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .tv-frame {
+      position: relative;
+      width: 100%;
+    }
+
+    .tv-background {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .tv-screen {
+      position: absolute;
+      top: 19%;
+      left: 8%;
+      width: 70%;
+      height: 60%;
+      background: transparent;
+      overflow: hidden;
+      min-height: 200px;
+    }
+
+    .tv-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+
+    .tv-content.active {
+      display: block;
+    }
+
+    .tv-off-screen {
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Courier New', monospace;
+      color: #666;
+      font-size: clamp(0.6rem, 2vw, 1rem);
+      text-align: center;
+    }
+
+    .tv-menu {
+      background: transparent;
+      padding: 1.5rem;
+      color: white;
+      font-family: 'Courier New', monospace;
+      height: 100%;
+      overflow-y: auto;
+      min-height: 250px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .movie-slot {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 5px;
+      padding: 1.2rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      min-height: 150px;
+    }
+
+    .movie-slot:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-5px);
+    }
+
+    .movie-slot.empty {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .movie-poster {
+      width: 70px;
+      height: 105px;
+      background: #333;
+      border-radius: 3px;
+      float: left;
+      margin-right: 1rem;
+      margin-bottom: 0.8rem;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .movie-info h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 8px rgba(255,255,255,0.5);
+      line-height: 1.2;
+    }
+
+    .movie-meta {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+
+    .movie-synopsis {
+      font-size: 0.75rem;
+      line-height: 1.4;
+      opacity: 0.9;
+      clear: both;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* TV Controls - Internal */
+    .tv-internal-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+    }
+
+    .tv-internal-button {
+      background: #363636;
+      border: 2px solid #000;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-family: 'Courier New', monospace;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      font-size: 0.7rem;
+      min-width: 80px;
+    }
+
+    .tv-internal-button:hover {
+      background: #555;
+      transform: scale(1.05);
+    }
+
+    .tv-internal-button:disabled {
+      background: #222;
+      color: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .power-button {
+      position: absolute;
+      bottom: 0%;
+      right: 20%;
+      background: transparent;
+      border: none;
+      width: 10%;
+      height: auto;
+      cursor: pointer;
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+
+    .power-button img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .power-button:hover {
+      transform: scale(1.1);
+    }
+
+    /* Video Player */
+    .video-player {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      display: none;
+      z-index: 1000;
+    }
+
+    .video-player.active {
+      display: block;
+    }
+
+    .video-player iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      height: 70%;
+      border-radius: 10px;
+    }
+
+    .close-video {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff0000;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      z-index: 1001;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .tv-screen {
+        top: 10%;
+        left: 18%;
+        width: 60%;
+        height: 58%;
+        min-height: 180px;
+      }
+
+      .tv-menu {
+        padding: 1rem;
+        min-height: 200px;
+      }
+
+      .tv-internal-controls {
+        gap: 0.5rem;
+        margin-top: 0.8rem;
+        padding-top: 0.8rem;
+      }
+
+      .tv-internal-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.6rem;
+        min-width: 70px;
+      }
+
+      .movie-slot {
+        padding: 1rem;
+        min-height: 130px;
+      }
+
+      .movie-poster {
+        width: 60px;
+        height: 90px;
+        margin-right: 0.8rem;
+      }
+
+      .movie-info h3 {
+        font-size: 0.8rem;
+      }
+
+      .movie-meta {
+        font-size: 0.7rem;
+      }
+
+      .movie-synopsis {
+        font-size: 0.7rem;
+        -webkit-line-clamp: 4;
+      }
+
+      .power-button {
+        width: 35%;
+        bottom: 12%;
+        right: 6%;
+      }
+
+      .video-player iframe {
+        width: 95%;
+        height: 80%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tv-screen {
+        top: 8%;
+        left: 16%;
+        width: 62%;
+        height: 60%;
+        min-height: 150px;
+      }
+
+      .tv-menu {
+        padding: 0.8rem;
+        min-height: 170px;
+      }
+
+      .movie-slot {
+        padding: 0.8rem;
+        min-height: 110px;
+      }
+
+      .movie-poster {
+        width: 50px;
+        height: 75px;
+        margin-right: 0.6rem;
+      }
+
+      .movie-info h3 {
+        font-size: 0.7rem;
+      }
+
+      .movie-meta {
+        font-size: 0.6rem;
+      }
+
+      .movie-synopsis {
+        font-size: 0.65rem;
+        -webkit-line-clamp: 3;
+      }
+
+      .power-button {
+        width: 40%;
+        bottom: 10%;
+        right: 5%;
+      }
+
+      .video-player iframe {
+        width: 98%;
+        height: 85%;
+      }
+
+      .tv-internal-controls {
+        gap: 0.3rem;
+        margin-top: 0.6rem;
+        padding-top: 0.6rem;
+      }
+
+      .tv-internal-button {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.55rem;
+        min-width: 60px;
+      }
+    }
+
+    /* Custom fonts for specific elements */
+    .special-title {
+      font-family: 'Courier New', monospace;
+      font-size: 1.2rem !important;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body class="bg-cinemateca">
 
@@ -15,7 +375,70 @@
   <div id="header-container"></div>
 
   <main>
+    <div class="tv-container">
+      <div class="tv-frame">
+        <!-- TV Background/Frame -->
+        <img id="tv-background" class="tv-background" src="./media/canal14_off.png" alt="TV Frame">
+        
+        <!-- TV Screen Content Area -->
+        <div class="tv-screen">
+          <!-- TV Off State -->
+          <div id="tv-off" class="tv-content tv-off-screen active">
+          </div>
 
+          <!-- TV On State -->
+          <div id="tv-on" class="tv-content">
+            <div class="tv-menu">
+              <div class="menu-grid" id="movie-grid">
+                <!-- Movies will be populated by JavaScript -->
+              </div>
+              
+              <!-- Internal Navigation Controls -->
+              <div class="tv-internal-controls" id="internal-controls">
+                <button class="tv-internal-button" id="prev-btn">◀ Prev</button>
+                <button class="tv-internal-button" id="next-btn">Next ▶</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Players -->
+          <div id="video-inexistente" class="video-player">
+            <button class="close-video" onclick="closeVideo('video-inexistente')">✕ Close</button>
+            <iframe src="https://player.vimeo.com/video/930451906?badge=0&autopause=0&player_id=0&app_id=58479" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+                    title="I N E X I S T E N T E">
+            </iframe>
+          </div>
+
+          <div id="video-artista" class="video-player">
+            <button class="close-video" onclick="closeVideo('video-artista')">✕ Close</button>
+            <iframe src="https://player.vimeo.com/video/930022904?badge=0&autopause=0&player_id=0&app_id=58479" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+                    title="El Artista Comprendido">
+            </iframe>
+          </div>
+        </div>
+
+        <!-- Power Button (positioned relative to TV frame) -->
+        <button class="power-button" id="power-btn">
+          <img src="./media/canal14_power_button.png" alt="Power Button">
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Audio elements -->
+    <audio id="power-sound" preload="auto">
+      <source src="./media/power-sound.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="button-sound" preload="auto">
+      <source src="./media/button-sound.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="select-sound" preload="auto">
+      <source src="./media/select-sound.mp3" type="audio/mpeg">
+    </audio>
   </main>
 
   <footer>
@@ -30,6 +453,261 @@
 
   <!-- Load shared header -->
   <script src="shared-header.js"></script>
+  
+  <!-- TV Functionality -->
+  <script>
+    // TV State Management
+    let tvIsOn = false;
+    let currentPage = 0;
+    let activeVideo = null;
+    const moviesPerPage = 2;
 
+    // Movie Database
+    const allMovies = [
+      {
+        id: 'inexistente',
+        title: 'I N E X I S T E N T E',
+        date: 'JUN/15/23',
+        duration: '11m12s',
+        director: 'Charlie Chaves',
+        poster: './media/poster-inexistente.png',
+        synopsis: 'Hélder Saramago visita a antiga casa do seu melhor amigo, Pedro Amaral, que desapareceu há algum tempo atrás sem deixar rasto. O objetivo de Hélder é relembrar memórias esquecidas, mas acabará por descobrir ainda mais.'
+      },
+      {
+        id: 'artista',
+        title: 'EL ARTISTA COMPRENDIDO',
+        date: 'MAR/15/24',
+        duration: '03m42s',
+        director: 'Charlie Chaves',
+        poster: './media/poster-artista.png',
+        synopsis: 'Um jovem artista finaliza a sua obra-prima, mas a cada dia que passa, fica mais insatisfeito com o resultado final, por isso decide descartar o seu trabalho. Posteriormente, um crítico de arte encontra a sua obra...',
+        specialTitle: true
+      },
+      {
+        id: 'empty1',
+        title: '[Empty Slot]',
+        synopsis: 'Coming Soon...',
+        empty: true
+      },
+      {
+        id: 'empty2',
+        title: '[Empty Slot]',
+        synopsis: 'Coming Soon...',
+        empty: true
+      }
+    ];
+
+    // DOM Elements
+    const tvOff = document.getElementById('tv-off');
+    const tvOn = document.getElementById('tv-on');
+    const tvBackground = document.getElementById('tv-background');
+    const powerBtn = document.getElementById('power-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const movieGrid = document.getElementById('movie-grid');
+    const internalControls = document.getElementById('internal-controls');
+
+    // Audio elements
+    const powerSound = document.getElementById('power-sound');
+    const buttonSound = document.getElementById('button-sound');
+    const selectSound = document.getElementById('select-sound');
+
+    // Render Movies for Current Page
+    function renderMovies() {
+      const startIndex = currentPage * moviesPerPage;
+      const endIndex = startIndex + moviesPerPage;
+      const currentMovies = allMovies.slice(startIndex, endIndex);
+
+      movieGrid.innerHTML = '';
+
+      currentMovies.forEach(movie => {
+        const movieSlot = document.createElement('div');
+        movieSlot.className = movie.empty ? 'movie-slot empty' : 'movie-slot';
+        
+        if (!movie.empty) {
+          movieSlot.setAttribute('data-video', movie.id);
+        }
+
+        movieSlot.innerHTML = `
+          ${!movie.empty ? `<div class="movie-poster" style="background-image: url('${movie.poster}');"></div>` : ''}
+          <div class="movie-info">
+            ${!movie.empty ? `<div class="movie-meta">${movie.date} • ${movie.duration}</div>` : ''}
+            <h3 ${movie.specialTitle ? 'class="special-title"' : ''}>${movie.title}</h3>
+            ${!movie.empty ? `<div class="movie-meta">${movie.director}</div>` : ''}
+            <div class="movie-synopsis">
+              ${movie.synopsis}
+            </div>
+          </div>
+        `;
+
+        movieGrid.appendChild(movieSlot);
+      });
+
+      // Add click listeners to non-empty movies
+      movieGrid.querySelectorAll('.movie-slot:not(.empty)').forEach(slot => {
+        slot.addEventListener('click', function() {
+          if (tvIsOn) {
+            playSound(selectSound);
+            const videoId = this.getAttribute('data-video');
+            openVideo(videoId);
+          }
+        });
+      });
+    }
+
+    // Power Button Functionality
+    powerBtn.addEventListener('click', function() {
+      playSound(powerSound);
+      
+      if (!tvIsOn) {
+        // Turn TV on - direct to menu
+        tvOff.classList.remove('active');
+        tvBackground.src = './media/canal14_menu.png';
+        tvOn.classList.add('active');
+        tvIsOn = true;
+        renderMovies();
+      } else {
+        // Turn TV off
+        closeAllVideos();
+        tvOn.classList.remove('active');
+        tvBackground.src = './media/canal14_off.png';
+        
+        setTimeout(() => {
+          tvOff.classList.add('active');
+          tvIsOn = false;
+        }, 300);
+      }
+    });
+
+    // Navigation Buttons
+    prevBtn.addEventListener('click', function() {
+      if (tvIsOn && !activeVideo) {
+        playSound(buttonSound);
+        if (currentPage > 0) {
+          currentPage--;
+          renderMovies();
+        }
+      }
+    });
+
+    nextBtn.addEventListener('click', function() {
+      if (tvIsOn && !activeVideo) {
+        playSound(buttonSound);
+        const maxPage = Math.ceil(allMovies.length / moviesPerPage) - 1;
+        if (currentPage < maxPage) {
+          currentPage++;
+          renderMovies();
+        }
+      }
+    });
+
+    // Video Functions
+    function openVideo(videoId) {
+      const videoPlayer = document.getElementById(`video-${videoId}`);
+      if (videoPlayer) {
+        closeAllVideos();
+        tvBackground.src = './media/canal14_off.png';
+        tvOn.classList.remove('active'); // Hide movie menu
+        videoPlayer.classList.add('active');
+        activeVideo = videoId;
+      }
+    }
+
+    function closeVideo(videoId) {
+      const videoPlayer = document.getElementById(videoId);
+      if (videoPlayer) {
+        videoPlayer.classList.remove('active');
+        activeVideo = null;
+        tvBackground.src = './media/canal14_menu.png';
+        tvOn.classList.add('active'); // Show movie menu again
+        
+        // Pause the video
+        const iframe = videoPlayer.querySelector('iframe');
+        if (iframe) {
+          const src = iframe.src;
+          iframe.src = '';
+          setTimeout(() => {
+            iframe.src = src;
+          }, 100);
+        }
+      }
+    }
+
+    function closeAllVideos() {
+      document.querySelectorAll('.video-player').forEach(player => {
+        player.classList.remove('active');
+      });
+      if (activeVideo) {
+        tvBackground.src = './media/canal14_menu.png';
+        tvOn.classList.add('active'); // Show movie menu again
+      }
+      activeVideo = null;
+    }
+
+    // Audio Helper
+    function playSound(audio) {
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(() => {
+          // Handle autoplay restrictions
+        });
+      }
+    }
+
+    // Keyboard Controls
+    document.addEventListener('keydown', function(e) {
+      if (!tvIsOn) return;
+
+      switch(e.key) {
+        case 'Escape':
+          if (activeVideo) {
+            closeAllVideos();
+          } else {
+            powerBtn.click();
+          }
+          break;
+        case 'ArrowLeft':
+          if (!activeVideo) prevBtn.click();
+          break;
+        case 'ArrowRight':
+          if (!activeVideo) nextBtn.click();
+          break;
+      }
+    });
+
+    // Touch/Mobile Enhancements
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    document.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchend', function(e) {
+      if (!tvIsOn || activeVideo) return;
+
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+
+      // Horizontal swipe detection
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        if (deltaX > 0) {
+          nextBtn.click(); // Swipe right
+        } else {
+          prevBtn.click(); // Swipe left
+        }
+      }
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      // Ensure TV starts in off state
+      tvOff.classList.add('active');
+      tvOn.classList.remove('active');
+    });
+  </script>
 </body>
 </html>
