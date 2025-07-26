@@ -2,7 +2,7 @@ function createHeader() {
   return `
    <header>
       <a href="club benares.html">
-        <img src="./media/A00_Logo_&_title_-_light.png" alt="Club Benares" style="height: 60px;">
+        <img src="./media/A00_Logo_&_title_-_light.png" alt="Club Benares" style="height: 30px;">
       </a>
     </header>
     

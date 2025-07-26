@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #000;
+  --bg-color: #000000;
   --text-color: #f0f0f0;
   --accent-color: #ffffff;
   --hover-color: #999;
@@ -20,21 +20,29 @@ body {
 }
 
 header {
-  background-color: var(--bg-color);
+  background-color: rgba(0, 0, 0, 0.4);
   color: var(--accent-color);
   text-align: center;
-  padding: 1.5rem 1rem;
-  border-bottom: 2px solid var(--accent-color);
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 0 0 10px 10px;
 }
 
 header h1 {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 500;
 }
 
 nav {
-  background-color: var(--bg-color);
-  border-bottom: 1px solid #222;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 0 0 10px 10px;
 }
 
 nav ul {
@@ -42,29 +50,42 @@ nav ul {
   flex-wrap: wrap;
   justify-content: center;
   list-style: none;
-  padding: 1rem;
-  gap: 1rem;
+  padding: 0.5rem;
+  gap: 0.75rem;
 }
 
 nav a {
   color: var(--accent-color);
   text-decoration: none;
   font-weight: 500;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  transition: background 0.3s, color 0.3s;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.2s ease;
 }
 
 nav a:hover,
 nav a:focus {
-  background-color: #222;
-  color: var(--hover-color);
+  color: #fff;
+  text-shadow:
+    0 0 5px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(255, 255, 255, 0.6),
+    0 0 20px rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+  outline: none;
 }
 
 nav a.active {
-  background-color: #333;
-  color: var(--accent-color);
+  color: #fff;
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 1),
+    0 0 15px rgba(255, 255, 255, 0.8),
+    0 0 25px rgba(255, 255, 255, 0.6);
+  font-weight: 600;
 }
+
 
 /* Rest of your styles... */
 
