@@ -11,24 +11,41 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
   <style>
+    /* Prevent page scrolling */
+    html, body {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
     /* TV Styles - Responsive */
     .tv-container {
       position: relative;
       width: 100%;
-      max-width: 1300px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      max-width: min(1300px, 90vw, calc(90vh * 1.5)); /* Scale width based on height too */
+      max-height: min(90vh, calc(90vw / 1.5)); /* Scale height based on width too */
+      margin: 0 auto;
+      padding: 1rem;
+      box-sizing: border-box;
     }
 
     .tv-frame {
       position: relative;
       width: 100%;
+      max-height: calc(100vh - 8rem);
+      aspect-ratio: 1.5 / 1; /* Maintain TV aspect ratio */
     }
 
     .tv-background {
       width: 100%;
-      height: auto;
+      height: 100%;
+      max-height: calc(100vh - 8rem);
       display: block;
+      object-fit: contain;
     }
 
     .tv-screen {
@@ -222,7 +239,7 @@
       right: 20%;
       background: transparent;
       border: none;
-      width: 10%;
+      width: clamp(5%, 10%, 12%); /* Use percentage-based constraints */
       height: auto;
       cursor: pointer;
       z-index: 1001;
