@@ -443,123 +443,132 @@ footer .copyright {
 }
 
 
-/* --- Ventana flotante tipo Windows --- */
-.popup-window {
+/* Ventana Popup */
+.popup1-window {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 85vw;
-  max-width: 1200px;
-  height: 80vh;
-
-  /* Fondo más transparente para dejar ver el blur */
-  background-color: rgba(15, 15, 15, 0.25);
-  backdrop-filter: blur(12px) saturate(120%);
-  -webkit-backdrop-filter: blur(12px) saturate(120%);
-
-  /* Borde más visible */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-
-  padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-  display: none;
-  
-  /* z-index alto para estar sobre todo */
-  z-index: 99999;
-
+  background: #000000dd;
+  border-radius: 15px;
+  width: 50vw;
+  max-width: 700px;
+  min-height: 80vh;
+  padding: 1rem 2rem 2rem 2rem;
+  z-index: 100000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
   overflow-y: auto;
-  color: #fff;
+  font-family: Arial, sans-serif;
+  color: white;
 }
 
-/* Mostrar popup cuando está activo */
-.popup-window.active {
-  display: block;
-  animation: popupFadeIn 0.3s ease;
+/* Cuando el popup está activo */
+.popup1-window.active {
+  opacity: 1;
+  pointer-events: auto;
+  animation: popup1FadeIn 0.3s ease;
 }
 
-.popup-overlay {
+/* Fondo Overlay */
+.popup1-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.3); /* oscurecimiento suave */
-  
-  /* z-index menor que popup pero alto para cubrir contenido */
-  z-index: 99990;
-  
-  display: none;
+  background-color: #000000cc;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-/* Mostrar overlay cuando está activo */
-.popup-overlay.active {
-  display: flex;
+/* Overlay visible */
+.popup1-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-
-/* --- Título del popup --- */
-.popup-title {
-  font-size: 1.4rem;
-  font-weight: 600;
+/* Título */
+.popup1-title {
+  font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 1rem;
-  color: #fff;
-  text-align: center;
+  color: white;
 }
 
-/* --- Contenedor en cuadrícula --- */
-.popup-products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+/* Contenedor de productos */
+.popup1-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.popup-product {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+/* Producto individual */
+.popup1-product {
+  background-color: #222;
   padding: 1rem;
-  text-align: center;
-  color: #fff;
-  transition: transform 0.2s ease;
+  border-radius: 10px;
+  flex-basis: 48%;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px #111;
 }
 
-.popup-product:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.popup-product img {
-  max-width: 100%;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-}
-
-.popup-product-title {
+/* Título producto */
+.popup1-product-title {
+  font-size: 1.2rem;
   font-weight: 600;
-  font-size: 0.95rem;
-  color: #fff;
+  margin-bottom: 0.5rem;
+  color: #eee;
 }
 
-.popup-product-price {
-  font-size: 0.85rem;
-  color: #aaa;
+/* Precio producto */
+.popup1-product-price {
+  font-size: 1rem;
+  color: #ccc;
 }
 
-/* --- Animación suave --- */
-@keyframes popupFadeIn {
+/* Botón cerrar */
+.popup1-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  z-index: 100001;
+}
+
+/* Animación de fade in */
+@keyframes popup1FadeIn {
   from {
     opacity: 0;
-    transform: translate(-50%, -45%);
+    transform: translate(-50%, -60%);
   }
   to {
     opacity: 1;
     transform: translate(-50%, -50%);
   }
+}
+
+/* Scrollbar para el popup (opcional) */
+.popup1-window::-webkit-scrollbar {
+  width: 8px;
+}
+
+.popup1-window::-webkit-scrollbar-track {
+  background: #222;
+  border-radius: 4px;
+}
+
+.popup1-window::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
 }
 
 

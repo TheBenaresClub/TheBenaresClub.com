@@ -46,65 +46,65 @@
   </footer>
 
   <!-- Overlay para popup -->
-  <div id="popupOverlay" class="popup-overlay" tabindex="-1" aria-hidden="true"></div>
+  <div id="popup1Overlay" class="popup1-overlay" tabindex="-1" aria-hidden="true"></div>
 
   <!-- Ventanas flotantes para cada categoría -->
   <!-- RIGS -->
-  <div id="popup-rigs" class="popup-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup-rigs-title" aria-hidden="true">
-    <button class="popup-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
-    <h2 id="popup-rigs-title" class="popup-title">Rigs Low Cost</h2>
-    <div class="popup-products">
-      <div class="popup-product" tabindex="0">
+  <div id="popup1-rigs" class="popup1-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup-rigs-title" aria-hidden="true">
+    <button class="popup1-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
+    <h2 id="popup-rigs-title" class="popup1-title">Rigs Low Cost</h2>
+    <div class="popup1-products">
+      <div class="popup1-product" tabindex="0">
         <img src="media/FX3test.jpg" alt="Rig Básico" />
-        <div class="popup-product-title">Rig Básico</div>
-        <div class="popup-product-price">€40</div>
+        <div class="popup1-product-title">Rig Básico</div>
+        <div class="popup1-product-price">€40</div>
       </div>
-      <div class="popup-product" tabindex="0">
+      <div class="popup1-product" tabindex="0">
         <img src="media/FX3test.jpg" alt="Shoulder Rig" />
-        <div class="popup-product-title">Shoulder Rig</div>
-        <div class="popup-product-price">€60</div>
+        <div class="popup1-product-title">Shoulder Rig</div>
+        <div class="popup1-product-price">€60</div>
       </div>
     </div>
   </div>
 
   <!-- MERCH -->
-  <div id="popup-merch" class="popup-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup-merch-title" aria-hidden="true">
-    <button class="popup-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
-    <h2 id="popup-merch-title" class="popup-title">Merch Club Benares</h2>
-    <div class="popup-products">
-      <div class="popup-product" tabindex="0">
+  <div id="popup1-merch" class="popup1-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup1-merch-title" aria-hidden="true">
+    <button class="popup1-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
+    <h2 id="popup1-merch-title" class="popup1-title">Merch Club Benares</h2>
+    <div class="popup1-products">
+      <div class="popup1-product" tabindex="0">
         <img src="media/HOODIEtest.jpg" alt="Camiseta Club" />
-        <div class="popup-product-title">Camiseta Club</div>
-        <div class="popup-product-price">€20</div>
+        <div class="popup1-product-title">Camiseta Club</div>
+        <div class="popup1-product-price">€20</div>
       </div>
-      <div class="popup-product" tabindex="0">
+      <div class="popup1-product" tabindex="0">
         <img src="media/HOODIEtest.jpg" alt="Boné Preto" />
-        <div class="popup-product-title">Boné Preto</div>
-        <div class="popup-product-price">€15</div>
+        <div class="popup1-product-title">Boné Preto</div>
+        <div class="popup1-product-price">€15</div>
       </div>
     </div>
   </div>
 
   <!-- PROJETOS -->
-  <div id="popup-projetos" class="popup-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup-projetos-title" aria-hidden="true">
-    <button class="popup-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
-    <h2 id="popup-projetos-title" class="popup-title">Projetos Experimentais</h2>
-    <div class="popup-products">
-      <div class="popup-product" tabindex="0">
+  <div id="popup1-projetos" class="popup1-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup1-projetos-title" aria-hidden="true">
+    <button class="popup1-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
+    <h2 id="popup1-projetos-title" class="popup1-title">Projetos Experimentais</h2>
+    <div class="popup1-products">
+      <div class="popup1-product" tabindex="0">
         <img src="media/3Dcameratest.jpeg" alt="Câmera DIY" />
-        <div class="popup-product-title">Câmera DIY</div>
-        <div class="popup-product-price">€120</div>
+        <div class="popup1-product-title">Câmera DIY</div>
+        <div class="popup1-product-price">€120</div>
       </div>
-      <div class="popup-product" tabindex="0">
+      <div class="popup1-product" tabindex="0">
         <img src="media/3Dcameratest.jpeg" alt="Slider Impresso 3D" />
-        <div class="popup-product-title">Slider Impresso 3D</div>
-        <div class="popup-product-price">€35</div>
+        <div class="popup1-product-title">Slider Impresso 3D</div>
+        <div class="popup1-product-price">€35</div>
       </div>
     </div>
   </div>
 
   <script>
-    const overlay = document.getElementById('popupOverlay');
+    const overlay = document.getElementById('popup1Overlay');
     let activePopup = null;
 
     function closePopup() {
@@ -121,7 +121,7 @@
     document.querySelectorAll('.categoria-card').forEach(card => {
       card.addEventListener('click', () => {
         const categoria = card.dataset.categoria;
-        const popup = document.getElementById(`popup-${categoria}`);
+        const popup = document.getElementById(`popup1-${categoria}`);
         if (popup) {
           popup.classList.add('active');
           popup.setAttribute('aria-hidden', 'false');
@@ -132,7 +132,7 @@
           popup.focus();
         }
       });
-      // Permitir apertura con tecla Enter o Espacio
+
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -143,7 +143,6 @@
 
     overlay.addEventListener('click', closePopup);
 
-    // Cerrar con ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && activePopup) {
         closePopup();
