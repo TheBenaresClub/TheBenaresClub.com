@@ -1,21 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laboratorio | Club Benares</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laboratório | Club Benares</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="./media/A00 Logo - Light.png" type="image/png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body class="bg-laboratorio">
-
-  <!-- Header container where JavaScript will insert the header -->
+  
+  <!-- Header container (dinâmico) -->
   <div id="header-container"></div>
 
   <main>
+    <header class="lab-header">
+      <h1>Laboratório</h1>
+      <p>Somos a divisão analógica do Club Benares, uma micro produtora artesanal dedicada à imagem física e ao som quente. Trabalhamos com película, fotografia química, vídeo SD, VHS, Hi8, MiniDV, tape recorders e muito mais. Um espaço de experimentação, produção e colaboração.</p>
+    </header>
 
+    <section class="section-grid">
+      <div class="lab-card" onclick="openPopup('servicos')">
+        <h3>Serviços</h3>
+        <p>Produção, revelação, edição e muito mais.</p>
+      </div>
+      <div class="lab-card" onclick="openPopup('portfolio')">
+        <h3>Portfólio</h3>
+        <p>Trabalhos em película e vídeo experimental.</p>
+      </div>
+      <div class="lab-card" onclick="openPopup('equipas')">
+        <h3>Equipas</h3>
+        <p>Conhece os talentos e colaboradores.</p>
+      </div>
+    </section>
+
+    <!-- POPUP OVERLAY -->
+    <div id="popupOverlay" class="popup-overlay" onclick="closePopup()">
+      <div class="popup-window" onclick="event.stopPropagation()">
+        <button class="popup-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
+        <div id="popupContent"></div>
+      </div>
+    </div>
   </main>
 
   <footer>
@@ -28,8 +54,44 @@
     </div>
   </footer>
 
-  <!-- Load shared header -->
+  <!-- Header dinâmico -->
   <script src="shared-header.js"></script>
 
+  <!-- Popup script -->
+  <script>
+    const popupOverlay = document.getElementById('popupOverlay');
+    const popupContent = document.getElementById('popupContent');
+
+    const popups = {
+      servicos: `
+        <h2>Serviços</h2>
+        <p>Oferecemos produção, direção, revelação de película, telecinagem, digitalização, montagem em fita, colagens VHS, criação sonora com tape recorders, e suporte técnico para quem deseja produzir com ferramentas analógicas. Criamos do zero ou colaboramos com artistas e realizadores em todos os formatos.</p>
+      `,
+      portfolio: `
+        <h2>Portfólio</h2>
+        <p>Conhece os filmes e projetos desenvolvidos pelo nosso laboratório. Curtas experimentais, clipes musicais, fashion films e registros de performances feitos em película Super 8, MiniDV ou VHS.</p>
+        <p>Estamos a trabalhar numa plataforma interna para alojar estes conteúdos. Enquanto isso, podes solicitar links ou agendar uma projeção privada.</p>
+      `,
+      equipas: `
+        <h2>Equipas</h2>
+        <p>Trabalhamos com uma rede aberta de realizadores, artistas sonoros, fotógrafos, montadores e técnicos especializados em formatos analógicos. Queremos conectar pessoas que valorizam o erro, o material e o gesto físico na produção audiovisual.</p>
+      `
+    };
+
+    function openPopup(key) {
+      popupContent.innerHTML = popups[key] || '<p>Conteúdo não encontrado.</p>';
+      popupOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePopup() {
+      popupOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePopup();
+    });
+  </script>
 </body>
 </html>
