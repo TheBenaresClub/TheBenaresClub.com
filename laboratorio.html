@@ -1,48 +1,409 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laboratório | Club Benares</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio | Club Benares</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="./media/A00 Logo - Light.png" type="image/png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* Override main overflow to allow scaling beyond boundaries */
+    body.bg-laboratorio main {
+      overflow: visible !important;
+    }
+    
+    .container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    
+    .steenbeck-div {
+      background-image: url("media/steenbeck.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 300px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      transform: scale(5); /* Always start at scale 5 via CSS */
+      transition: transform 2s ease-in-out; /* Smooth 2s transition for auto-zoom */
+      transform-origin: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .pantalla {
+      background-color: rgba(15, 15, 15, 0.6);
+      backdrop-filter: blur(calc(10px * var(--lab-interface-scale))) saturate(120%);
+      -webkit-backdrop-filter: blur(calc(10px * var(--lab-interface-scale))) saturate(120%);
+      border: calc(1px * var(--lab-interface-scale)) solid rgba(255, 255, 255, 0.08);
+      border-radius: calc(12px * var(--lab-interface-scale));
+      box-shadow: 0 calc(10px * var(--lab-interface-scale)) calc(20px * var(--lab-interface-scale)) rgba(0, 0, 0, 0.4);
+      width: 28%;
+      height: 17%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: calc(2rem * var(--lab-interface-scale));
+      font-family: 'Inter', sans-serif;
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+    
+    .pantalla:hover {
+      transform: scale(calc(1 + 0.02 * var(--lab-interface-scale)));
+    }
+    
+    .pantalla-content {
+      --lab-interface-scale: .08; /* Keep this value for proper scaling */
+      position: relative;
+      z-index: 20;
+      color: #f0f0f0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: calc(1.5rem * var(--lab-interface-scale));
+      pointer-events: auto;
+    }
+    
+    .pantalla-header {
+      text-align: center;
+      border-bottom: calc(1px * var(--lab-interface-scale)) solid rgba(255, 255, 255, 0.2);
+      padding-bottom: calc(1rem * var(--lab-interface-scale));
+    }
+    
+    .pantalla-title {
+      font-weight: 600;
+      font-size: calc(1.8rem * var(--lab-interface-scale));
+      color: #ffffff;
+      text-shadow: 0 0 calc(8px * var(--lab-interface-scale)) rgba(255, 255, 255, 0.8);
+      margin-bottom: calc(0.5rem * var(--lab-interface-scale));
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .pantalla-description {
+      font-size: calc(0.9rem * var(--lab-interface-scale));
+      line-height: 1.4;
+      color: #ccc;
+      text-align: center;
+    }
+    
+    .pantalla-options {
+      display: flex;
+      flex-direction: column;
+      gap: calc(1rem * var(--lab-interface-scale));
+      flex: 1;
+    }
+    
+    .pantalla-button {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(calc(10px * var(--lab-interface-scale))) saturate(120%);
+      -webkit-backdrop-filter: blur(calc(10px * var(--lab-interface-scale))) saturate(120%);
+      color: #f0f0f0;
+      border: calc(1px * var(--lab-interface-scale)) solid rgba(255, 255, 255, 0.2);
+      border-radius: calc(8px * var(--lab-interface-scale));
+      padding: calc(1rem * var(--lab-interface-scale));
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: calc(0.3rem * var(--lab-interface-scale));
+      pointer-events: auto;
+      z-index: 25;
+      position: relative;
+      box-shadow: 0 0 calc(6px * var(--lab-interface-scale)) rgba(255, 255, 255, 0.1);
+    }
+    
+    .pantalla-button-title {
+      font-size: calc(1rem * var(--lab-interface-scale));
+      font-weight: 600;
+      color: #fff;
+    }
+    
+    .pantalla-button-desc {
+      font-size: calc(0.8rem * var(--lab-interface-scale));
+      color: #bbb;
+      line-height: 1.3;
+    }
+    
+    .pantalla-button:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(calc(-2px * var(--lab-interface-scale))) scale(calc(1 + 0.02 * var(--lab-interface-scale)));
+      box-shadow: 0 0 calc(12px * var(--lab-interface-scale)) rgba(255, 255, 255, 0.2);
+    }
+
+    .pantalla-button:active {
+      transform: translateY(0);
+    }
+
+    /* Pantalla Modal Styles - eventos style */
+    .service-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 5, 5, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .service-modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: rgba(15, 15, 15, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 90%;
+      color: #f0f0f0;
+      position: relative;
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    }
+
+    .modal-close {
+      width: 12px;
+      height: 12px;
+      background-color: rgba(255, 79, 79, 0.4);
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      border: 1px solid rgba(255, 79, 79, 0.6);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      padding: 0;
+      line-height: 0;
+      box-shadow: 0 0 6px 2px rgba(255, 79, 79, 0.5);
+    }
+
+    .modal-close:hover {
+      box-shadow: 0 0 10px 4px rgba(255, 79, 79, 0.8);
+      background-color: rgba(255, 79, 79, 0.6);
+    }
+
+    .modal-body {
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .service-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+
+    .service-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+    }
+
+    .service-list li:last-child {
+      border-bottom: none;
+    }
+
+    .service-list li::before {
+      content: "•";
+      color: #ffffff;
+      font-weight: bold;
+      margin-right: 1rem;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    }
+
+    .contact-info {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin-top: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .contact-info strong {
+      color: #ffffff;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+    }
+    
+    .pantalla-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none !important;
+    }
+    
+    /* Ensure header and footer stay on top */
+    #header-container {
+      position: relative;
+      z-index: 100;
+    }
+    
+    footer {
+      position: relative;
+      z-index: 100;
+    }
+  </style>
 </head>
 <body class="bg-laboratorio">
-  
-  <!-- Header container (dinâmico) -->
+
+  <!-- Header container where JavaScript will insert the header -->
   <div id="header-container"></div>
 
   <main>
-    <header class="lab-header">
-      <h1>Laboratório</h1>
-      <p>Somos a divisão analógica do Club Benares, uma micro produtora artesanal dedicada à imagem física e ao som quente. Trabalhamos com película, fotografia química, vídeo SD, VHS, Hi8, MiniDV, tape recorders e muito mais. Um espaço de experimentação, produção e colaboração.</p>
-    </header>
-
-    <section class="section-grid">
-      <div class="lab-card" onclick="openPopup('servicos')">
-        <h3>Serviços</h3>
-        <p>Produção, revelação, edição e muito mais.</p>
-      </div>
-      <div class="lab-card" onclick="openPopup('portfolio')">
-        <h3>Portfólio</h3>
-        <p>Trabalhos em película e vídeo experimental.</p>
-      </div>
-      <div class="lab-card" onclick="openPopup('equipas')">
-        <h3>Equipas</h3>
-        <p>Conhece os talentos e colaboradores.</p>
-      </div>
-    </section>
-
-    <!-- POPUP OVERLAY -->
-    <div id="popupOverlay" class="popup-overlay" onclick="closePopup()">
-      <div class="popup-window" onclick="event.stopPropagation()">
-        <button class="popup-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
-        <div id="popupContent"></div>
+    <div class="container">
+      <div class="steenbeck-div" id="steenbeckDiv">
+        <div class="pantalla" id="pantalla">
+          <canvas class="pantalla-canvas" id="pantallaCanvas"></canvas>
+          <div class="pantalla-content">
+            <div class="pantalla-header">
+              <div class="pantalla-title">Laboratório</div>
+              <div class="pantalla-description">
+                Somos a divisão analógica do Club Benares, uma micro produtora artesanal dedicada à imagem física e ao som quente. Trabalhamos com película, fotografia química, vídeo SD, VHS, Hi8, MiniDV, tape recorders e muito mais. Um espaço de experimentação, produção e colaboração.
+              </div>
+            </div>
+            <div class="pantalla-options">
+              <button class="pantalla-button" id="servicosBtn">
+                <div class="pantalla-button-title">Serviços</div>
+                <div class="pantalla-button-desc">Produção, revelação, edição e muito mais.</div>
+              </button>
+              <button class="pantalla-button" id="portfolioBtn">
+                <div class="pantalla-button-title">Portfólio</div>
+                <div class="pantalla-button-desc">Trabalhos em película e vídeo experimental.</div>
+              </button>
+              <button class="pantalla-button" id="equipasBtn">
+                <div class="pantalla-button-title">Equipas</div>
+                <div class="pantalla-button-desc">Conhece os talentos e colaboradores.</div>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
+
+  <!-- Service Modals -->
+  <div class="service-modal" id="servicosModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">SERVIÇOS</h2>
+        <button class="modal-close" onclick="closeModal('servicosModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <ul class="service-list">
+          <li>Revelação Analógica</li>
+          <li>Digitalização de Filmes</li>
+          <li>Restauro de Imagens</li>
+          <li>Workshops de Fotografia</li>
+          <li>Laboratório Criativo</li>
+          <li>Arquivo Pessoal</li>
+          <li>Produção de Vídeo SD</li>
+          <li>Transferência VHS/Hi8/MiniDV</li>
+        </ul>
+        <div class="contact-info">
+          <strong>Contacto:</strong> charlie@thebenaresclub.com
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-modal" id="portfolioModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">PORTFÓLIO</h2>
+        <button class="modal-close" onclick="closeModal('portfolioModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <ul class="service-list">
+          <li>Documentários em 16mm</li>
+          <li>Videoclipes em VHS</li>
+          <li>Fotografias Químicas</li>
+          <li>Experimentação Visual</li>
+          <li>Arquivo Histórico</li>
+          <li>Trabalhos de Restauro</li>
+        </ul>
+        <div class="contact-info">
+          <strong>Ver mais:</strong> Disponível em breve
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-modal" id="equipasModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">EQUIPAS</h2>
+        <button class="modal-close" onclick="closeModal('equipasModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <ul class="service-list">
+          <li>Directores de Fotografia</li>
+          <li>Técnicos de Laboratório</li>
+          <li>Editores Analógicos</li>
+          <li>Arquivistas</li>
+          <li>Artistas Colaboradores</li>
+          <li>Investigadores de Imagem</li>
+        </ul>
+        <div class="contact-info">
+          <strong>Juntar-se:</strong> charlie@thebenaresclub.com
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <div class="copyright">
@@ -54,44 +415,397 @@
     </div>
   </footer>
 
-  <!-- Header dinâmico -->
+  <!-- Load shared header -->
   <script src="shared-header.js"></script>
-
-  <!-- Popup script -->
+  
   <script>
-    const popupOverlay = document.getElementById('popupOverlay');
-    const popupContent = document.getElementById('popupContent');
-
-    const popups = {
-      servicos: `
-        <h2>Serviços</h2>
-        <p>Oferecemos produção, direção, revelação de película, telecinagem, digitalização, montagem em fita, colagens VHS, criação sonora com tape recorders, e suporte técnico para quem deseja produzir com ferramentas analógicas. Criamos do zero ou colaboramos com artistas e realizadores em todos os formatos.</p>
-      `,
-      portfolio: `
-        <h2>Portfólio</h2>
-        <p>Conhece os filmes e projetos desenvolvidos pelo nosso laboratório. Curtas experimentais, clipes musicais, fashion films e registros de performances feitos em película Super 8, MiniDV ou VHS.</p>
-        <p>Estamos a trabalhar numa plataforma interna para alojar estes conteúdos. Enquanto isso, podes solicitar links ou agendar uma projeção privada.</p>
-      `,
-      equipas: `
-        <h2>Equipas</h2>
-        <p>Trabalhamos com uma rede aberta de realizadores, artistas sonoros, fotógrafos, montadores e técnicos especializados em formatos analógicos. Queremos conectar pessoas que valorizam o erro, o material e o gesto físico na produção audiovisual.</p>
-      `
-    };
-
-    function openPopup(key) {
-      popupContent.innerHTML = popups[key] || '<p>Conteúdo não encontrado.</p>';
-      popupOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
+    let scale = 14; // Start with bigger scale
+    const minScale = 5;
+    const maxScale = 22; // Allow much more zoom
+    const scaleIncrement = 1;
+    
+    // Modal functions - make them global
+    window.openModal = function(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
     }
-
-    function closePopup() {
-      popupOverlay.classList.remove('active');
-      document.body.style.overflow = '';
+    
+    window.closeModal = function(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'hidden'; // Keep overflow hidden as per original design
+      }
     }
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closePopup();
+    
+    // Close modal when clicking outside content
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('service-modal')) {
+        e.target.classList.remove('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const activeModal = document.querySelector('.service-modal.active');
+        if (activeModal) {
+          activeModal.classList.remove('active');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+    });
+    
+    // Interactive functions for the service interface
+    function showServicos() {
+      console.log('showServicos called!');
+      window.openModal('servicosModal');
+    }
+    
+    function showPortfolio() {
+      console.log('showPortfolio called!');
+      window.openModal('portfolioModal');
+    }
+    
+    function showEquipas() {
+      console.log('showEquipas called!');
+      window.openModal('equipasModal');
+    }
+    
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const steenbeckDiv = document.getElementById('steenbeckDiv');
+      
+      // Add event listeners for buttons with better targeting
+      const servicosBtn = document.getElementById('servicosBtn');
+      const portfolioBtn = document.getElementById('portfolioBtn');
+      const equipasBtn = document.getElementById('equipasBtn');
+      
+      if (servicosBtn) {
+        console.log('Servicos button found, adding event listener');
+        servicosBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Servicos button clicked!');
+          showServicos();
+        });
+        
+        servicosBtn.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Servicos button touched!');
+          showServicos();
+        });
+      } else {
+        console.log('Servicos button not found!');
+      }
+      
+      if (portfolioBtn) {
+        console.log('Portfolio button found, adding event listener');
+        portfolioBtn.addEventListener('click', function(e) {
+          e.preventDefault();  
+          e.stopPropagation();
+          console.log('Portfolio button clicked!');
+          showPortfolio();
+        });
+        
+        portfolioBtn.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Portfolio button touched!');
+          showPortfolio();
+        });
+      } else {
+        console.log('Portfolio button not found!');
+      }
+      
+      if (equipasBtn) {
+        console.log('Equipas button found, adding event listener');
+        equipasBtn.addEventListener('click', function(e) {
+          e.preventDefault();  
+          e.stopPropagation();
+          console.log('Equipas button clicked!');
+          showEquipas();
+        });
+        
+        equipasBtn.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Equipas button touched!');
+          showEquipas();
+        });
+      } else {
+        console.log('Equipas button not found!');
+      }
+      
+      // Initialize pantalla shader
+      initPantallaShader();
+      
+      // CSS already sets scale to 5, so just animate to 18 after delay
+      setTimeout(() => {
+        steenbeckDiv.style.transform = `scale(${scale})`;
+        
+        // After animation completes, switch to fast transitions for user interaction
+        setTimeout(() => {
+          steenbeckDiv.style.transition = 'transform 0.1s ease-out';
+        }, 2000);
+      }, 100);
+      
+      // Handle mouse wheel events
+      document.addEventListener('wheel', function(e) {
+        e.preventDefault(); // Prevent default scroll behavior
+        
+        if (e.deltaY < 0) {
+          // Scroll up - increase scale
+          scale = Math.min(scale + scaleIncrement, maxScale);
+        } else {
+          // Scroll down - decrease scale
+          scale = Math.max(scale - scaleIncrement, minScale);
+        }
+        
+        // Apply the scale transformation
+        steenbeckDiv.style.transform = `scale(${scale})`;
+      }, { passive: false });
+      
+      // Handle touch/trackpad gestures on mobile
+      let lastTouchDistance = 0;
+      
+      document.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 2) {
+          lastTouchDistance = Math.hypot(
+            e.touches[0].pageX - e.touches[1].pageX,
+            e.touches[0].pageY - e.touches[1].pageY
+          );
+        }
+      });
+      
+      document.addEventListener('touchmove', function(e) {
+        if (e.touches.length === 2) {
+          e.preventDefault();
+          
+          const currentDistance = Math.hypot(
+            e.touches[0].pageX - e.touches[1].pageX,
+            e.touches[0].pageY - e.touches[1].pageY
+          );
+          
+          if (lastTouchDistance > 0) {
+            const scaleDelta = (currentDistance - lastTouchDistance) * 0.01;
+            scale = Math.max(minScale, Math.min(maxScale, scale + scaleDelta));
+            steenbeckDiv.style.transform = `scale(${scale})`;
+          }
+          
+          lastTouchDistance = currentDistance;
+        }
+      }, { passive: false });
+      
+      // Initialize pantalla shader
+      async function initPantallaShader() {
+        const canvas = document.getElementById('pantallaCanvas');
+        if (!canvas) {
+          console.log('Canvas not found');
+          return;
+        }
+        
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        
+        if (!gl) {
+          console.log('WebGL not supported - hiding canvas');
+          canvas.style.display = 'none';
+          return;
+        }
+        
+        // Set canvas size to match the pantalla
+        const pantalla = document.getElementById('pantalla');
+        const rect = pantalla.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        gl.viewport(0, 0, rect.width, rect.height);
+        
+        // Create a subtle texture that will distort the pantalla content
+        const testTexture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, testTexture);
+        
+        // Create subtle content that matches the pantalla interface
+        const width = 256;
+        const height = 256;
+        const data = new Uint8Array(width * height * 4);
+        
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const i = (y * width + x) * 4;
+            
+            // Create subtle interface-like elements
+            const centerX = width * 0.5;
+            const centerY = height * 0.5;
+            const distFromCenter = Math.sqrt((x - centerX) * (x - centerX) + (y - centerY) * (y - centerY));
+            
+            // Subtle gradient that mimics the glass interface
+            const gradient = Math.max(0, 1 - distFromCenter / (width * 0.4));
+            
+            // Add some interface-like rectangles (representing buttons/content areas)
+            const isButton1 = (y > height * 0.4 && y < height * 0.5 && x > width * 0.2 && x < width * 0.8);
+            const isButton2 = (y > height * 0.55 && y < height * 0.65 && x > width * 0.2 && x < width * 0.8);
+            const isButton3 = (y > height * 0.7 && y < height * 0.8 && x > width * 0.2 && x < width * 0.8);
+            
+            if (isButton1 || isButton2 || isButton3) {
+              data[i] = 60;      // R - subtle blue
+              data[i + 1] = 70;  // G
+              data[i + 2] = 90;  // B
+              data[i + 3] = 80;  // A - semi-transparent
+            } else {
+              // Background with gradient
+              const intensity = gradient * 40;
+              data[i] = intensity;      // R
+              data[i + 1] = intensity;  // G
+              data[i + 2] = intensity + 10;  // B - slightly blue
+              data[i + 3] = gradient * 60;  // A - more transparent
+            }
+          }
+        }
+        
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        
+        // Vertex shader
+        const vertexShaderSource = `
+          attribute vec2 a_position;
+          attribute vec2 a_texCoord;
+          varying vec2 v_uv;
+          
+          void main() {
+            gl_Position = vec4(a_position, 0.0, 1.0);
+            v_uv = a_texCoord;
+          }
+        `;
+        
+        // Your barrel distortion shader embedded directly
+        const fragmentShaderSource = `
+          precision mediump float;
+          
+          uniform sampler2D u_texture;
+          varying vec2 v_uv;
+          
+          void main() {
+              // move UV from [0,1] to centered [-0.5,0.5]
+              vec2 uv = v_uv - 0.5;
+              float dist = length(uv);
+          
+              // barrel‐distortion
+              vec2 distorted = uv * (1.0 + (dist - 0.5) * 0.5) + 0.5;
+          
+              // black outside
+              if (distorted.x < 0.0 || distorted.y < 0.0 ||
+                  distorted.x > 1.0 || distorted.y > 1.0) {
+                  gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+              } else {
+                  vec3 col = texture2D(u_texture, distorted).rgb;
+                  gl_FragColor = vec4(col, 1.0);
+              }
+          }
+        `;
+        
+        console.log('Using embedded barrel distortion shader');
+        
+        // Compile shader
+        function compileShader(gl, type, source) {
+          const shader = gl.createShader(type);
+          gl.shaderSource(shader, source);
+          gl.compileShader(shader);
+          
+          if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            console.error('Shader compile error:', gl.getShaderInfoLog(shader));
+            gl.deleteShader(shader);
+            return null;
+          }
+          return shader;
+        }
+        
+        const vertexShader = compileShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+        const fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+        
+        if (!vertexShader || !fragmentShader) {
+          console.error('Failed to compile shaders');
+          canvas.style.display = 'none';
+          return;
+        }
+        
+        // Create program
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+        
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+          console.error('Program link error:', gl.getProgramInfoLog(program));
+          canvas.style.display = 'none';
+          return;
+        }
+        
+        console.log('Pantalla shader compiled successfully');
+        
+        // Set up geometry
+        const positions = new Float32Array([
+          -1, -1,  0, 0,
+           1, -1,  1, 0,
+          -1,  1,  0, 1,
+           1,  1,  1, 1
+        ]);
+        
+        const buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+        
+        const positionLocation = gl.getAttribLocation(program, 'a_position');
+        const texCoordLocation = gl.getAttribLocation(program, 'a_texCoord');
+        const textureLocation = gl.getUniformLocation(program, 'u_texture');
+        
+        // Render loop
+        function render() {
+          gl.clearColor(0, 0, 0, 0);
+          gl.clear(gl.COLOR_BUFFER_BIT);
+          
+          gl.useProgram(program);
+          
+          gl.enableVertexAttribArray(positionLocation);
+          gl.enableVertexAttribArray(texCoordLocation);
+          
+          gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+          gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 16, 0);
+          gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 16, 8);
+          
+          // Bind the test texture
+          gl.activeTexture(gl.TEXTURE0);
+          gl.bindTexture(gl.TEXTURE_2D, testTexture);
+          gl.uniform1i(textureLocation, 0);
+          
+          gl.enable(gl.BLEND);
+          gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+          
+          gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+          
+          requestAnimationFrame(render);
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+          const pantalla = document.getElementById('pantalla');
+          const rect = pantalla.getBoundingClientRect();
+          canvas.width = rect.width;
+          canvas.height = rect.height;
+          gl.viewport(0, 0, rect.width, rect.height);
+        });
+        
+        requestAnimationFrame(render);
+      }
     });
   </script>
+
 </body>
 </html>
