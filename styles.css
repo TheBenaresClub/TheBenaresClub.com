@@ -159,6 +159,409 @@ footer .copyright {
     0 0 20px rgba(255, 255, 255, 0.4);
 }
 
+/* ----------------- NOVO BLOCO PARA "PRÓXIMOS EVENTOS" ------------------- */
+.proximos-eventos {
+  margin: 2rem auto;
+  padding: 2rem 3rem;
+  max-width: 1050px;
+  min-width: 320px;
+  width: 90%;
+  background-color: rgba(15, 15, 15, 0.6); /* tono más profundo */
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08); /* borde sutil tipo glassmorphism */
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
+
+
+.proximos-eventos h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 0.5rem;
+}
+
+.evento-lista-item {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255,255,255,0.05);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: nowrap;        /* Evita que los elementos se envuelvan */
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.evento-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 200px;
+}
+
+.evento-info h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.evento-info p {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.evento-btn {
+  background-color: #fff;
+  color: #000;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.evento-btn:hover {
+  background-color: #ddd;
+  transform: scale(1.05);
+}
+
+
+
+/* ----------------- ESTILOS DE EVENTOS SIGNATURE ------------------- */
+.eventos-signature {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  padding: 2rem 1rem 1rem 1rem; /* reduce padding-bottom a 1rem */
+  max-width: 1300px; /* aquí aumentamos a 1300px */
+  margin: 0 auto;
+}
+
+.evento-card {
+  flex: 0 0 320px;
+  height: 260px;
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+
+.evento-card:hover {
+  transform: scale(1.03);
+}
+
+/* Resto sin cambios */
+.card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  padding: 1rem;
+  color: #fff;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-content h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.card-content p {
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.card-content .ver-detalhes {
+  align-self: flex-start;
+  background-color: rgba(255, 255, 255, 0.15); /* translúcido claro */
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.2); /* borde sutil blanco */
+  color: #fff;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1); /* glow sutil */
+}
+
+.card-content .ver-detalhes:hover {
+  background-color: rgba(255, 255, 255, 0.25); /* un poco más brillante al hacer hover */
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+ /* VENTANA DE MAS DETALLES */
+
+    /* Popup styles */
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(5, 5, 5, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .popup-window {
+      width: 500px;
+      max-width: 90%;
+      background: rgba(15, 15, 15, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      color: white;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.1);
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .popup-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .popup-close {
+      width: 12px;
+      height: 12px;
+      background-color: rgba(255, 79, 79, 0.4); /* rojo translúcido */
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      border: 1px solid rgba(255, 79, 79, 0.6);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      padding: 0;
+      line-height: 0;
+      box-shadow: 0 0 6px 2px rgba(255, 79, 79, 0.5);
+    }
+    
+    .popup-close:hover {
+      box-shadow: 0 0 10px 4px rgba(255, 79, 79, 0.8);
+      background-color: rgba(255, 79, 79, 0.6);
+    }
+    .popup-content {
+      padding: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+/* Contenedor principal de las categorías */
+.mercado-categorias {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  /* Ocupa la mayor parte de la ventana en altura */
+  min-height: 80vh;
+
+  /* Que los hijos se estiren en altura */
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+/* Cada tarjeta categoría */
+.categoria-card {
+  background-color: rgba(15, 15, 15, 0.6); /* fondo glass */
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08); /* borde sutil */
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  padding: 2rem;
+  flex: 1 1 300px;
+  max-width: 350px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  user-select: none;
+  outline-offset: 4px;
+
+  height: 100%;
+  min-height: 70vh;
+}
+
+.categoria-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15), 0 0 40px rgba(255, 255, 255, 0.08);
+}
+
+
+/* --- Ventana flotante tipo Windows --- */
+.popup-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85vw;
+  max-width: 1200px;
+  height: 80vh;
+
+  /* Fondo más transparente para dejar ver el blur */
+  background-color: rgba(15, 15, 15, 0.25);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+
+  /* Borde más visible */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  display: none;
+  
+  /* z-index alto para estar sobre todo */
+  z-index: 99999;
+
+  overflow-y: auto;
+  color: #fff;
+}
+
+/* Mostrar popup cuando está activo */
+.popup-window.active {
+  display: block;
+  animation: popupFadeIn 0.3s ease;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.3); /* oscurecimiento suave */
+  
+  /* z-index menor que popup pero alto para cubrir contenido */
+  z-index: 99990;
+  
+  display: none;
+}
+
+/* Mostrar overlay cuando está activo */
+.popup-overlay.active {
+  display: flex;
+}
+
+
+/* --- Título del popup --- */
+.popup-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-align: center;
+}
+
+/* --- Contenedor en cuadrícula --- */
+.popup-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.popup-product {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  color: #fff;
+  transition: transform 0.2s ease;
+}
+
+.popup-product:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.popup-product img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.popup-product-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.popup-product-price {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+/* --- Animación suave --- */
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
 
 
 /* FUNDOS PERSONALIZADOS POR PÁGINA */

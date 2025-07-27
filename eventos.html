@@ -1,20 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Eventos | Club Benares</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="./media/A00 Logo - Light.png" type="image/png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
 </head>
 <body class="bg-eventos">
 
-  <!-- Header container where JavaScript will insert the header -->
+  <!-- Header container -->
   <div id="header-container"></div>
 
   <main>
+
+    <!-- Eventos Signature -->
+    <section class="eventos-signature">
+      <div class="evento-card">
+        <div class="card-bg" style="background-image: url('./img/battle-royale.jpg');"></div>
+        <div class="card-content">
+          <h2>Battle Royale</h2>
+          <p>Mostra competitiva internacional de curtas e médias-metragens.</p>
+          <button class="ver-detalhes">Ver Detalhes</button>
+        </div>
+      </div>
+  
+      <div class="evento-card">
+        <div class="card-bg" style="background-image: url('./img/night-lounge.jpg');"></div>
+        <div class="card-content">
+          <h2>Night Lounge</h2>
+          <p>Noites descontraídas de projeções e conversas com snacks e música.</p>
+          <button class="ver-detalhes">Ver Detalhes</button>
+        </div>
+      </div>
+  
+      <div class="evento-card">
+        <div class="card-bg" style="background-image: url('./img/circuito-nacional.jpg');"></div>
+        <div class="card-content">
+          <h2>Circuito Nacional</h2>
+          <p>Tour nacional com filmes da comunidade e convidados especiais.</p>
+          <button class="ver-detalhes">Ver Detalhes</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Próximos Eventos -->
+    <section class="proximos-eventos">
+      <h2>Próximos eventos</h2>
+
+      <div class="evento-listado">
+        <div class="evento-info">
+          <h3>Night Lounge - Lisboa</h3>
+          <p><strong>Data:</strong> 30 de Agosto, 2025</p>
+          <p><strong>Hora:</strong> 21h00</p>
+        </div>
+        <div class="evento-botao">
+          <button onclick="window.open('https://eventbrite.com', '_blank')">Buy tickets / Book your place</button>
+        </div>
+      </div>
+
+      <div class="evento-listado">
+        <div class="evento-info">
+          <h3>Battle Royale - Mostra 01</h3>
+          <p><strong>Data:</strong> 15 de Setembro, 2025</p>
+          <p><strong>Hora:</strong> 19h00</p>
+        </div>
+        <div class="evento-botao">
+          <button onclick="window.open('https://eventbrite.com', '_blank')">Buy tickets / Book your place</button>
+        </div>
+      </div>
+
+    </section>
 
   </main>
 
@@ -28,8 +87,63 @@
     </div>
   </footer>
 
+  <!-- Popup ventana flotante -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-window" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <div class="popup-header">
+      <span class="popup-title" id="popupTitle">Detalhes do Evento</span>
+      <button class="popup-close" id="popupClose" aria-label="Fechar janela"></button>
+    </div>
+    <div class="popup-content" id="popupContent">
+      <!-- Contenido dinámico -->
+    </div>
+  </div>
+</div>
   <!-- Load shared header -->
   <script src="shared-header.js"></script>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const detalhesBtns = document.querySelectorAll('.ver-detalhes');
+      const popupOverlay = document.getElementById('popupOverlay');
+      const popupContent = document.getElementById('popupContent');
+      const popupClose = document.getElementById('popupClose');
+    
+      const detalhesEventos = {
+        "Battle Royale": "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500...",
+        "Night Lounge": "Descrição detalhada e independente para Night Lounge, com mais informações que não aparecem na tarjeta.",
+        "Circuito Nacional": "Texto exclusivo para Circuito Nacional, detalhando o evento de forma independente."
+      };
+    
+      detalhesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const card = btn.closest('.evento-card');
+          const title = card.querySelector('h2')?.textContent || 'Evento';
+          const detalhe = detalhesEventos[title] || 'Detalhes indisponíveis.';
+    
+          popupContent.innerHTML = `
+            <h3>${title}</h3>
+            <p>${detalhe}</p>
+          `;
+          popupOverlay.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        });
+      });
+    
+      popupClose.addEventListener('click', () => {
+        popupOverlay.style.display = 'none';
+        document.body.style.overflow = '';
+      });
+    
+      popupOverlay.addEventListener('click', (e) => {
+        if (e.target === popupOverlay) {
+          popupOverlay.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    </script>
+
 </body>
 </html>
+

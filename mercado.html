@@ -1,35 +1,156 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mercado | Club Benares</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="./media/A00 Logo - Light.png" type="image/png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body class="bg-mercado">
 
-  <!-- Header container where JavaScript will insert the header -->
-  <div id="header-container"></div>
+  <!-- Header insertado por shared-header.js -->
+  <div id="header-container" role="banner"></div>
 
   <main>
-
+    <section class="mercado-categorias" aria-label="Categorias do Mercado">
+      <div class="categoria-card" data-categoria="rigs" tabindex="0" role="button" aria-pressed="false" aria-describedby="desc-rigs">
+        <h2>Rigs Low Cost</h2>
+        <p id="desc-rigs">Equipamentos acessíveis para câmeras, para todos os níveis.</p>
+      </div>
+      <div class="categoria-card" data-categoria="merch" tabindex="0" role="button" aria-pressed="false" aria-describedby="desc-merch">
+        <h2>Merch Club Benares</h2>
+        <p id="desc-merch">Roupas e acessórios oficiais da comunidade.</p>
+      </div>
+      <div class="categoria-card" data-categoria="projetos" tabindex="0" role="button" aria-pressed="false" aria-describedby="desc-projetos">
+        <h2>Projetos Experimentais</h2>
+        <p id="desc-projetos">Protótipos de câmeras e equipamentos desenvolvidos por nós.</p>
+      </div>
+    </section>
   </main>
 
-  <footer>
+  <footer role="contentinfo">
     <div class="copyright">
       &copy; 2025 Club Benares. Todos os direitos reservados.
     </div>
-    <div class="social-icons">
-      <a href="https://www.instagram.com/thebenaresclub" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="mailto:charlie@thebenaresclub.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    <div class="social-icons" role="navigation" aria-label="Redes sociais">
+      <a href="https://www.instagram.com/thebenaresclub" target="_blank" rel="noopener" aria-label="Instagram do Club Benares">
+        <i class="fab fa-instagram" aria-hidden="true"></i>
+      </a>
+      <a href="mailto:charlie@thebenaresclub.com" aria-label="Enviar email para Charlie">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+      </a>
     </div>
   </footer>
 
-  <!-- Load shared header -->
-  <script src="shared-header.js"></script>
+  <!-- Overlay para popup -->
+  <div id="popupOverlay" class="popup-overlay" tabindex="-1" aria-hidden="true"></div>
 
+  <!-- Ventanas flotantes para cada categoría -->
+  <!-- RIGS -->
+  <div id="popup-rigs" class="popup-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup-rigs-title" aria-hidden="true">
+    <button class="popup-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
+    <h2 id="popup-rigs-title" class="popup-title">Rigs Low Cost</h2>
+    <div class="popup-products">
+      <div class="popup-product" tabindex="0">
+        <img src="media/FX3test.jpg" alt="Rig Básico" />
+        <div class="popup-product-title">Rig Básico</div>
+        <div class="popup-product-price">€40</div>
+      </div>
+      <div class="popup-product" tabindex="0">
+        <img src="media/FX3test.jpg" alt="Shoulder Rig" />
+        <div class="popup-product-title">Shoulder Rig</div>
+        <div class="popup-product-price">€60</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MERCH -->
+  <div id="popup-merch" class="popup-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup-merch-title" aria-hidden="true">
+    <button class="popup-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
+    <h2 id="popup-merch-title" class="popup-title">Merch Club Benares</h2>
+    <div class="popup-products">
+      <div class="popup-product" tabindex="0">
+        <img src="media/HOODIEtest.jpg" alt="Camiseta Club" />
+        <div class="popup-product-title">Camiseta Club</div>
+        <div class="popup-product-price">€20</div>
+      </div>
+      <div class="popup-product" tabindex="0">
+        <img src="media/HOODIEtest.jpg" alt="Boné Preto" />
+        <div class="popup-product-title">Boné Preto</div>
+        <div class="popup-product-price">€15</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJETOS -->
+  <div id="popup-projetos" class="popup-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup-projetos-title" aria-hidden="true">
+    <button class="popup-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
+    <h2 id="popup-projetos-title" class="popup-title">Projetos Experimentais</h2>
+    <div class="popup-products">
+      <div class="popup-product" tabindex="0">
+        <img src="media/3Dcameratest.jpeg" alt="Câmera DIY" />
+        <div class="popup-product-title">Câmera DIY</div>
+        <div class="popup-product-price">€120</div>
+      </div>
+      <div class="popup-product" tabindex="0">
+        <img src="media/3Dcameratest.jpeg" alt="Slider Impresso 3D" />
+        <div class="popup-product-title">Slider Impresso 3D</div>
+        <div class="popup-product-price">€35</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const overlay = document.getElementById('popupOverlay');
+    let activePopup = null;
+
+    function closePopup() {
+      if (activePopup) {
+        activePopup.classList.remove('active');
+        activePopup.setAttribute('aria-hidden', 'true');
+        overlay.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        activePopup = null;
+      }
+    }
+
+    document.querySelectorAll('.categoria-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const categoria = card.dataset.categoria;
+        const popup = document.getElementById(`popup-${categoria}`);
+        if (popup) {
+          popup.classList.add('active');
+          popup.setAttribute('aria-hidden', 'false');
+          overlay.classList.add('active');
+          overlay.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+          activePopup = popup;
+          popup.focus();
+        }
+      });
+      // Permitir apertura con tecla Enter o Espacio
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
+    overlay.addEventListener('click', closePopup);
+
+    // Cerrar con ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && activePopup) {
+        closePopup();
+      }
+    });
+  </script>
+
+  <script src="shared-header.js"></script>
 </body>
 </html>
