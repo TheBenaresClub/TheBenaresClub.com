@@ -11,144 +11,177 @@
 </head>
 <body class="bg-mercado">
 
-  <!-- Header insertado por shared-header.js -->
   <div id="header-container" role="banner"></div>
 
   <main>
     <section class="mercado-categorias" aria-label="Categorias do Mercado">
-      <div class="categoria-card" data-categoria="rigs" tabindex="0" role="button" aria-pressed="false" aria-describedby="desc-rigs">
+      <div class="categoria-card" data-categoria="rigs" tabindex="0" role="button" aria-pressed="false">
         <h2>Rigs Low Cost</h2>
-        <p id="desc-rigs">Equipamentos acessíveis para câmeras, para todos os níveis.</p>
+        <p>Equipamentos acessíveis para câmeras, para todos os níveis.</p>
       </div>
-      <div class="categoria-card" data-categoria="merch" tabindex="0" role="button" aria-pressed="false" aria-describedby="desc-merch">
+      <div class="categoria-card" data-categoria="merch" tabindex="0" role="button" aria-pressed="false">
         <h2>Merch Club Benares</h2>
-        <p id="desc-merch">Roupas e acessórios oficiais da comunidade.</p>
+        <p>Roupas e acessórios oficiais da comunidade.</p>
       </div>
-      <div class="categoria-card" data-categoria="projetos" tabindex="0" role="button" aria-pressed="false" aria-describedby="desc-projetos">
+      <div class="categoria-card" data-categoria="projetos" tabindex="0" role="button" aria-pressed="false">
         <h2>Projetos Experimentais</h2>
-        <p id="desc-projetos">Protótipos de câmeras e equipamentos desenvolvidos por nós.</p>
+        <p>Protótipos de câmeras e equipamentos desenvolvidos por nós.</p>
       </div>
     </section>
   </main>
 
   <footer role="contentinfo">
-    <div class="copyright">
-      &copy; 2025 Club Benares. Todos os direitos reservados.
-    </div>
-    <div class="social-icons" role="navigation" aria-label="Redes sociais">
-      <a href="https://www.instagram.com/thebenaresclub" target="_blank" rel="noopener" aria-label="Instagram do Club Benares">
-        <i class="fab fa-instagram" aria-hidden="true"></i>
-      </a>
-      <a href="mailto:charlie@thebenaresclub.com" aria-label="Enviar email para Charlie">
-        <i class="fas fa-envelope" aria-hidden="true"></i>
-      </a>
+    <div class="copyright">&copy; 2025 Club Benares. Todos os direitos reservados.</div>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/thebenaresclub" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="mailto:charlie@thebenaresclub.com"><i class="fas fa-envelope"></i></a>
     </div>
   </footer>
 
-  <!-- Overlay para popup -->
-  <div id="popup1Overlay" class="popup1-overlay" tabindex="-1" aria-hidden="true"></div>
+  <!-- Overlay principal -->
+  <div id="popup1Overlay" class="popup1-overlay"></div>
 
-  <!-- Ventanas flotantes para cada categoría -->
-  <!-- RIGS -->
-  <div id="popup1-rigs" class="popup1-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup-rigs-title" aria-hidden="true">
-    <button class="popup1-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
-    <h2 id="popup-rigs-title" class="popup1-title">Rigs Low Cost</h2>
+  <!-- Popups de categorías -->
+  <div id="popup1-rigs" class="popup1-window" aria-hidden="true">
+    <button class="popup1-close" onclick="closePopup()">&times;</button>
+    <h2>Rigs Low Cost</h2>
     <div class="popup1-products">
-      <div class="popup1-product" tabindex="0">
-        <img src="media/FX3test.jpg" alt="Rig Básico" />
-        <div class="popup1-product-title">Rig Básico</div>
-        <div class="popup1-product-price">€40</div>
-      </div>
-      <div class="popup1-product" tabindex="0">
-        <img src="media/FX3test.jpg" alt="Shoulder Rig" />
-        <div class="popup1-product-title">Shoulder Rig</div>
-        <div class="popup1-product-price">€60</div>
-      </div>
+      <div class="popup1-product" data-popup="rig1"><img src="media/FX3test.jpg" alt="Rig Básico"><div>Rig Básico<br>€40</div></div>
+      <div class="popup1-product" data-popup="rig2"><img src="media/FX3test.jpg" alt="Shoulder Rig"><div>Shoulder Rig<br>€60</div></div>
     </div>
   </div>
 
-  <!-- MERCH -->
-  <div id="popup1-merch" class="popup1-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup1-merch-title" aria-hidden="true">
-    <button class="popup1-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
-    <h2 id="popup1-merch-title" class="popup1-title">Merch Club Benares</h2>
+  <div id="popup1-merch" class="popup1-window" aria-hidden="true">
+    <button class="popup1-close" onclick="closePopup()">&times;</button>
+    <h2>Merch Club Benares</h2>
     <div class="popup1-products">
-      <div class="popup1-product" tabindex="0">
-        <img src="media/HOODIEtest.jpg" alt="Camiseta Club" />
-        <div class="popup1-product-title">Camiseta Club</div>
-        <div class="popup1-product-price">€20</div>
-      </div>
-      <div class="popup1-product" tabindex="0">
-        <img src="media/HOODIEtest.jpg" alt="Boné Preto" />
-        <div class="popup1-product-title">Boné Preto</div>
-        <div class="popup1-product-price">€15</div>
-      </div>
+      <div class="popup1-product" data-popup="merch1"><img src="media/HOODIEtest.jpg" alt="Camiseta Club"><div>Camiseta Club<br>€20</div></div>
+      <div class="popup1-product" data-popup="merch2"><img src="media/HOODIEtest.jpg" alt="Boné Preto"><div>Boné Preto<br>€15</div></div>
     </div>
   </div>
 
-  <!-- PROJETOS -->
-  <div id="popup1-projetos" class="popup1-window" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="popup1-projetos-title" aria-hidden="true">
-    <button class="popup1-close" onclick="closePopup()" aria-label="Fechar janela">&times;</button>
-    <h2 id="popup1-projetos-title" class="popup1-title">Projetos Experimentais</h2>
+  <div id="popup1-projetos" class="popup1-window" aria-hidden="true">
+    <button class="popup1-close" onclick="closePopup()">&times;</button>
+    <h2>Projetos Experimentais</h2>
     <div class="popup1-products">
-      <div class="popup1-product" tabindex="0">
-        <img src="media/3Dcameratest.jpeg" alt="Câmera DIY" />
-        <div class="popup1-product-title">Câmera DIY</div>
-        <div class="popup1-product-price">€120</div>
-      </div>
-      <div class="popup1-product" tabindex="0">
-        <img src="media/3Dcameratest.jpeg" alt="Slider Impresso 3D" />
-        <div class="popup1-product-title">Slider Impresso 3D</div>
-        <div class="popup1-product-price">€35</div>
-      </div>
+      <div class="popup1-product" data-popup="proj1"><img src="media/3Dcameratest.jpeg" alt="Câmera DIY"><div>Câmera DIY<br>€120</div></div>
+      <div class="popup1-product" data-popup="proj2"><img src="media/3Dcameratest.jpeg" alt="Slider 3D"><div>Slider Impresso 3D<br>€35</div></div>
     </div>
   </div>
 
-  <script>
-    const overlay = document.getElementById('popup1Overlay');
-    let activePopup = null;
+  <div id="popup2Overlay" class="popup2-overlay" tabindex="-1" aria-hidden="true"></div>
 
-    function closePopup() {
-      if (activePopup) {
-        activePopup.classList.remove('active');
-        activePopup.setAttribute('aria-hidden', 'true');
-        overlay.classList.remove('active');
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        activePopup = null;
-      }
+<div id="popup2" class="popup2-window" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="popup2-close" onclick="closePopup2()" aria-label="Fechar janela">&times;</button>
+  <h2 id="popup2-title" class="popup2-title">titulo</h2>
+  <img id="popup2-img" src="" alt="" />
+  <p id="popup2-description"></p>
+  <div class="popup2-price" id="popup2-price"></div>
+  <button class="btn-comprar">Comprar</button>
+</div>
+
+<script>
+const overlay1 = document.getElementById('popup1Overlay');
+const overlay2 = document.getElementById('popup2Overlay');
+
+let activePopup1 = null;
+
+const popup2 = document.getElementById('popup2');
+const popup2Img = document.getElementById('popup2-img');
+const popup2Title = document.getElementById('popup2-title');
+const popup2Desc = document.getElementById('popup2-description');
+const popup2Price = document.getElementById('popup2-price');
+
+const productDetails = {
+  rig1: { title: 'Rig Básico', img: 'media/FX3test.jpg', desc: 'Ideal para iniciantes e gravações leves.', price: '€40' },
+  rig2: { title: 'Shoulder Rig', img: 'media/FX3test.jpg', desc: 'Estabilidade superior para filmagens em movimento.', price: '€60' },
+  merch1: { title: 'Camiseta Club', img: 'media/HOODIEtest.jpg', desc: 'Confortável e estilosa com o logo do clube.', price: '€20' },
+  merch2: { title: 'Boné Preto', img: 'media/HOODIEtest.jpg', desc: 'Boné casual com bordado Club Benares.', price: '€15' },
+  proj1: { title: 'Câmera DIY', img: 'media/3Dcameratest.jpeg', desc: 'Montada artesanalmente, excelente para testes.', price: '€120' },
+  proj2: { title: 'Slider 3D', img: 'media/3Dcameratest.jpeg', desc: 'Feito em impressora 3D, ideal para planos suaves.', price: '€35' }
+};
+
+// FUNCIONES POPUP1
+function openPopup1(popup) {
+  popup.classList.add('active');
+  popup.setAttribute('aria-hidden', 'false');
+  overlay1.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  activePopup1 = popup;
+}
+
+function closePopup1() {
+  if (activePopup1) {
+    activePopup1.classList.remove('active');
+    activePopup1.setAttribute('aria-hidden', 'true');
+    overlay1.classList.remove('active');
+    document.body.style.overflow = '';
+    activePopup1 = null;
+  }
+}
+
+// FUNCIONES POPUP2
+function openPopup2(data) {
+  popup2Title.textContent = data.title;
+  popup2Img.src = data.img;
+  popup2Img.alt = data.title;
+  popup2Desc.textContent = data.desc;
+  popup2Price.textContent = data.price;
+  popup2.classList.add('active');
+  overlay2.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  popup2.setAttribute('aria-hidden', 'false');
+}
+
+function closePopup2() {
+  popup2.classList.remove('active');
+  overlay2.classList.remove('active');
+  document.body.style.overflow = '';
+  popup2.setAttribute('aria-hidden', 'true');
+}
+
+// EVENTOS POPUP1: abrir categoría al hacer click
+document.querySelectorAll('.categoria-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const categoria = card.dataset.categoria;
+    const popup = document.getElementById(`popup1-${categoria}`);
+    if (popup) {
+      openPopup1(popup);
     }
+  });
+});
 
-    document.querySelectorAll('.categoria-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const categoria = card.dataset.categoria;
-        const popup = document.getElementById(`popup1-${categoria}`);
-        if (popup) {
-          popup.classList.add('active');
-          popup.setAttribute('aria-hidden', 'false');
-          overlay.classList.add('active');
-          overlay.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
-          activePopup = popup;
-          popup.focus();
-        }
-      });
+// EVENTOS POPUP1: botón cerrar y overlay
+document.querySelectorAll('.popup1-close').forEach(btn => {
+  btn.addEventListener('click', closePopup1);
+});
+overlay1.addEventListener('click', closePopup1);
 
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
-        }
-      });
-    });
+// EVENTOS POPUP2: abrir detalle producto
+document.querySelectorAll('.popup1-product').forEach(prod => {
+  prod.addEventListener('click', () => {
+    const key = prod.dataset.popup;
+    const data = productDetails[key];
+    if (data) {
+      openPopup2(data);
+    }
+  });
+});
 
-    overlay.addEventListener('click', closePopup);
+// EVENTOS POPUP2: botón cerrar y overlay
+document.querySelector('.popup2-close').addEventListener('click', closePopup2);
+overlay2.addEventListener('click', closePopup2);
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && activePopup) {
-        closePopup();
-      }
-    });
-  </script>
+// ESCAPE cierra ambos popups
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closePopup1();
+    closePopup2();
+  }
+});
+
+</script>
+
 
   <script src="shared-header.js"></script>
 </body>

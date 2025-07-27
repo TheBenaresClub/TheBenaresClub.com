@@ -108,7 +108,14 @@ nav a.active {
   font-weight: 600;
 }
 
-/* FOOTER */
+
+
+
+
+/* ===========================
+     FOOTER
+=========================== */
+
 footer {
   background-color: rgba(0, 0, 0, 0.4);
   color: var(--accent-color);
@@ -159,7 +166,15 @@ footer .copyright {
     0 0 20px rgba(255, 255, 255, 0.4);
 }
 
-/* ----------------- NOVO BLOCO PARA "PRÓXIMOS EVENTOS" ------------------- */
+
+
+
+
+
+/* ===========================
+     EVENTOS
+=========================== */
+
 .proximos-eventos {
   margin: 2rem auto;
   padding: 2rem 3rem;
@@ -325,7 +340,13 @@ footer .copyright {
   transform: scale(1.05);
 }
 
- /* VENTANA DE MAS DETALLES */
+
+
+
+ /* ===========================
+     MERCADO
+=========================== */
+
 
     /* Popup styles */
     .popup-overlay {
@@ -443,13 +464,19 @@ footer .copyright {
 }
 
 
+
 /* Ventana Popup */
 .popup1-window {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #000000dd;
+  
+  background: rgba(20, 20, 20, 0.3); /* fondo oscuro translúcido */
+  backdrop-filter: blur(12px) brightness(0.7); /* desenfoque y oscurecimiento */
+  -webkit-backdrop-filter: blur(12px) brightness(0.7); /* compatibilidad Safari */
+
+  border: 1px solid rgba(255, 255, 255, 0.1); /* borde sutil */
   border-radius: 15px;
   width: 50vw;
   max-width: 700px;
@@ -462,8 +489,8 @@ footer .copyright {
   overflow-y: auto;
   font-family: Arial, sans-serif;
   color: white;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); /* sombra para destacar */
 }
-
 /* Cuando el popup está activo */
 .popup1-window.active {
   opacity: 1;
@@ -515,6 +542,13 @@ footer .copyright {
   flex-basis: 48%;
   box-sizing: border-box;
   box-shadow: 0 0 10px #111;
+}
+
+.popup1-product img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
 }
 
 /* Título producto */
@@ -571,6 +605,187 @@ footer .copyright {
   border-radius: 4px;
 }
 
+.popup1-product button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.popup1-product button:hover {
+  background-color: #666;
+}
+
+/* BLUR solo en el fondo */
+.popup2-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4); /* opcional: añade un poco de oscuridad */
+  z-index: 9998;
+  display: none;
+}
+
+/* Mostrar overlay activo */
+.popup2-overlay.active {
+  display: block;
+}
+
+/* La ventana va encima del overlay */
+.popup2-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(20, 20, 20, 0.9); /* sin blur aquí */
+  color: white;
+  padding: 2rem;
+  border-radius: 16px;
+  z-index: 9999;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+}
+
+.popup2-window.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup2-img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.popup2-title {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.popup2-desc {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.popup2-price {
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.popup2-buy {
+  background-color: #00cc88;
+  border: none;
+  color: black;
+  font-weight: bold;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.popup2-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* POPUP2 debe estar sobre popup1 */
+.popup2-window,
+.popup2-overlay {
+  z-index: 9999;
+}
+
+/* popup1 tiene menor prioridad */
+.popup1-window,
+.popup1-overlay {
+  z-index: 999;
+}
+
+/* Efecto hover para productos */
+.popup1-product {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.popup1-product:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+/* Imagen en el popup2 */
+#popup2-img {
+  max-width: 90%;
+  max-height: 50vh;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+
+/* popup2 responsivo y centrado */
+.popup2-window {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Botón Comprar */
+.btn-comprar {
+  background: #ffffff10;
+  border: 1px solid #ffffff30;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-comprar:hover {
+  background: #ffffff20;
+}
+
+#popup2 {
+  display: none;
+  /* o con opacity y visibility para animaciones */
+  /* opacity: 0; visibility: hidden; transition: opacity 0.3s ease; */
+}
+
+#popup2.active {
+  display: block;
+  /* o opacity: 1; visibility: visible; */
+}
+
+
+
+
+/* ===========================
+     BACKGROUNDS
+=========================== */
 
 
 /* FUNDOS PERSONALIZADOS POR PÁGINA */
