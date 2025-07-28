@@ -822,7 +822,7 @@ body.bg-cinemateca {
 }
 
 body.bg-laboratorio {
-  background-image: url("media/B07 Radiolina.png");
+  background-image: url("media/Eventos\ \(3\).png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -830,7 +830,7 @@ body.bg-laboratorio {
 }
 
 body.bg-mercado {
-  background-image: url("media/B09 El Mercado Central.png");
+  background-image: url("media/Eventos\ \(2\).png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -838,7 +838,7 @@ body.bg-mercado {
 }
 
 body.bg-comunidade {
-  background-image: url("media/B10 Comunidade.png");
+  background-image: url("media/Contactos.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
