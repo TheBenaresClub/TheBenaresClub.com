@@ -6,6 +6,36 @@
   --font-family: 'Inter', sans-serif;
 }
 
+@font-face {
+  font-family: 'CN';
+  src: url('./media/fontes/leaguespartan-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'NL';
+  src: url('./media/fontes/HolidayFree.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'BR';
+  src: url('./media/fontes/Anton-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'FAB';
+  src: url('./media/fontes/Neuropol.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RIG';
+  src: url('./media/fontes/Kilsonburg.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'LIB';
+  src: url('./media/fontes/AICON-VF.ttf') format('truetype');
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
