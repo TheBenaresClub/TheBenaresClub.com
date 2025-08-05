@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Windows Vista Style</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            cursor: default;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Desktop Background */
+        .desktop {
+            width: 100%;
+            height: 100vh;
+            background-image: url('media/wallpaper.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* Desktop Icons Container */
+        .desktop-icons {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 100px);
+            gap: 20px;
+        }
+
+        /* Individual Desktop Icon */
+        .desktop-icon {
+            width: 90px;
+            text-align: center;
+            padding: 8px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .desktop-icon:hover {
+            background: rgba(173, 216, 255, 0.3);
+            box-shadow: 0 0 0 1px rgba(173, 216, 255, 0.5);
+        }
+
+        .desktop-icon:active {
+            background: rgba(173, 216, 255, 0.5);
+        }
+
+        .desktop-icon img {
+            width: 48px;
+            height: 48px;
+            display: block;
+            margin: 0 auto 5px;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+        }
+
+        .desktop-icon span {
+            color: white;
+            font-size: 12px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8),
+                         0 0 8px rgba(0, 0, 0, 0.6);
+            display: block;
+            word-wrap: break-word;
+            line-height: 1.2;
+        }
+
+        /* Window Styles - Enhanced Glass Effect */
+        .window {
+            position: absolute;
+            min-width: 400px;
+            min-height: 300px;
+            border-radius: 8px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            /* Enhanced glass effect */
+            background: rgba(240, 240, 240, 0.15);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                        0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+                        0 0 80px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .window.active {
+            display: flex;
+        }
+
+        .window.maximized {
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: calc(100vh - 40px) !important;
+            border-radius: 0;
+        }
+
+        .window.minimized {
+            display: none;
+        }
+
+        /* Window Title Bar - Enhanced Glass */
+        .window-titlebar {
+            height: 30px;
+            background: linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0.2) 45%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(0, 0, 0, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            cursor: move;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .window.inactive .window-titlebar {
+            background: linear-gradient(to bottom,
+                rgba(200, 200, 200, 0.2) 0%,
+                rgba(180, 180, 180, 0.15) 45%,
+                rgba(160, 160, 160, 0.1) 50%,
+                rgba(100, 100, 100, 0.1) 100%);
+        }
+
+        .window-titlebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right,
+                transparent 0%,
+                rgba(255, 255, 255, 0.8) 20%,
+                rgba(255, 255, 255, 0.8) 80%,
+                transparent 100%);
+        }
+
+        .window-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+        }
+
+        .window-title {
+            flex: 1;
+            color: #000;
+            font-size: 12px;
+            font-weight: 500;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .window.inactive .window-title {
+            color: #333;
+        }
+
+        /* Window Controls - Glass Style */
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .window-control {
+            width: 26px;
+            height: 20px;
+            border-radius: 3px;
+            background: linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0.1) 100%);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .window-control:hover {
+            background: linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.5) 0%,
+                rgba(255, 255, 255, 0.3) 100%);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5),
+                        inset 0 0 3px rgba(255, 255, 255, 0.8);
+        }
+
+        .window-control:active {
+            background: linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.2) 0%,
+                rgba(255, 255, 255, 0.4) 100%);
+        }
+
+        .window-control.close:hover {
+            background: linear-gradient(to bottom,
+                rgba(232, 17, 35, 0.9) 0%,
+                rgba(200, 0, 20, 0.9) 100%);
+            border-color: rgba(150, 0, 0, 0.5);
+        }
+
+        /* Control Symbols */
+        .window-control.minimize::before {
+            content: '';
+            width: 10px;
+            height: 2px;
+            background: #333;
+            position: absolute;
+            bottom: 6px;
+        }
+
+        .window-control.maximize::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border: 2px solid #333;
+            position: absolute;
+        }
+
+        .window-control.close::before,
+        .window-control.close::after {
+            content: '';
+            width: 12px;
+            height: 2px;
+            background: #333;
+            position: absolute;
+        }
+
+        .window-control.close::before {
+            transform: rotate(45deg);
+        }
+
+        .window-control.close::after {
+            transform: rotate(-45deg);
+        }
+
+        /* Window Content - Glass Background */
+        .window-content {
+            flex: 1;
+            padding: 20px;
+            overflow: auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Custom Scrollbar for Glass Effect */
+        .window-content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .window-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .window-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+
+        .window-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Portfolio Content Styles */
+        .about-content {
+            max-width: 600px;
+            margin: 0 auto;
+            color: #000;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .about-content h1 {
+            color: #1a5490;
+            margin-bottom: 20px;
+            font-size: 28px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .about-content p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #222;
+            font-weight: 500;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .portfolio-item:hover {
+            background: rgba(173, 216, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .service-list {
+            list-style: none;
+        }
+
+        .service-list li {
+            background: rgba(255, 255, 255, 0.3);
+            border-left: 4px solid #1a5490;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 0 4px 4px 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .service-list li:hover {
+            background: rgba(173, 216, 255, 0.4);
+            transform: translateX(5px);
+        }
+
+        .service-list li h3 {
+            color: #1a5490;
+            margin-bottom: 5px;
+        }
+
+        .service-list li p {
+            color: #222;
+            font-weight: 500;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #1a5490;
+            font-weight: 600;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            font-family: inherit;
+            backdrop-filter: blur(5px);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1a5490;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .submit-btn {
+            background: linear-gradient(to bottom, #4d90fe, #1a5490);
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(to bottom, #5da0ff, #2a6db0);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .store-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .store-item {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .store-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .price {
+            font-size: 24px;
+            color: #1a5490;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        /* Taskbar */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, 
+                rgba(20, 20, 20, 0.7) 0%,
+                rgba(10, 10, 10, 0.85) 50%,
+                rgba(0, 0, 0, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        /* Start Button */
+        .start-button {
+            width: 50px;
+            height: 50px;
+            margin-left: 2px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            position: relative;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(100, 200, 255, 0.8) 0%,
+                rgba(50, 150, 220, 0.6) 40%,
+                rgba(20, 80, 150, 0.4) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            overflow: hidden;
+        }
+
+        .start-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 12px rgba(100, 200, 255, 0.6),
+                        inset 0 1px 3px rgba(255, 255, 255, 0.6);
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(120, 220, 255, 0.9) 0%,
+                rgba(70, 170, 240, 0.7) 40%,
+                rgba(40, 100, 170, 0.5) 100%);
+        }
+
+        .start-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Windows Logo in Start Button */
+        .start-button img {
+            width: 22px;
+            height: 22px;
+            position: absolute;
+        }
+
+        /* Task Items Area */
+        .task-items {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 3px;
+        }
+
+        .task-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            padding: 5px 12px;
+            font-size: 12px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            max-width: 160px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .task-item img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .task-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .task-item.active {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* System Tray */
+        .system-tray {
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 15px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .system-icons {
+            display: flex;
+            gap: 8px;
+            padding-right: 10px;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .system-icon {
+            width: 16px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .system-icon:hover {
+            background: white;
+        }
+
+        /* Clock */
+        .clock {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            padding: 2px 5px;
+            border-radius: 2px;
+            transition: background 0.2s ease;
+        }
+
+        .clock:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Show Desktop Button */
+        .show-desktop {
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(to right,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 100%);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .show-desktop:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Resize Handle */
+        .resize-handle {
+            position: absolute;
+            background: transparent;
+        }
+
+        .resize-handle.n { top: 0; left: 0; right: 0; height: 5px; cursor: n-resize; }
+        .resize-handle.s { bottom: 0; left: 0; right: 0; height: 5px; cursor: s-resize; }
+        .resize-handle.e { top: 0; right: 0; bottom: 0; width: 5px; cursor: e-resize; }
+        .resize-handle.w { top: 0; left: 0; bottom: 0; width: 5px; cursor: w-resize; }
+        .resize-handle.ne { top: 0; right: 0; width: 10px; height: 10px; cursor: ne-resize; }
+        .resize-handle.nw { top: 0; left: 0; width: 10px; height: 10px; cursor: nw-resize; }
+        .resize-handle.se { bottom: 0; right: 0; width: 10px; height: 10px; cursor: se-resize; }
+        .resize-handle.sw { bottom: 0; left: 0; width: 10px; height: 10px; cursor: sw-resize; }
+    </style>
+</head>
+<body>
+    <div class="desktop">
+        <!-- Desktop Icons -->
+        <div class="desktop-icons">
+            <div class="desktop-icon" data-app="about">
+                <img src="media/icons/about.png" alt="About Us">
+                <span>About Us</span>
+            </div>
+            <div class="desktop-icon" data-app="portfolio">
+                <img src="media/icons/portfolio.png" alt="Portfolio">
+                <span>Portfolio</span>
+            </div>
+            <div class="desktop-icon" data-app="services">
+                <img src="media/icons/services.png" alt="Services">
+                <span>Services</span>
+            </div>
+            <div class="desktop-icon" data-app="store">
+                <img src="media/icons/store.png" alt="Store">
+                <span>Store</span>
+            </div>
+            <div class="desktop-icon" data-app="blog">
+                <img src="media/icons/blog.png" alt="Blog">
+                <span>Blog</span>
+            </div>
+            <div class="desktop-icon" data-app="contact">
+                <img src="media/icons/contact.png" alt="Contact">
+                <span>Contact</span>
+            </div>
+            <div class="desktop-icon" data-app="team">
+                <img src="media/icons/team.png" alt="Our Team">
+                <span>Our Team</span>
+            </div>
+            <div class="desktop-icon" data-app="testimonials">
+                <img src="media/icons/testimonials.png" alt="Testimonials">
+                <span>Testimonials</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Windows Container -->
+    <div id="windows-container"></div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="start-button">
+            <img src="media/windows-icon.png" alt="Windows">
+        </div>
+        <div class="task-items" id="task-items"></div>
+        <div class="system-tray">
+            <div class="system-icons">
+                <div class="system-icon" style="background: url('media/icons/volume.png') center/contain no-repeat;"></div>
+                <div class="system-icon" style="background: url('media/icons/network-small.png') center/contain no-repeat;"></div>
+                <div class="system-icon" style="background: url('media/icons/battery.png') center/contain no-repeat;"></div>
+            </div>
+            <div class="clock" id="clock">12:00 PM</div>
+        </div>
+        <div class="show-desktop"></div>
+    </div>
+
+    <script>
+        // Window management
+        let windows = {};
+        let activeWindow = null;
+        let windowZIndex = 1000;
+        let windowIdCounter = 0;
+
+        // Window templates
+        const windowTemplates = {
+            about: {
+                title: 'About Us',
+                icon: 'media/icons/about.png',
+                content: `
+                    <div class="about-content">
+                        <h1>Welcome to Our Creative Studio</h1>
+                        <p>We are a passionate team of designers, developers, and dreamers dedicated to bringing your digital visions to life. With over 10 years of experience in the industry, we've helped countless businesses establish their online presence.</p>
+                        <p>Our mission is simple: to create beautiful, functional, and user-friendly digital experiences that drive results. We believe in the power of great design and clean code to transform businesses.</p>
+                        <h2 style="color: #1a5490; text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);">Why Choose Us?</h2>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 5px 0; color: #222; font-weight: 500;">✓ Expert team with diverse skills</li>
+                            <li style="padding: 5px 0; color: #222; font-weight: 500;">✓ Cutting-edge technology stack</li>
+                            <li style="padding: 5px 0; color: #222; font-weight: 500;">✓ Customer-centric approach</li>
+                            <li style="padding: 5px 0; color: #222; font-weight: 500;">✓ Proven track record of success</li>
+                        </ul>
+                    </div>
+                `
+            },
+            portfolio: {
+                title: 'Portfolio',
+                icon: 'media/icons/portfolio.png',
+                content: `
+                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">Our Recent Work</h1>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item">
+                            <img src="media/portfolio/project1.png" alt="Project 1">
+                            <h3 style="color: #1a5490;">E-Commerce Platform</h3>
+                            <p style="color: #444; font-weight: 500;">Modern online shopping experience</p>
+                        </div>
+                        <div class="portfolio-item">
+                            <img src="media/portfolio/project2.png" alt="Project 2">
+                            <h3 style="color: #1a5490;">Mobile Banking App</h3>
+                            <p style="color: #444; font-weight: 500;">Secure and intuitive banking</p>
+                        </div>
+                        <div class="portfolio-item">
+                            <img src="media/portfolio/project3.png" alt="Project 3">
+                            <h3 style="color: #1a5490;">SaaS Dashboard</h3>
+                            <p style="color: #444; font-weight: 500;">Analytics and insights platform</p>
+                        </div>
+                        <div class="portfolio-item">
+                            <img src="media/portfolio/project4.png" alt="Project 4">
+                            <h3 style="color: #1a5490;">Restaurant Website</h3>
+                            <p style="color: #444; font-weight: 500;">Elegant dining experience online</p>
+                        </div>
+                    </div>
+                `,
+                width: 800,
+                height: 600
+            },
+            services: {
+                title: 'Services',
+                icon: 'media/icons/services.png',
+                content: `
+                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">What We Offer</h1>
+                    <ul class="service-list">
+                        <li>
+                            <h3>Web Development</h3>
+                            <p>Custom websites built with modern technologies like React, Vue, and Angular</p>
+                        </li>
+                        <li>
+                            <h3>Mobile App Development</h3>
+                            <p>Native and cross-platform apps for iOS and Android</p>
+                        </li>
+                        <li>
+                            <h3>UI/UX Design</h3>
+                            <p>User-centered design that converts visitors into customers</p>
+                        </li>
+                        <li>
+                            <h3>Digital Marketing</h3>
+                            <p>SEO, SEM, and social media strategies to grow your brand</p>
+                        </li>
+                        <li>
+                            <h3>Cloud Solutions</h3>
+                            <p>Scalable infrastructure and deployment services</p>
+                        </li>
+                    </ul>
+                `,
+                width: 600,
+                height: 500
+            },
+            store: {
+                title: 'Store',
+                icon: 'media/icons/store.png',
+                content: `
+                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">Our Products</h1>
+                    <div class="store-items">
+                        <div class="store-item">
+                            <h3 style="color: #1a5490;">Starter Website Package</h3>
+                            <p class="price">$999</p>
+                            <p style="color: #444; font-weight: 500;">5 pages, responsive design, SEO basics</p>
+                            <button class="submit-btn">Purchase</button>
+                        </div>
+                        <div class="store-item">
+                            <h3 style="color: #1a5490;">Professional Package</h3>
+                            <p class="price">$2,499</p>
+                            <p style="color: #444; font-weight: 500;">10 pages, CMS, advanced SEO, analytics</p>
+                            <button class="submit-btn">Purchase</button>
+                        </div>
+                        <div class="store-item">
+                            <h3 style="color: #1a5490;">Enterprise Solution</h3>
+                            <p class="price">$9,999+</p>
+                            <p style="color: #444; font-weight: 500;">Custom development, unlimited pages</p>
+                            <button class="submit-btn">Get Quote</button>
+                        </div>
+                        <div class="store-item">
+                            <h3 style="color: #1a5490;">Monthly Maintenance</h3>
+                            <p class="price">$199/mo</p>
+                            <p style="color: #444; font-weight: 500;">Updates, backups, 24/7 support</p>
+                            <button class="submit-btn">Subscribe</button>
+                        </div>
+                    </div>
+                `,
+                width: 700,
+                height: 500
+            },
+            blog: {
+                title: 'Blog',
+                icon: 'media/icons/blog.png',
+                content: `
+                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">Latest Articles</h1>
+                    <div style="max-width: 700px; margin: 0 auto;">
+                        <article style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                            <h2 style="color: #1a5490;">The Future of Web Design in 2024</h2>
+                            <p style="color: #666; font-size: 12px; font-weight: 600;">Posted on January 15, 2024</p>
+                            <p style="color: #222; font-weight: 500;">Explore the latest trends in web design including AI integration, immersive experiences, and sustainable design practices...</p>
+                            <a href="#" style="color: #1a5490; font-weight: bold;">Read more →</a>
+                        </article>
+                        <article style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                            <h2 style="color: #1a5490;">Mobile-First Development Best Practices</h2>
+                            <p style="color: #666; font-size: 12px; font-weight: 600;">Posted on January 10, 2024</p>
+                            <p style="color: #222; font-weight: 500;">Learn why mobile-first design is crucial for modern websites and how to implement it effectively...</p>
+                            <a href="#" style="color: #1a5490; font-weight: bold;">Read more →</a>
+                        </article>
+                        <article style="margin-bottom: 30px;">
+                            <h2 style="color: #1a5490;">Understanding Core Web Vitals</h2>
+                            <p style="color: #666; font-size: 12px; font-weight: 600;">Posted on January 5, 2024</p>
+                            <p style="color: #222; font-weight: 500;">A comprehensive guide to Google's Core Web Vitals and how they impact your site's SEO performance...</p>
+                            <a href="#" style="color: #1a5490; font-weight: bold;">Read more →</a>
+                        </article>
+                    </div>
+                `,
+                width: 700,
+                height: 600
+            },
+            contact: {
+                title: 'Contact Us',
+                icon: 'media/icons/contact.png',
+                content: `
+                    <div class="contact-form">
+                        <h1 style="color: #1a5490; margin-bottom: 20px; text-align: center; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">Get In Touch</h1>
+                        <form>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" placeholder="your@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="tel" placeholder="+1 (555) 123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea rows="5" placeholder="Tell us about your project..."></textarea>
+                            </div>
+                            <div style="text-align: center;">
+                                <button type="submit" class="submit-btn">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                `,
+                width: 500,
+                height: 550
+            },
+            team: {
+                title: 'Our Team',
+                icon: 'media/icons/team.png',
+                content: `
+                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">Meet Our Team</h1>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item">
+                            <img src="media/team/member1.png" alt="Team Member 1" style="border-radius: 50%;">
+                            <h3 style="color: #1a5490;">John Doe</h3>
+                            <p style="color: #444; font-weight: 500;">CEO & Founder</p>
+                        </div>
+                        <div class="portfolio-item">
+                            <img src="media/team/member2.png" alt="Team Member 2" style="border-radius: 50%;">
+                            <h3 style="color: #1a5490;">Jane Smith</h3>
+                            <p style="color: #444; font-weight: 500;">Lead Designer</p>
+                        </div>
+                        <div class="portfolio-item">
+                            <img src="media/team/member3.png" alt="Team Member 3" style="border-radius: 50%;">
+                            <h3 style="color: #1a5490;">Mike Johnson</h3>
+                            <p style="color: #444; font-weight: 500;">Senior Developer</p>
+                        </div>
+                        <div class="portfolio-item">
+                            <img src="media/team/member4.png" alt="Team Member 4" style="border-radius: 50%;">
+                            <h3 style="color: #1a5490;">Sarah Williams</h3>
+                            <p style="color: #444; font-weight: 500;">Marketing Director</p>
+                        </div>
+                    </div>
+                `,
+                width: 700,
+                height: 500
+            },
+            testimonials: {
+                title: 'Testimonials',
+                icon: 'media/icons/testimonials.png',
+                content: `
+                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">What Our Clients Say</h1>
+                    <div style="max-width: 600px; margin: 0 auto;">
+                        <div style="background: rgba(255,255,255,0.3); padding: 20px; margin-bottom: 20px; border-left: 4px solid #1a5490; backdrop-filter: blur(5px);">
+                            <p style="font-style: italic; margin-bottom: 10px; color: #222; font-weight: 500;">"Working with this team was an absolute pleasure. They transformed our outdated website into a modern masterpiece that our customers love!"</p>
+                            <p style="text-align: right; color: #444; font-weight: 600;">- Michael Chen, TechStart Inc.</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.3); padding: 20px; margin-bottom: 20px; border-left: 4px solid #1a5490; backdrop-filter: blur(5px);">
+                            <p style="font-style: italic; margin-bottom: 10px; color: #222; font-weight: 500;">"Professional, creative, and always on time. They exceeded our expectations in every way."</p>
+                            <p style="text-align: right; color: #444; font-weight: 600;">- Amanda Rodriguez, Fashion Forward</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.3); padding: 20px; border-left: 4px solid #1a5490; backdrop-filter: blur(5px);">
+                            <p style="font-style: italic; margin-bottom: 10px; color: #222; font-weight: 500;">"The best investment we made for our business. Our online sales increased by 200% after the redesign!"</p>
+                            <p style="text-align: right; color: #444; font-weight: 600;">- David Park, GreenLife Store</p>
+                        </div>
+                    </div>
+                `,
+                width: 600,
+                height: 450
+            }
+        };
+
+        // Create window function
+        function createWindow(appType) {
+            // Check if window already exists
+            const existingWindow = Object.values(windows).find(w => w.appType === appType);
+            if (existingWindow) {
+                // If window exists, just focus it
+                const windowId = Object.keys(windows).find(key => windows[key] === existingWindow);
+                if (existingWindow.minimized) {
+                    restoreWindow(windowId);
+                } else {
+                    setActiveWindow(windowId);
+                }
+                return windowId;
+            }
+
+            const template = windowTemplates[appType] || windowTemplates.about;
+            const windowId = `window-${windowIdCounter++}`;
+            
+            const window = document.createElement('div');
+            window.className = 'window active';
+            window.id = windowId;
+            window.style.width = (template.width || 600) + 'px';
+            window.style.height = (template.height || 400) + 'px';
+            window.style.top = (50 + (windowIdCounter * 30) % 200) + 'px';
+            window.style.left = (50 + (windowIdCounter * 30) % 200) + 'px';
+            window.style.zIndex = ++windowZIndex;
+
+            window.innerHTML = `
+                <div class="window-titlebar">
+                    <img src="${template.icon}" class="window-icon" alt="">
+                    <span class="window-title">${template.title}</span>
+                    <div class="window-controls">
+                        <div class="window-control minimize"></div>
+                        <div class="window-control maximize"></div>
+                        <div class="window-control close"></div>
+                    </div>
+                </div>
+                <div class="window-content">
+                    ${template.content}
+                </div>
+                <div class="resize-handle n"></div>
+                <div class="resize-handle s"></div>
+                <div class="resize-handle e"></div>
+                <div class="resize-handle w"></div>
+                <div class="resize-handle ne"></div>
+                <div class="resize-handle nw"></div>
+                <div class="resize-handle se"></div>
+                <div class="resize-handle sw"></div>
+            `;
+
+            document.getElementById('windows-container').appendChild(window);
+            
+            // Create taskbar item
+            const taskItem = document.createElement('div');
+            taskItem.className = 'task-item active';
+            taskItem.id = `task-${windowId}`;
+            taskItem.innerHTML = `
+                <img src="${template.icon}" alt="">
+                <span>${template.title}</span>
+            `;
+            document.getElementById('task-items').appendChild(taskItem);
+
+            // Store window reference
+            windows[windowId] = {
+                element: window,
+                taskItem: taskItem,
+                minimized: false,
+                maximized: false,
+                appType: appType
+            };
+
+            // Set as active window
+            setActiveWindow(windowId);
+
+            // Setup event handlers
+            setupWindowEvents(windowId);
+
+            return windowId;
+        }
+
+        // Setup window events
+        function setupWindowEvents(windowId) {
+            const windowData = windows[windowId];
+            const window = windowData.element;
+            const titlebar = window.querySelector('.window-titlebar');
+            const closeBtn = window.querySelector('.window-control.close');
+            const minimizeBtn = window.querySelector('.window-control.minimize');
+            const maximizeBtn = window.querySelector('.window-control.maximize');
+            const taskItem = windowData.taskItem;
+
+            // Window activation
+            window.addEventListener('mousedown', () => setActiveWindow(windowId));
+
+            // Titlebar drag
+            let isDragging = false;
+            let dragOffset = { x: 0, y: 0 };
+
+            titlebar.addEventListener('mousedown', (e) => {
+                if (e.target.classList.contains('window-control')) return;
+                if (windowData.maximized) return;
+                
+                isDragging = true;
+                dragOffset.x = e.clientX - window.offsetLeft;
+                dragOffset.y = e.clientY - window.offsetTop;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                
+                window.style.left = (e.clientX - dragOffset.x) + 'px';
+                window.style.top = (e.clientY - dragOffset.y) + 'px';
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            // Window controls
+            closeBtn.addEventListener('click', () => closeWindow(windowId));
+            minimizeBtn.addEventListener('click', () => minimizeWindow(windowId));
+            maximizeBtn.addEventListener('click', () => toggleMaximize(windowId));
+
+            // Taskbar item click
+            taskItem.addEventListener('click', () => {
+                if (windowData.minimized) {
+                    restoreWindow(windowId);
+                } else if (activeWindow === windowId) {
+                    minimizeWindow(windowId);
+                } else {
+                    setActiveWindow(windowId);
+                }
+            });
+
+            // Window resize
+            setupResize(windowId);
+        }
+
+        // Resize functionality
+        function setupResize(windowId) {
+            const window = windows[windowId].element;
+            const handles = window.querySelectorAll('.resize-handle');
+            
+            handles.forEach(handle => {
+                let isResizing = false;
+                let startX, startY, startWidth, startHeight, startLeft, startTop;
+                
+                handle.addEventListener('mousedown', (e) => {
+                    if (windows[windowId].maximized) return;
+                    
+                    isResizing = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    startWidth = window.offsetWidth;
+                    startHeight = window.offsetHeight;
+                    startLeft = window.offsetLeft;
+                    startTop = window.offsetTop;
+                    e.preventDefault();
+                });
+                
+                document.addEventListener('mousemove', (e) => {
+                    if (!isResizing) return;
+                    
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+                    
+                    if (handle.classList.contains('e')) {
+                        window.style.width = Math.max(400, startWidth + dx) + 'px';
+                    } else if (handle.classList.contains('w')) {
+                        window.style.width = Math.max(400, startWidth - dx) + 'px';
+                        window.style.left = Math.min(startLeft + dx, startLeft + startWidth - 400) + 'px';
+                    } else if (handle.classList.contains('s')) {
+                        window.style.height = Math.max(300, startHeight + dy) + 'px';
+                    } else if (handle.classList.contains('n')) {
+                        window.style.height = Math.max(300, startHeight - dy) + 'px';
+                        window.style.top = Math.min(startTop + dy, startTop + startHeight - 300) + 'px';
+                    } else if (handle.classList.contains('se')) {
+                        window.style.width = Math.max(400, startWidth + dx) + 'px';
+                        window.style.height = Math.max(300, startHeight + dy) + 'px';
+                    } else if (handle.classList.contains('sw')) {
+                        window.style.width = Math.max(400, startWidth - dx) + 'px';
+                        window.style.left = Math.min(startLeft + dx, startLeft + startWidth - 400) + 'px';
+                        window.style.height = Math.max(300, startHeight + dy) + 'px';
+                    } else if (handle.classList.contains('ne')) {
+                        window.style.width = Math.max(400, startWidth + dx) + 'px';
+                        window.style.height = Math.max(300, startHeight - dy) + 'px';
+                        window.style.top = Math.min(startTop + dy, startTop + startHeight - 300) + 'px';
+                    } else if (handle.classList.contains('nw')) {
+                        window.style.width = Math.max(400, startWidth - dx) + 'px';
+                        window.style.left = Math.min(startLeft + dx, startLeft + startWidth - 400) + 'px';
+                        window.style.height = Math.max(300, startHeight - dy) + 'px';
+                        window.style.top = Math.min(startTop + dy, startTop + startHeight - 300) + 'px';
+                    }
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    isResizing = false;
+                });
+            });
+        }
+
+        // Window management functions
+        function setActiveWindow(windowId) {
+            // Remove active class from all windows and task items
+            Object.values(windows).forEach(w => {
+                w.element.classList.remove('active');
+                w.element.classList.add('inactive');
+                w.taskItem.classList.remove('active');
+            });
+            
+            // Set active window
+            if (windows[windowId]) {
+                windows[windowId].element.classList.add('active');
+                windows[windowId].element.classList.remove('inactive');
+                windows[windowId].element.style.zIndex = ++windowZIndex;
+                windows[windowId].taskItem.classList.add('active');
+                activeWindow = windowId;
+            }
+        }
+
+        function closeWindow(windowId) {
+            if (windows[windowId]) {
+                windows[windowId].element.remove();
+                windows[windowId].taskItem.remove();
+                delete windows[windowId];
+                
+                // Set a new active window if any exist
+                const remainingWindows = Object.keys(windows);
+                if (remainingWindows.length > 0) {
+                    setActiveWindow(remainingWindows[remainingWindows.length - 1]);
+                } else {
+                    activeWindow = null;
+                }
+            }
+        }
+
+        function minimizeWindow(windowId) {
+            if (windows[windowId]) {
+                windows[windowId].element.classList.add('minimized');
+                windows[windowId].minimized = true;
+                windows[windowId].taskItem.classList.remove('active');
+            }
+        }
+
+        function restoreWindow(windowId) {
+            if (windows[windowId]) {
+                windows[windowId].element.classList.remove('minimized');
+                windows[windowId].minimized = false;
+                setActiveWindow(windowId);
+            }
+        }
+
+        function toggleMaximize(windowId) {
+            if (windows[windowId]) {
+                const window = windows[windowId];
+                if (window.maximized) {
+                    window.element.classList.remove('maximized');
+                    window.maximized = false;
+                } else {
+                    window.element.classList.add('maximized');
+                    window.maximized = true;
+                }
+            }
+        }
+
+        // Desktop icon click handler
+        document.querySelectorAll('.desktop-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const appType = this.getAttribute('data-app');
+                createWindow(appType);
+            });
+        });
+
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            
+            const timeString = `${displayHours}:${minutes} ${ampm}`;
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        // Update clock immediately and then every minute
+        updateClock();
+        setInterval(updateClock, 60000);
+
+        // Start button click
+        document.querySelector('.start-button').addEventListener('click', function() {
+            alert('Welcome to our portfolio! Click any desktop icon to explore our services.');
+        });
+
+        // Show desktop button
+        document.querySelector('.show-desktop').addEventListener('click', function() {
+            Object.values(windows).forEach(window => {
+                if (!window.minimized) {
+                    minimizeWindow(Object.keys(windows).find(key => windows[key] === window));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
