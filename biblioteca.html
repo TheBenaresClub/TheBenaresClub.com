@@ -8,6 +8,204 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="./media/A00 Logo - Light.png" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    /* Biblioteca specific styles */
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    
+    .fade-container {
+      position: relative;
+      display: inline-block; /* Shrink to fit content */
+      max-width: 900px;
+      width: 100%;
+    }
+    
+    .Librera {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .Imagenes-Portas-Landing {
+      position: absolute;
+      display: flex;
+      gap: 1%;
+      align-items: flex-end;
+      /* Use percentages relative to bookshelf image */
+      left: 35%;
+      bottom: 38%;
+      flex-direction: row;
+    }
+    
+    .LIVRO {
+      display: block;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .LIVRO:hover {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+    }
+    
+    .LIVRO img {
+      height: 14vw; /* Scale with viewport width - BIGGER */
+      max-height: 220px; /* Max size on large screens - BIGGER */
+      min-height: 80px; /* Min size on small screens - BIGGER */
+      width: auto;
+      border-radius: 2px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Media query for better mobile experience */
+    @media (max-width: 768px) {
+      .LIVRO img {
+        height: 16vw;
+        max-height: 100px;
+      }
+    }
+    
+    /* Book Reader Overlay */
+    .book-reader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      z-index: 9999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .book-reader-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    
+    /* Book Container */
+    .book-container {
+      position: relative;
+      width: 95%;
+      max-width: 1200px; /* Wider max width */
+      height: 75vh; /* Slightly shorter for widescreen look */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    /* Page Container */
+    .page-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent; /* No white background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      transition: transform 0.6s ease;
+    }
+    
+    .page img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* Removed padding to maximize image size */
+    }
+    
+    /* Slide animations - pages slide in from sides */
+    .page.next-page {
+      transform: translateX(100%); /* Start off-screen right */
+    }
+    
+    .page.prev-page {
+      transform: translateX(-100%); /* Start off-screen left */
+    }
+    
+    .page.current {
+      transform: translateX(0); /* Centered */
+    }
+    
+    .page.hidden {
+      display: none;
+    }
+    
+    /* Navigation Controls */
+    .book-controls {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 10001;
+    }
+    
+    .book-nav-btn {
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .book-nav-btn:hover {
+      background: white;
+      transform: scale(1.1);
+    }
+    
+    .book-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    
+    /* Back Button */
+    .back-button {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      z-index: 10001;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .back-button:hover {
+      background: white;
+      transform: scale(1.1);
+    }
+  </style>
 </head>
 <body class="bg-biblioteca">
 
@@ -15,8 +213,219 @@
   <div id="header-container"></div>
 
   <main>
+    <div class="fade-container" id="fade">
+      <!-- Book container - books flow left to right -->
+      <div class="Imagenes-Portas-Landing">
+        <div class="LIVRO" onclick="openBook('inexistente')">
+          <img class="INX" src="./media/04_Arquivo_Nacional_-_INX.png" alt="I N E X I S T E N T E">
+        </div>
 
+        <div class="LIVRO" onclick="openBook('artista')">
+          <img class="EAC" src="./media/04_Arquivo_Nacional_-_EAC.png" alt="El Artista Comprendido">
+        </div>
+        
+        <!-- Add more books here - they will continue to the right -->
+      </div>
+
+      <!-- Bookshelf background image -->
+      <img class="Librera" src="./media/04_Arquivo_Nacional_-_Librera.png" alt="Biblioteca estantería">
+    </div>
+    
+    <!-- Book Reader Overlay -->
+    <div class="book-reader-overlay" id="bookReader">
+      <button class="back-button" onclick="closeBook()">✕</button>
+      
+      <div class="book-container">
+        <div class="page-container" id="pageContainer">
+          <!-- Two pages for smooth transitions -->
+          <div class="page current" id="currentPage">
+            <img src="" alt="Page" id="currentPageImg">
+          </div>
+          <div class="page next-page" id="nextPageEl">
+            <img src="" alt="Page" id="nextPageImg">
+          </div>
+        </div>
+        
+        <div class="book-controls">
+          <button class="book-nav-btn" id="prevBtn" onclick="previousPage()">← Previous</button>
+          <button class="book-nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+        </div>
+      </div>
+    </div>
   </main>
+
+  <script>
+    // Book data - define pages for each book
+    const books = {
+      inexistente: {
+        title: "INEXISTENTE",
+        pages: [
+          "./media/books/inexistente1.png",
+          "./media/books/inexistente2.png",
+          "./media/books/inexistente3.png",
+          "./media/books/inexistente4.png",
+          // Add more pages as needed
+        ]
+      },
+      artista: {
+        title: "El Artista Comprendido",
+        pages: [
+          "./media/books/artista1.png",
+          "./media/books/artista2.png",
+          "./media/books/artista3.png",
+          "./media/books/artista4.png",
+          // Add more pages as needed
+        ]
+      }
+    };
+    
+    let currentBook = null;
+    let currentPageIndex = 0;
+    let isAnimating = false;
+    
+    function openBook(bookId) {
+      currentBook = books[bookId];
+      currentPageIndex = 0;
+      
+      if (currentBook && currentBook.pages.length > 0) {
+        const overlay = document.getElementById('bookReader');
+        overlay.classList.add('active');
+        
+        // Load first page
+        const currentPageImg = document.getElementById('currentPageImg');
+        currentPageImg.src = currentBook.pages[0];
+        updateButtons();
+      }
+    }
+    
+    function closeBook() {
+      const overlay = document.getElementById('bookReader');
+      overlay.classList.remove('active');
+      currentBook = null;
+      currentPageIndex = 0;
+    }
+    
+    function updateButtons() {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      
+      prevBtn.disabled = currentPageIndex === 0;
+      nextBtn.disabled = currentPageIndex >= currentBook.pages.length - 1;
+    }
+    
+    function nextPage() {
+      if (!currentBook || isAnimating || currentPageIndex >= currentBook.pages.length - 1) return;
+      
+      isAnimating = true;
+      
+      const currentPageEl = document.getElementById('currentPage');
+      const nextPageEl = document.getElementById('nextPageEl');
+      const nextPageImg = document.getElementById('nextPageImg');
+      
+      // Load next page image
+      nextPageImg.src = currentBook.pages[currentPageIndex + 1];
+      
+      // Slide next page in from right
+      nextPageEl.classList.remove('next-page');
+      nextPageEl.classList.remove('prev-page');
+      nextPageEl.classList.add('next-page');
+      
+      // Start animation
+      setTimeout(() => {
+        nextPageEl.classList.remove('next-page');
+        nextPageEl.classList.add('current');
+        currentPageEl.classList.remove('current');
+        currentPageEl.classList.add('prev-page');
+        
+        // After animation completes, swap the pages
+        setTimeout(() => {
+          // Update index
+          currentPageIndex++;
+          
+          // Swap page roles
+          currentPageEl.id = 'nextPageEl';
+          nextPageEl.id = 'currentPage';
+          
+          // Swap image IDs
+          const currentImg = document.getElementById('currentPageImg');
+          const nextImg = document.getElementById('nextPageImg');
+          currentImg.id = 'nextPageImg';
+          nextImg.id = 'currentPageImg';
+          
+          // Reset classes for next use
+          currentPageEl.classList.remove('prev-page');
+          currentPageEl.classList.add('next-page');
+          
+          updateButtons();
+          isAnimating = false;
+        }, 600);
+      }, 50);
+    }
+    
+    function previousPage() {
+      if (!currentBook || isAnimating || currentPageIndex === 0) return;
+      
+      isAnimating = true;
+      
+      const currentPageEl = document.getElementById('currentPage');
+      const nextPageEl = document.getElementById('nextPageEl');
+      const nextPageImg = document.getElementById('nextPageImg');
+      
+      // Load previous page image
+      nextPageImg.src = currentBook.pages[currentPageIndex - 1];
+      
+      // Position previous page on left
+      nextPageEl.classList.remove('next-page');
+      nextPageEl.classList.remove('current');
+      nextPageEl.classList.add('prev-page');
+      
+      // Start animation
+      setTimeout(() => {
+        nextPageEl.classList.remove('prev-page');
+        nextPageEl.classList.add('current');
+        currentPageEl.classList.remove('current');
+        currentPageEl.classList.add('next-page');
+        
+        // After animation completes, swap the pages
+        setTimeout(() => {
+          // Update index
+          currentPageIndex--;
+          
+          // Swap page roles
+          currentPageEl.id = 'nextPageEl';
+          nextPageEl.id = 'currentPage';
+          
+          // Swap image IDs
+          const currentImg = document.getElementById('currentPageImg');
+          const nextImg = document.getElementById('nextPageImg');
+          currentImg.id = 'nextPageImg';
+          nextImg.id = 'currentPageImg';
+          
+          // Reset classes for next use
+          currentPageEl.classList.remove('next-page');
+          currentPageEl.classList.add('next-page');
+          
+          updateButtons();
+          isAnimating = false;
+        }, 600);
+      }, 50);
+    }
+    
+    // Close book on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && currentBook) {
+        closeBook();
+      }
+      // Add arrow key navigation
+      if (currentBook && !isAnimating) {
+        if (e.key === 'ArrowRight') {
+          nextPage();
+        } else if (e.key === 'ArrowLeft') {
+          previousPage();
+        }
+      }
+    });
+  </script>
 
   <footer>
     <div class="copyright">
