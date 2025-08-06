@@ -54,19 +54,20 @@
     }
     
     .LIVRO img {
-      height: 14vw; /* Scale with viewport width - BIGGER */
-      max-height: 220px; /* Max size on large screens - BIGGER */
-      min-height: 80px; /* Min size on small screens - BIGGER */
+      height: calc(900px * 0.18); /* 18% of max bookshelf width */
+      max-height: 160px; /* Max size - BIGGER */
+      min-height: 100px; /* Min size - BIGGER */
       width: auto;
       border-radius: 2px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
     
-    /* Media query for better mobile experience */
-    @media (max-width: 768px) {
+    /* Responsive sizing for smaller screens */
+    @media (max-width: 900px) {
       .LIVRO img {
-        height: 16vw;
-        max-height: 100px;
+        height: 18vw; /* Use viewport width when container is smaller */
+        max-height: 160px;
+        min-height: 80px;
       }
     }
     
@@ -132,17 +133,19 @@
       /* Removed padding to maximize image size */
     }
     
-    /* Slide animations - pages slide in from sides */
+    /* Slide animations - only new pages move */
     .page.next-page {
       transform: translateX(100%); /* Start off-screen right */
     }
     
-    .page.prev-page {
-      transform: translateX(-100%); /* Start off-screen left */
+    .page.current {
+      transform: translateX(0); /* Centered and stays put */
+      z-index: 1;
     }
     
-    .page.current {
-      transform: translateX(0); /* Centered */
+    .page.sliding-in {
+      transform: translateX(0); /* Slide to center */
+      z-index: 2; /* Above current page */
     }
     
     .page.hidden {
@@ -247,8 +250,8 @@
         </div>
         
         <div class="book-controls">
-          <button class="book-nav-btn" id="prevBtn" onclick="previousPage()">← Previous</button>
-          <button class="book-nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+          <button class="book-nav-btn" id="prevBtn" onclick="previousPage()">← Anterior</button>
+          <button class="book-nav-btn" id="nextBtn" onclick="nextPage()">Próximo →</button>
         </div>
       </div>
     </div>
@@ -325,22 +328,24 @@
       // Load next page image
       nextPageImg.src = currentBook.pages[currentPageIndex + 1];
       
-      // Slide next page in from right
-      nextPageEl.classList.remove('next-page');
-      nextPageEl.classList.remove('prev-page');
+      // Position next page off-screen right
+      nextPageEl.classList.remove('current', 'prev-page', 'sliding-in');
       nextPageEl.classList.add('next-page');
       
-      // Start animation
+      // Start animation - slide in from right
       setTimeout(() => {
-        nextPageEl.classList.remove('next-page');
-        nextPageEl.classList.add('current');
-        currentPageEl.classList.remove('current');
-        currentPageEl.classList.add('prev-page');
+        nextPageEl.classList.add('sliding-in');
         
-        // After animation completes, swap the pages
+        // After animation completes
         setTimeout(() => {
           // Update index
           currentPageIndex++;
+          
+          // Hide current page and make next page the new current
+          currentPageEl.classList.remove('current');
+          currentPageEl.classList.add('next-page');
+          nextPageEl.classList.remove('next-page', 'sliding-in');
+          nextPageEl.classList.add('current');
           
           // Swap page roles
           currentPageEl.id = 'nextPageEl';
@@ -351,10 +356,6 @@
           const nextImg = document.getElementById('nextPageImg');
           currentImg.id = 'nextPageImg';
           nextImg.id = 'currentPageImg';
-          
-          // Reset classes for next use
-          currentPageEl.classList.remove('prev-page');
-          currentPageEl.classList.add('next-page');
           
           updateButtons();
           isAnimating = false;
@@ -374,22 +375,24 @@
       // Load previous page image
       nextPageImg.src = currentBook.pages[currentPageIndex - 1];
       
-      // Position previous page on left
-      nextPageEl.classList.remove('next-page');
-      nextPageEl.classList.remove('current');
-      nextPageEl.classList.add('prev-page');
+      // Position previous page off-screen right (always slide in from right)
+      nextPageEl.classList.remove('current', 'prev-page', 'sliding-in');
+      nextPageEl.classList.add('next-page');
       
-      // Start animation
+      // Start animation - slide in from right
       setTimeout(() => {
-        nextPageEl.classList.remove('prev-page');
-        nextPageEl.classList.add('current');
-        currentPageEl.classList.remove('current');
-        currentPageEl.classList.add('next-page');
+        nextPageEl.classList.add('sliding-in');
         
-        // After animation completes, swap the pages
+        // After animation completes
         setTimeout(() => {
           // Update index
           currentPageIndex--;
+          
+          // Hide current page and make prev page the new current
+          currentPageEl.classList.remove('current');
+          currentPageEl.classList.add('next-page');
+          nextPageEl.classList.remove('next-page', 'sliding-in');
+          nextPageEl.classList.add('current');
           
           // Swap page roles
           currentPageEl.id = 'nextPageEl';
@@ -400,10 +403,6 @@
           const nextImg = document.getElementById('nextPageImg');
           currentImg.id = 'nextPageImg';
           nextImg.id = 'currentPageImg';
-          
-          // Reset classes for next use
-          currentPageEl.classList.remove('next-page');
-          currentPageEl.classList.add('next-page');
           
           updateButtons();
           isAnimating = false;
