@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Windows Vista Style</title>
+    <title>Portfólio - Windows Vista</title>
     <style>
         * {
             margin: 0;
@@ -34,52 +34,52 @@
         /* Desktop Icons Container */
         .desktop-icons {
             position: absolute;
-            top: 30px;
-            left: 30px;
+            top: 40px;
+            left: 40px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, 140px);
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, 160px);
+            gap: 20px;
         }
 
         /* Individual Desktop Icon */
         .desktop-icon {
-            width: 120px;
+            width: 150px;
             text-align: center;
-            padding: 12px;
+            padding: 5px;
             border-radius: 4px;
             transition: all 0.2s ease;
             cursor: pointer;
         }
 
         .desktop-icon:hover {
-            background: rgba(173, 216, 255, 0.3);
-            box-shadow: 0 0 0 1px rgba(173, 216, 255, 0.5);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
         }
 
         .desktop-icon:active {
-            background: rgba(173, 216, 255, 0.5);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .desktop-icon img {
-            width: 72px;
-            height: 72px;
+            width: 96px;
+            height: 96px;
             display: block;
-            margin: 0 auto 8px;
+            margin: 0 auto 10px;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
         }
 
         .desktop-icon span {
             color: white;
-            font-size: 14px;
-            font-weight: 500;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8),
-                         0 0 8px rgba(0, 0, 0, 0.6);
+            font-size: 16px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9),
+                         0 0 10px rgba(0, 0, 0, 0.7);
             display: block;
             word-wrap: break-word;
             line-height: 1.3;
         }
 
-        /* Window Styles - Enhanced Glass Effect */
+        /* Window Styles - Ultra Glass Effect */
         .window {
             position: absolute;
             min-width: 400px;
@@ -89,7 +89,7 @@
             flex-direction: column;
             overflow: hidden;
             /* Ultra translucent glass effect */
-            background: rgba(240, 240, 240, 0.05);
+            background: rgba(240, 240, 240, 0.02);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
@@ -253,12 +253,12 @@
             transform: rotate(-45deg);
         }
 
-        /* Window Content - Glass Background */
+        /* Window Content - Ultra Glass Background */
         .window-content {
             flex: 1;
-            padding: 20px;
+            padding: 30px;
             overflow: auto;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(10px);
         }
 
@@ -282,63 +282,76 @@
 
         /* Portfolio Content Styles */
         .about-content {
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             color: #000;
             text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
         }
 
         .about-content h1 {
-            color: #1a5490;
-            margin-bottom: 20px;
-            font-size: 28px;
+            color: #000;
+            margin-bottom: 25px;
+            font-size: 32px;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
         .about-content h2 {
-            color: #1a5490;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 20px;
+            color: #000;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 24px;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
         .about-content p {
-            line-height: 1.6;
-            margin-bottom: 15px;
-            color: #222;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #000;
             font-weight: 500;
+            font-size: 16px;
         }
 
-        .portfolio-grid {
+        .gallery-categories {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
         }
 
-        .portfolio-item {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(0, 150, 255, 0.4);
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.2);
             border-radius: 4px;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
             backdrop-filter: blur(5px);
         }
 
-        .portfolio-item:hover {
-            background: rgba(173, 216, 255, 0.3);
+        .gallery-item:hover {
+            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .portfolio-item img {
+        .gallery-item img {
             width: 100%;
-            height: 120px;
+            height: 180px;
             object-fit: cover;
             border-radius: 4px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .gallery-item h3 {
+            color: #000;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .gallery-item p {
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
         }
 
         .service-list {
@@ -346,82 +359,89 @@
         }
 
         .service-list li {
-            background: rgba(255, 255, 255, 0.2);
-            border-left: 4px solid #1a5490;
-            padding: 15px;
-            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid #000;
+            padding: 20px;
+            margin-bottom: 15px;
             border-radius: 0 4px 4px 0;
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
         }
 
         .service-list li:hover {
-            background: rgba(173, 216, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
             transform: translateX(5px);
         }
 
         .service-list li h3 {
-            color: #1a5490;
-            margin-bottom: 5px;
+            color: #000;
+            margin-bottom: 10px;
+            font-size: 20px;
         }
 
         .service-list li p {
-            color: #222;
+            color: #000;
             font-weight: 500;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
-        .contact-form {
-            max-width: 500px;
+        .contact-content {
+            max-width: 600px;
             margin: 0 auto;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #1a5490;
-            font-weight: 600;
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid rgba(0, 150, 255, 0.4);
+        .contact-info {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            font-family: inherit;
+            margin-bottom: 30px;
             backdrop-filter: blur(5px);
-            color: #222;
+        }
+
+        .contact-info h3 {
+            color: #000;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .contact-info p {
+            color: #000;
             font-weight: 500;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #1a5490;
-            background: rgba(255, 255, 255, 0.3);
+        .calendly-section {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 4px;
+            text-align: center;
+            backdrop-filter: blur(5px);
         }
 
-        .submit-btn {
-            background: linear-gradient(to bottom, #4d90fe, #1a5490);
+        .calendly-section h3 {
+            color: #000;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .reserve-btn {
+            background: linear-gradient(to bottom, #333, #000);
             color: white;
             border: none;
-            padding: 10px 30px;
+            padding: 12px 40px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
         }
 
-        .submit-btn:hover {
-            background: linear-gradient(to bottom, #5da0ff, #2a6db0);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        .reserve-btn:hover {
+            background: linear-gradient(to bottom, #555, #222);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         }
 
         /* Taskbar */
@@ -451,9 +471,9 @@
             cursor: pointer;
             position: relative;
             background: radial-gradient(circle at 30% 30%, 
-                rgba(100, 200, 255, 0.8) 0%,
-                rgba(50, 150, 220, 0.6) 40%,
-                rgba(20, 80, 150, 0.4) 100%);
+                rgba(150, 150, 150, 0.8) 0%,
+                rgba(100, 100, 100, 0.6) 40%,
+                rgba(50, 50, 50, 0.4) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -466,12 +486,12 @@
 
         .start-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 2px 12px rgba(100, 200, 255, 0.6),
+            box-shadow: 0 2px 12px rgba(255, 255, 255, 0.4),
                         inset 0 1px 3px rgba(255, 255, 255, 0.6);
             background: radial-gradient(circle at 30% 30%, 
-                rgba(120, 220, 255, 0.9) 0%,
-                rgba(70, 170, 240, 0.7) 40%,
-                rgba(40, 100, 170, 0.5) 100%);
+                rgba(180, 180, 180, 0.9) 0%,
+                rgba(130, 130, 130, 0.7) 40%,
+                rgba(80, 80, 80, 0.5) 100%);
         }
 
         .start-button:active {
@@ -601,27 +621,47 @@
         .resize-handle.nw { top: 0; left: 0; width: 10px; height: 10px; cursor: nw-resize; }
         .resize-handle.se { bottom: 0; right: 0; width: 10px; height: 10px; cursor: se-resize; }
         .resize-handle.sw { bottom: 0; left: 0; width: 10px; height: 10px; cursor: sw-resize; }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-grid img:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
     <div class="desktop">
         <!-- Desktop Icons -->
         <div class="desktop-icons">
-            <div class="desktop-icon" data-app="about">
-                <img src="media/icons/about.png" alt="About Us">
-                <span>About Us</span>
+            <div class="desktop-icon" data-app="sobre">
+                <img src="media/icons/sobre.png" alt="Sobre">
+                <span>SOBRE</span>
             </div>
-            <div class="desktop-icon" data-app="portfolio">
-                <img src="media/icons/portfolio.png" alt="Portfolio">
-                <span>Portfolio</span>
+            <div class="desktop-icon" data-app="galeria">
+                <img src="media/icons/galeria.png" alt="Galeria">
+                <span>GALERIA</span>
             </div>
-            <div class="desktop-icon" data-app="services">
-                <img src="media/icons/services.png" alt="Services">
-                <span>Services</span>
+            <div class="desktop-icon" data-app="servicos">
+                <img src="media/icons/servicos.png" alt="Serviços">
+                <span>SERVIÇOS</span>
             </div>
-            <div class="desktop-icon" data-app="contact">
-                <img src="media/icons/contact.png" alt="Contact">
-                <span>Contact</span>
+            <div class="desktop-icon" data-app="contacto">
+                <img src="media/icons/contacto.png" alt="Contacto + Reservar">
+                <span>CONTACTO<br>+RESERVAR</span>
             </div>
         </div>
     </div>
@@ -632,7 +672,7 @@
     <!-- Taskbar -->
     <div class="taskbar">
         <div class="start-button">
-            <img src="media/windows-icon.png" alt="Windows">
+            <img src="media/icons/windows-icon.png" alt="Windows">
         </div>
         <div class="task-items" id="task-items"></div>
         <div class="system-tray">
@@ -655,259 +695,102 @@
 
         // Window templates
         const windowTemplates = {
-            about: {
-                title: 'About Us',
-                icon: 'media/icons/about.png',
+            sobre: {
+                title: 'SOBRE',
+                icon: 'media/icons/sobre.png',
                 content: `
                     <div class="about-content">
-                        <h1>Welcome to Our Creative Studio</h1>
-                        <p>We are a passionate team of designers, developers, and dreamers dedicated to bringing your digital visions to life. With over 10 years of experience in the industry, we've helped countless businesses establish their online presence.</p>
-                        <p>Our mission is simple: to create beautiful, functional, and user-friendly digital experiences that drive results. We believe in the power of great design and clean code to transform businesses.</p>
-                        <h2 style="color: #1a5490; text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);">Why Choose Us?</h2>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 5px 0; color: #222; font-weight: 500;">✓ Expert team with diverse skills</li>
-                            <li style="padding: 5px 0; color: #222; font-weight: 500;">✓ Cutting-edge technology stack</li>
-                            <li style="padding: 5px 0; color: #222; font-weight: 500;">✓ Customer-centric approach</li>
-                            <li style="padding: 5px 0; color: #222; font-weight: 500;">✓ Proven track record of success</li>
-                        </ul>
-                        <h2 style="color: #1a5490; text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5); margin-top: 20px;">Our Values</h2>
-                        <p>Innovation, integrity, and excellence drive everything we do. We're not just building websites; we're crafting digital experiences that make a difference.</p>
-                    </div>
-                `,
-                width: 700,
-                height: 600
-            },
-            portfolio: {
-                title: 'Portfolio',
-                icon: 'media/icons/portfolio.png',
-                content: `
-                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">Our Recent Work</h1>
-                    <div class="portfolio-grid">
-                        <div class="portfolio-item">
-                            <img src="media/portfolio/project1.png" alt="Project 1">
-                            <h3 style="color: #1a5490;">E-Commerce Platform</h3>
-                            <p style="color: #444; font-weight: 500;">Modern online shopping experience</p>
-                        </div>
-                        <div class="portfolio-item">
-                            <img src="media/portfolio/project2.png" alt="Project 2">
-                            <h3 style="color: #1a5490;">Mobile Banking App</h3>
-                            <p style="color: #444; font-weight: 500;">Secure and intuitive banking</p>
-                        </div>
-                        <div class="portfolio-item">
-                            <img src="media/portfolio/project3.png" alt="Project 3">
-                            <h3 style="color: #1a5490;">SaaS Dashboard</h3>
-                            <p style="color: #444; font-weight: 500;">Analytics and insights platform</p>
-                        </div>
-                        <div class="portfolio-item">
-                            <img src="media/portfolio/project4.png" alt="Project 4">
-                            <h3 style="color: #1a5490;">Restaurant Website</h3>
-                            <p style="color: #444; font-weight: 500;">Elegant dining experience online</p>
-                        </div>
-                        <div class="portfolio-item">
-                            <img src="media/portfolio/project5.png" alt="Project 5">
-                            <h3 style="color: #1a5490;">Healthcare Portal</h3>
-                            <p style="color: #444; font-weight: 500;">Patient management system</p>
-                        </div>
-                        <div class="portfolio-item">
-                            <img src="media/portfolio/project6.png" alt="Project 6">
-                            <h3 style="color: #1a5490;">Real Estate Platform</h3>
-                            <p style="color: #444; font-weight: 500;">Property listings and virtual tours</p>
+                        <h1>Nossa História e Fotografias Nossas</h1>
+                        <p>Somos um estúdio de fotografia apaixonado por capturar momentos únicos e contar histórias através de imagens.</p>
+                        
+                        <div class="photo-grid">
+                            <img src="media/portfolio/photo1.jpg" alt="Nossa fotografia">
+                            <img src="media/portfolio/photo2.jpg" alt="Nossa fotografia">
+                            <img src="media/portfolio/photo3.jpg" alt="Nossa fotografia">
+                            <img src="media/portfolio/photo4.jpg" alt="Nossa fotografia">
+                            <img src="media/portfolio/photo5.jpg" alt="Nossa fotografia">
+                            <img src="media/portfolio/photo6.jpg" alt="Nossa fotografia">
                         </div>
                     </div>
                 `,
-                width: 900,
-                height: 650
+                width: 800,
+                height: 700
             },
-            services: {
-                title: 'Services',
-                icon: 'media/icons/services.png',
+            galeria: {
+                title: 'GALERIA',
+                icon: 'media/icons/galeria.png',
                 content: `
-                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">What We Offer</h1>
+                    <h1 style="color: #000; margin-bottom: 25px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); font-size: 32px;">As Nossas Fotografias Divididas por Temas</h1>
+                    <div class="gallery-categories">
+                        <div class="gallery-item">
+                            <img src="media/portfolio/tema1.jpg" alt="Tema 1">
+                            <h3>Retratos</h3>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="media/portfolio/tema2.jpg" alt="Tema 2">
+                            <h3>Casamentos</h3>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="media/portfolio/tema3.jpg" alt="Tema 3">
+                            <h3>Eventos</h3>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="media/portfolio/tema4.jpg" alt="Tema 4">
+                            <h3>Natureza</h3>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="media/portfolio/tema5.jpg" alt="Tema 5">
+                            <h3>Urbana</h3>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="media/portfolio/tema6.jpg" alt="Tema 6">
+                            <h3>Analógica</h3>
+                        </div>
+                    </div>
+                `,
+                width: 1000,
+                height: 700
+            },
+            servicos: {
+                title: 'SERVIÇOS',
+                icon: 'media/icons/servicos.png',
+                content: `
+                    <h1 style="color: #000; margin-bottom: 25px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); font-size: 32px;">Serviços</h1>
                     <ul class="service-list">
                         <li>
-                            <h3>Web Development</h3>
-                            <p>Custom websites built with modern technologies like React, Vue, and Angular. We create responsive, fast-loading sites that work perfectly on all devices.</p>
+                            <h3>Sessão de Fotos</h3>
                         </li>
                         <li>
-                            <h3>Mobile App Development</h3>
-                            <p>Native and cross-platform apps for iOS and Android. From concept to deployment, we build apps that users love.</p>
+                            <h3>Revelação + Digitalização</h3>
                         </li>
                         <li>
-                            <h3>UI/UX Design</h3>
-                            <p>User-centered design that converts visitors into customers. Beautiful interfaces backed by solid usability research.</p>
-                        </li>
-                        <li>
-                            <h3>Digital Marketing</h3>
-                            <p>SEO, SEM, and social media strategies to grow your brand. We help you reach your target audience effectively.</p>
-                        </li>
-                        <li>
-                            <h3>Cloud Solutions</h3>
-                            <p>Scalable infrastructure and deployment services. We'll help you leverage the power of cloud computing.</p>
+                            <h3>Filmagens Super 8mm</h3>
                         </li>
                     </ul>
                 `,
-                width: 700,
+                width: 800,
                 height: 600
             },
-            store: {
-                title: 'Store',
-                icon: 'media/icons/store.png',
+            contacto: {
+                title: 'CONTACTO+RESERVAR',
+                icon: 'media/icons/contacto.png',
                 content: `
-                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">Our Products</h1>
-                    <div class="store-items">
-                        <div class="store-item">
-                            <h3 style="color: #1a5490;">Starter Website Package</h3>
-                            <p class="price">$999</p>
-                            <p style="color: #444; font-weight: 500;">5 pages, responsive design, SEO basics</p>
-                            <button class="submit-btn">Purchase</button>
+                    <div class="contact-content">
+                        <h1 style="color: #000; margin-bottom: 25px; text-align: center; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); font-size: 32px;">Contacto + Reservar</h1>
+                        
+                        <div class="contact-info">
+                            <h3>Contactos</h3>
                         </div>
-                        <div class="store-item">
-                            <h3 style="color: #1a5490;">Professional Package</h3>
-                            <p class="price">$2,499</p>
-                            <p style="color: #444; font-weight: 500;">10 pages, CMS, advanced SEO, analytics</p>
-                            <button class="submit-btn">Purchase</button>
-                        </div>
-                        <div class="store-item">
-                            <h3 style="color: #1a5490;">Enterprise Solution</h3>
-                            <p class="price">$9,999+</p>
-                            <p style="color: #444; font-weight: 500;">Custom development, unlimited pages</p>
-                            <button class="submit-btn">Get Quote</button>
-                        </div>
-                        <div class="store-item">
-                            <h3 style="color: #1a5490;">Monthly Maintenance</h3>
-                            <p class="price">$199/mo</p>
-                            <p style="color: #444; font-weight: 500;">Updates, backups, 24/7 support</p>
-                            <button class="submit-btn">Subscribe</button>
+                        
+                        <div class="calendly-section">
+                            <h3>Calendly</h3>
+                            <p style="margin-bottom: 20px; color: #000; font-weight: 500;">Sistema de reservas online</p>
+                            <button class="reserve-btn" onclick="alert('Calendly seria integrado aqui')">Reservar</button>
                         </div>
                     </div>
                 `,
                 width: 700,
                 height: 500
-            },
-            blog: {
-                title: 'Blog',
-                icon: 'media/icons/blog.png',
-                content: `
-                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">Latest Articles</h1>
-                    <div style="max-width: 700px; margin: 0 auto;">
-                        <article style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.1);">
-                            <h2 style="color: #1a5490;">The Future of Web Design in 2024</h2>
-                            <p style="color: #666; font-size: 12px; font-weight: 600;">Posted on January 15, 2024</p>
-                            <p style="color: #222; font-weight: 500;">Explore the latest trends in web design including AI integration, immersive experiences, and sustainable design practices...</p>
-                            <a href="#" style="color: #1a5490; font-weight: bold;">Read more →</a>
-                        </article>
-                        <article style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.1);">
-                            <h2 style="color: #1a5490;">Mobile-First Development Best Practices</h2>
-                            <p style="color: #666; font-size: 12px; font-weight: 600;">Posted on January 10, 2024</p>
-                            <p style="color: #222; font-weight: 500;">Learn why mobile-first design is crucial for modern websites and how to implement it effectively...</p>
-                            <a href="#" style="color: #1a5490; font-weight: bold;">Read more →</a>
-                        </article>
-                        <article style="margin-bottom: 30px;">
-                            <h2 style="color: #1a5490;">Understanding Core Web Vitals</h2>
-                            <p style="color: #666; font-size: 12px; font-weight: 600;">Posted on January 5, 2024</p>
-                            <p style="color: #222; font-weight: 500;">A comprehensive guide to Google's Core Web Vitals and how they impact your site's SEO performance...</p>
-                            <a href="#" style="color: #1a5490; font-weight: bold;">Read more →</a>
-                        </article>
-                    </div>
-                `,
-                width: 700,
-                height: 600
-            },
-            contact: {
-                title: 'Contact Us',
-                icon: 'media/icons/contact.png',
-                content: `
-                    <div class="contact-form">
-                        <h1 style="color: #1a5490; margin-bottom: 20px; text-align: center; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">Get In Touch</h1>
-                        <form>
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" placeholder="Your name">
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" placeholder="your@email.com">
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="tel" placeholder="+1 (555) 123-4567">
-                            </div>
-                            <div class="form-group">
-                                <label>Project Type</label>
-                                <select style="width: 100%; padding: 8px; border: 1px solid rgba(0, 150, 255, 0.4); border-radius: 4px; background: rgba(255, 255, 255, 0.2); font-family: inherit; backdrop-filter: blur(5px); color: #222; font-weight: 500;">
-                                    <option>Web Development</option>
-                                    <option>Mobile App</option>
-                                    <option>UI/UX Design</option>
-                                    <option>Digital Marketing</option>
-                                    <option>Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Message</label>
-                                <textarea rows="6" placeholder="Tell us about your project..."></textarea>
-                            </div>
-                            <div style="text-align: center;">
-                                <button type="submit" class="submit-btn">Send Message</button>
-                            </div>
-                        </form>
-                    </div>
-                `,
-                width: 600,
-                height: 650
-            },
-            team: {
-                title: 'Our Team',
-                icon: 'media/icons/team.png',
-                content: `
-                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">Meet Our Team</h1>
-                    <div class="portfolio-grid">
-                        <div class="portfolio-item">
-                            <img src="media/team/member1.png" alt="Team Member 1" style="border-radius: 50%;">
-                            <h3 style="color: #1a5490;">John Doe</h3>
-                            <p style="color: #444; font-weight: 500;">CEO & Founder</p>
-                        </div>
-                        <div class="portfolio-item">
-                            <img src="media/team/member2.png" alt="Team Member 2" style="border-radius: 50%;">
-                            <h3 style="color: #1a5490;">Jane Smith</h3>
-                            <p style="color: #444; font-weight: 500;">Lead Designer</p>
-                        </div>
-                        <div class="portfolio-item">
-                            <img src="media/team/member3.png" alt="Team Member 3" style="border-radius: 50%;">
-                            <h3 style="color: #1a5490;">Mike Johnson</h3>
-                            <p style="color: #444; font-weight: 500;">Senior Developer</p>
-                        </div>
-                        <div class="portfolio-item">
-                            <img src="media/team/member4.png" alt="Team Member 4" style="border-radius: 50%;">
-                            <h3 style="color: #1a5490;">Sarah Williams</h3>
-                            <p style="color: #444; font-weight: 500;">Marketing Director</p>
-                        </div>
-                    </div>
-                `,
-                width: 700,
-                height: 500
-            },
-            testimonials: {
-                title: 'Testimonials',
-                icon: 'media/icons/testimonials.png',
-                content: `
-                    <h1 style="color: #1a5490; margin-bottom: 20px; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);">What Our Clients Say</h1>
-                    <div style="max-width: 600px; margin: 0 auto;">
-                        <div style="background: rgba(255,255,255,0.3); padding: 20px; margin-bottom: 20px; border-left: 4px solid #1a5490; backdrop-filter: blur(5px);">
-                            <p style="font-style: italic; margin-bottom: 10px; color: #222; font-weight: 500;">"Working with this team was an absolute pleasure. They transformed our outdated website into a modern masterpiece that our customers love!"</p>
-                            <p style="text-align: right; color: #444; font-weight: 600;">- Michael Chen, TechStart Inc.</p>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.3); padding: 20px; margin-bottom: 20px; border-left: 4px solid #1a5490; backdrop-filter: blur(5px);">
-                            <p style="font-style: italic; margin-bottom: 10px; color: #222; font-weight: 500;">"Professional, creative, and always on time. They exceeded our expectations in every way."</p>
-                            <p style="text-align: right; color: #444; font-weight: 600;">- Amanda Rodriguez, Fashion Forward</p>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.3); padding: 20px; border-left: 4px solid #1a5490; backdrop-filter: blur(5px);">
-                            <p style="font-style: italic; margin-bottom: 10px; color: #222; font-weight: 500;">"The best investment we made for our business. Our online sales increased by 200% after the redesign!"</p>
-                            <p style="text-align: right; color: #444; font-weight: 600;">- David Park, GreenLife Store</p>
-                        </div>
-                    </div>
-                `,
-                width: 600,
-                height: 450
             }
         };
 
@@ -926,14 +809,14 @@
                 return windowId;
             }
 
-            const template = windowTemplates[appType] || windowTemplates.about;
+            const template = windowTemplates[appType] || windowTemplates.sobre;
             const windowId = `window-${windowIdCounter++}`;
             
             const window = document.createElement('div');
             window.className = 'window active';
             window.id = windowId;
-            window.style.width = (template.width || 700) + 'px';
-            window.style.height = (template.height || 500) + 'px';
+            window.style.width = (template.width || 800) + 'px';
+            window.style.height = (template.height || 600) + 'px';
             window.style.top = (50 + (windowIdCounter * 30) % 200) + 'px';
             window.style.left = (50 + (windowIdCounter * 30) % 200) + 'px';
             window.style.zIndex = ++windowZIndex;
@@ -1201,7 +1084,7 @@
 
         // Start button click
         document.querySelector('.start-button').addEventListener('click', function() {
-            alert('Welcome to our portfolio! Click any desktop icon to explore our services.');
+            alert('Bem-vindo ao nosso portfólio de fotografia! Clique em qualquer ícone para explorar.');
         });
 
         // Show desktop button
