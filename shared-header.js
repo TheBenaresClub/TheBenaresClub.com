@@ -20,6 +20,35 @@ function createHeader() {
   `;
 }
 
+// =================================
+// RANDOM COLORED BOX SHADOWS
+// =================================
+
+function generateRandomColor() {
+  const hue = Math.floor(Math.random() * 360);
+  const saturation = Math.floor(Math.random() * 40) + 60; // 60-100% (vibrant colors)
+  const lightness = Math.floor(Math.random() * 30) + 60;  // 60-90% (brighter, not too dark)
+  const alpha = (Math.random() * 0.4) + 0.3; // 0.3-0.7 (more visible, not too transparent)
+  
+  return `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+}
+
+function applyRandomBoxShadows() {
+  const allElements = document.querySelectorAll('*');
+  
+  allElements.forEach(element => {
+    const randomColor = generateRandomColor();
+    const shadowSize = Math.floor(Math.random() * 3) + 1; // 1-4px
+    const shadowBlur = Math.floor(Math.random() * 8) + 2; // 2-10px
+    
+    // Create random shadow offset
+    const offsetX = (Math.random() - 0.5) * 4; // -2 to 2px
+    const offsetY = (Math.random() - 0.5) * 4; // -2 to 2px
+    
+    element.style.boxShadow = `${offsetX}px ${offsetY}px ${shadowBlur}px ${randomColor}`;
+  });
+}
+
 // Insert header into page
 document.addEventListener('DOMContentLoaded', function() {
   const headerContainer = document.getElementById('header-container');
@@ -33,4 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
       currentLink.classList.add('active');
     }
   }
+
+  // Apply random box shadows after everything loads
+  setTimeout(applyRandomBoxShadows, 200);
 });
+
+// Optional: Refresh colors every few seconds (uncomment to enable)
+// setInterval(applyRandomBoxShadows, 5000);
