@@ -8,6 +8,118 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="./media/A00 Logo - Light.png" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    /* Container for the image with clickable areas */
+    .image-map-container {
+      position: relative;
+      display: inline-block;
+      margin: 2rem auto;
+      max-width: 90%;
+    }
+    
+    .Tablacontacto {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    /* Base style for all clickable areas */
+    .clickable-area {
+      position: absolute;
+      cursor: pointer;
+      /* Transparent by default, but visible due to box-shadow from your debug script */
+      background-color: rgba(255, 255, 255, 0.01); /* Almost invisible but still catches clicks */
+      transition: background-color 0.3s ease;
+    }
+    
+    /* Hover effect for clickable areas */
+    .clickable-area:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(2px);
+    }
+    
+    /* Define your clickable zones here */
+    /* Adjust these percentages based on where you want the clickable areas */
+    
+    /* Example Area 1 - Top left zone */
+    .area-instagram {
+      top: 10%;
+      left: 5%;
+      width: 20%;
+      height: 15%;
+    }
+    
+    /* Example Area 2 - Top right zone */
+    .area-facebook {
+      top: 10%;
+      right: 5%;
+      width: 20%;
+      height: 15%;
+    }
+    
+    /* Example Area 3 - Center zone */
+    .area-email {
+      top: 40%;
+      left: 35%;
+      width: 30%;
+      height: 20%;
+    }
+    
+    /* Example Area 4 - Bottom left zone */
+    .area-youtube {
+      bottom: 10%;
+      left: 5%;
+      width: 20%;
+      height: 15%;
+    }
+    
+    /* Example Area 5 - Bottom right zone */
+    .area-twitter {
+      bottom: 10%;
+      right: 5%;
+      width: 20%;
+      height: 15%;
+    }
+    
+    /* Example Area 6 - Middle left zone */
+    .area-tiktok {
+      top: 40%;
+      left: 5%;
+      width: 20%;
+      height: 20%;
+    }
+    
+    /* Tooltip that appears on hover (optional) */
+    .area-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      margin-bottom: 5px;
+    }
+    
+    .clickable-area:hover .area-tooltip {
+      opacity: 1;
+    }
+    
+    /* Center the container */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 </head>
 <body class="bg-contactos">
 
@@ -15,32 +127,64 @@
   <div id="header-container"></div>
 
   <main>
-  <!-- Fixed: Update local image to use underscore file name -->
-  <img class="Tablacontacto" src="./Imagenes/01_Tabla_Contactos_(1).png">
-
-  <a href="https://www.instagram.com/thebenaresclub" target="_blank">
-    <button id="IG-logo"></button>
-  </a>
+    <!-- Image with clickable areas -->
+    <div class="image-map-container">
+      <img class="Tablacontacto" src="./Imagenes/01_Tabla_Contactos_(1).png" alt="Tabla de Contactos">
+      
+      <!-- Clickable areas overlaid on the image -->
+      <!-- Adjust the classes and positions according to your image layout -->
+      
+      <a href="https://www.instagram.com/thebenaresclub" target="_blank" class="clickable-area area-instagram">
+        <span class="area-tooltip">Instagram</span>
+      </a>
+      
+      <a href="https://www.facebook.com/people/Club-Benares/100092833234889/" target="_blank" class="clickable-area area-facebook">
+        <span class="area-tooltip">Facebook</span>
+      </a>
+      
+      <a href="mailto:charlie@thebenaresclub.com" class="clickable-area area-email">
+        <span class="area-tooltip">Email</span>
+      </a>
+      
+      <a href="https://www.youtube.com/@TheBenaresClub" target="_blank" class="clickable-area area-youtube">
+        <span class="area-tooltip">YouTube</span>
+      </a>
+      
+      <a href="https://x.com/thebenaresclub" target="_blank" class="clickable-area area-twitter">
+        <span class="area-tooltip">X (Twitter)</span>
+      </a>
+      
+      <a href="https://tiktok.com/@thebenaresclub" target="_blank" class="clickable-area area-tiktok">
+        <span class="area-tooltip">TikTok</span>
+      </a>
+    </div>
     
-  <a href="https://www.facebook.com/people/Club-Benares/100092833234889/" target="_blank">
-    <button id="FB-logo"></button>
-  </a>
-    
-  <a href="https://www.youtube.com/@TheBenaresClub" target="_blank">
-    <button id="YT-logo"></button>
-  </a>
-    
-  <a href="https://x.com/thebenaresclub" target="_blank">
-    <button id="X-logo"></button>
-  </a>
-    
-  <a href="https://tiktok.com/@thebenaresclub" target="_blank">
-    <button id="TK-logo"></button>
-  </a>
-  
-  <a href="mailto:charlie@thebenaresclub.com" target="_blank">
-    <button id="Charlie-logo"></button>
-  </a>
+    <!-- Keep the original buttons as fallback or additional elements -->
+    <div style="display: none;">
+      <a href="https://www.instagram.com/thebenaresclub" target="_blank">
+        <button id="IG-logo"></button>
+      </a>
+      
+      <a href="https://www.facebook.com/people/Club-Benares/100092833234889/" target="_blank">
+        <button id="FB-logo"></button>
+      </a>
+      
+      <a href="https://www.youtube.com/@TheBenaresClub" target="_blank">
+        <button id="YT-logo"></button>
+      </a>
+      
+      <a href="https://x.com/thebenaresclub" target="_blank">
+        <button id="X-logo"></button>
+      </a>
+      
+      <a href="https://tiktok.com/@thebenaresclub" target="_blank">
+        <button id="TK-logo"></button>
+      </a>
+      
+      <a href="mailto:charlie@thebenaresclub.com" target="_blank">
+        <button id="Charlie-logo"></button>
+      </a>
+    </div>
   </main>
 
   <footer>
@@ -55,6 +199,31 @@
 
   <!-- Load shared header -->
   <script src="shared-header.js"></script>
+  
+  <script>
+    // Optional: Add click feedback or tracking
+    document.querySelectorAll('.clickable-area').forEach(area => {
+      area.addEventListener('click', function(e) {
+        // You can add analytics or visual feedback here
+        console.log('Clicked area:', this.className);
+        
+        // Optional: Add a ripple effect on click
+        this.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+        setTimeout(() => {
+          this.style.backgroundColor = 'rgba(255, 255, 255, 0.01)';
+        }, 300);
+      });
+    });
+    
+    // Optional: Show bounds of clickable areas for debugging
+    // Remove this in production
+    const debugMode = true; // Set to false to hide debug visuals
+    if (debugMode) {
+      document.querySelectorAll('.clickable-area').forEach(area => {
+        area.style.border = '1px dashed rgba(255, 255, 255, 0.3)';
+      });
+    }
+  </script>
 
 </body>
 </html>
