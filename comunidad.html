@@ -5,9 +5,302 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comunidade | Club Benares</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="./media/A00 Logo - Light.png" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    /* Corkboard styling */
+    .corkboard {
+      padding: 2rem;
+      min-height: calc(100vh - 200px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-start;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* Base sticky note styles */
+    .sticky-note {
+      width: 220px;
+      min-height: 220px;
+      padding: 20px 15px 15px 15px;
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.85) 100%);
+      font-family: 'Kalam', cursive;
+      color: #333;
+      box-shadow: 
+        2px 2px 5px rgba(0,0,0,0.2),
+        inset -1px -1px 2px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Sticky note tape effect */
+    .sticky-note::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 30px;
+      background: rgba(255,255,255,0.4);
+      border: 1px solid rgba(200,200,200,0.3);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Yellow sticky notes */
+    .sticky-yellow {
+      background: linear-gradient(135deg, #ffeb3b 0%, #ffc107 100%);
+    }
+    .sticky-yellow::before {
+      background: rgba(255,235,59,0.3);
+    }
+
+    /* Pink sticky notes */
+    .sticky-pink {
+      background: linear-gradient(135deg, #ff6b9d 0%, #ee5a6f 100%);
+    }
+    .sticky-pink::before {
+      background: rgba(255,107,157,0.3);
+    }
+
+    /* Blue sticky notes */
+    .sticky-blue {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .sticky-blue::before {
+      background: rgba(102,126,234,0.3);
+    }
+    .sticky-blue a {
+      color: #ffeb3b !important;
+    }
+
+    /* Green sticky notes */
+    .sticky-green {
+      background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    }
+    .sticky-green::before {
+      background: rgba(132,250,176,0.3);
+    }
+
+    /* Orange sticky notes */
+    .sticky-orange {
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+    .sticky-orange::before {
+      background: rgba(250,112,154,0.3);
+    }
+
+    /* Purple sticky notes */
+    .sticky-purple {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    }
+    .sticky-purple::before {
+      background: rgba(168,237,234,0.3);
+    }
+
+    /* Rotation classes */
+    .tilt-left {
+      transform: rotate(-5deg);
+    }
+    .tilt-right {
+      transform: rotate(4deg);
+    }
+    .tilt-left-small {
+      transform: rotate(-2deg);
+    }
+    .tilt-right-small {
+      transform: rotate(3deg);
+    }
+    .tilt-left-large {
+      transform: rotate(-8deg);
+    }
+
+    /* Hover effects */
+    .sticky-note:hover {
+      transform: rotate(0deg) scale(1.05);
+      box-shadow: 
+        4px 4px 12px rgba(0,0,0,0.3),
+        inset -1px -1px 2px rgba(0,0,0,0.05);
+      z-index: 10;
+    }
+
+    /* Sticky note content */
+    .sticky-note h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .sticky-note p {
+      font-size: 1rem;
+      line-height: 1.4;
+      margin-bottom: 0.8rem;
+      flex-grow: 1;
+    }
+
+    .sticky-note a {
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s ease;
+      display: inline-block;
+      margin-top: auto;
+    }
+
+    .sticky-note a:hover {
+      border-bottom-color: currentColor;
+    }
+
+    /* Special handwritten-style list */
+    .sticky-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0;
+    }
+
+    .sticky-list li {
+      padding: 0.3rem 0;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+
+    .sticky-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: inherit;
+      opacity: 0.7;
+    }
+
+    /* Polaroid-style images */
+    .corkboard-photo {
+      width: 220px;
+      height: 440px;
+      position: relative;
+      background: white;
+      padding: 10px 10px 50px 10px;
+      box-shadow: 
+        2px 2px 8px rgba(0,0,0,0.3),
+        inset 0 0 2px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Photo frame effect */
+    .corkboard-photo::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, #c0c0c0 0%, #808080 100%);
+      border-radius: 50%;
+      box-shadow: 
+        0 2px 4px rgba(0,0,0,0.3),
+        inset 0 -1px 2px rgba(255,255,255,0.5);
+      z-index: 1;
+    }
+
+    /* Push pin shadow */
+    .corkboard-photo::after {
+      content: '';
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.2);
+      filter: blur(3px);
+      z-index: 0;
+    }
+
+    /* Image container */
+    .photo-image {
+      width: 100%;
+      height: 370px;
+      background-size: cover;
+      background-position: center;
+      background-color: #f0f0f0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Photo caption */
+    .photo-caption {
+      font-family: 'Kalam', cursive;
+      text-align: center;
+      color: #333;
+      font-size: 0.9rem;
+      padding-top: 10px;
+      font-weight: 400;
+    }
+
+    /* Different photo tilts */
+    .photo-tilt-left {
+      transform: rotate(-4deg);
+    }
+    .photo-tilt-right {
+      transform: rotate(3deg);
+    }
+    .photo-tilt-slight {
+      transform: rotate(-1deg);
+    }
+
+    /* Photo hover effect */
+    .corkboard-photo:hover {
+      transform: rotate(0deg) scale(1.02);
+      box-shadow: 
+        4px 4px 15px rgba(0,0,0,0.4),
+        inset 0 0 2px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .corkboard {
+        padding: 1rem;
+        gap: 1.5rem;
+      }
+      
+      .sticky-note {
+        width: 180px;
+        min-height: 180px;
+        font-size: 0.9rem;
+      }
+
+      .corkboard-photo {
+        width: 180px;
+        height: 360px;
+      }
+
+      .photo-image {
+        height: 300px;
+      }
+    }
+
+    /* Keep main scrollable */
+    main {
+      overflow-y: auto !important;
+    }
+  </style>
 </head>
 <body class="bg-comunidade">
 
@@ -15,7 +308,136 @@
   <div id="header-container"></div>
 
   <main>
+    <div class="corkboard">
+      
+      <!-- Welcome Note -->
+      <div class="sticky-note sticky-yellow tilt-left">
+        <h3>Bem-vindo!</h3>
+        <p>A nossa comunidade é um espaço de partilha, criatividade e conexão. Junte-se a nós!</p>
+        <a href="https://www.instagram.com/thebenaresclub" target="_blank">Seguir no Instagram →</a>
+      </div>
 
+      <!-- Events Reminder -->
+      <div class="sticky-note sticky-pink tilt-right-small">
+        <h3>Próximo Evento</h3>
+        <p>Não perca o nosso próximo encontro! Música ao vivo, arte e boa companhia.</p>
+        <a href="eventos.html">Ver Calendário →</a>
+      </div>
+
+      <!-- Photo 1 - Event Photo -->
+      <div class="corkboard-photo photo-tilt-left">
+        <div class="photo-image" style="background-image: url('https://source.unsplash.com/random/220x370/?party,event');"></div>
+        <div class="photo-caption">Última sessão DJ - Jan 2025</div>
+      </div>
+
+      <!-- Discord Community -->
+      <div class="sticky-note sticky-blue tilt-left-small">
+        <h3>Discord</h3>
+        <p>Junte-se ao nosso servidor Discord para conversas diárias e eventos exclusivos online!</p>
+        <a href="https://discord.gg/benares" target="_blank">Entrar no Discord →</a>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="sticky-note sticky-green">
+        <h3>Newsletter</h3>
+        <p>Receba as últimas novidades e convites exclusivos diretamente no seu email.</p>
+        <a href="mailto:charlie@thebenaresclub.com?subject=Newsletter">Subscrever →</a>
+      </div>
+
+      <!-- Member Benefits -->
+      <div class="sticky-note sticky-orange tilt-right">
+        <h3>Benefícios</h3>
+        <ul class="sticky-list">
+          <li>Acesso antecipado</li>
+          <li>Descontos exclusivos</li>
+          <li>Eventos privados</li>
+          <li>Biblioteca digital</li>
+        </ul>
+        <a href="mercado.html">Saber mais →</a>
+      </div>
+
+      <!-- Photo 2 - Art Exhibition -->
+      <div class="corkboard-photo photo-tilt-right">
+        <div class="photo-image" style="background-image: url('https://source.unsplash.com/random/220x370/?art,gallery');"></div>
+        <div class="photo-caption">Exposição de Arte - Dez 2024</div>
+      </div>
+
+      <!-- Collaborations -->
+      <div class="sticky-note sticky-purple tilt-left-large">
+        <h3>Colaborações</h3>
+        <p>Interessado em colaborar? Estamos sempre abertos a novas ideias e parcerias criativas!</p>
+        <a href="mailto:charlie@thebenaresclub.com?subject=Colaboração">Contactar →</a>
+      </div>
+
+      <!-- Workshop Alert -->
+      <div class="sticky-note sticky-yellow tilt-right-small">
+        <h3>Workshop!</h3>
+        <p>Novo workshop de arte digital este mês. Vagas limitadas!</p>
+        <a href="laboratorio.html">Inscrever →</a>
+      </div>
+
+      <!-- Photo 3 - Community Gathering -->
+      <div class="corkboard-photo photo-tilt-slight">
+        <div class="photo-image" style="background-image: url('https://source.unsplash.com/random/220x370/?people,community');"></div>
+        <div class="photo-caption">Encontro Mensal - Nov 2024</div>
+      </div>
+
+      <!-- Community Rules -->
+      <div class="sticky-note sticky-pink">
+        <h3>Código de Conduta</h3>
+        <ul class="sticky-list">
+          <li>Respeito mútuo</li>
+          <li>Criatividade livre</li>
+          <li>Partilha de conhecimento</li>
+        </ul>
+        <a href="https://docs.google.com/community-rules" target="_blank">Ler completo →</a>
+      </div>
+
+      <!-- Film Club -->
+      <div class="sticky-note sticky-blue tilt-left-small">
+        <h3>Clube de Cinema</h3>
+        <p>Todas as quintas às 20h. Esta semana: Cinema Português Contemporâneo</p>
+        <a href="cinemateca.html">Ver Programa →</a>
+      </div>
+
+      <!-- Book Club -->
+      <div class="sticky-note sticky-green tilt-right">
+        <h3>Clube do Livro</h3>
+        <p>Leitura do mês: "O Ano da Morte de Ricardo Reis" - José Saramago</p>
+        <a href="biblioteca.html">Juntar-se →</a>
+      </div>
+
+      <!-- Photo 4 - Workshop Scene -->
+      <div class="corkboard-photo photo-tilt-left">
+        <div class="photo-image" style="background-image: url('https://source.unsplash.com/random/220x370/?workshop,creative');"></div>
+        <div class="photo-caption">Workshop de Criatividade</div>
+      </div>
+
+      <!-- Volunteer -->
+      <div class="sticky-note sticky-orange tilt-left">
+        <h3>Voluntariado</h3>
+        <p>Ajude-nos a crescer! Precisamos de voluntários para eventos e projetos comunitários.</p>
+        <a href="mailto:charlie@thebenaresclub.com?subject=Voluntariado">Candidatar →</a>
+      </div>
+
+      <!-- Social Media -->
+      <div class="sticky-note sticky-purple tilt-right-small">
+        <h3>Redes Sociais</h3>
+        <ul class="sticky-list">
+          <li>Instagram: @thebenaresclub</li>
+          <li>Twitter: @benares_club</li>
+          <li>TikTok: @clubbenares</li>
+        </ul>
+        <a href="https://linktr.ee/clubbenares" target="_blank">Todos os links →</a>
+      </div>
+
+      <!-- Photo 5 - Music Night -->
+      <div class="corkboard-photo photo-tilt-right">
+        <div class="photo-image" style="background-image: url('https://source.unsplash.com/random/220x370/?music,concert');"></div>
+        <div class="photo-caption">Noite de Jazz - Out 2024</div>
+      </div>
+
+    </div>
   </main>
 
   <footer>
