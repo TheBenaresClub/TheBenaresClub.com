@@ -39,55 +39,78 @@
       backdrop-filter: blur(2px);
     }
     
-    /* Define your clickable zones here */
-    /* Adjust these percentages based on where you want the clickable areas */
+    /* Define your clickable zones based on the actual image layout */
     
-    /* Example Area 1 - Top left zone */
-    .area-instagram {
-      top: 10%;
-      left: 5%;
-      width: 20%;
-      height: 15%;
+    /* X (Twitter) - Left side */
+    .area-twitter {
+      top: 35%;
+      left: 12%;
+      width: 10%;
+      height: 12%;
     }
     
-    /* Example Area 2 - Top right zone */
+    /* Facebook - Bottom left */
     .area-facebook {
-      top: 10%;
-      right: 5%;
-      width: 20%;
-      height: 15%;
+      top: 68%;
+      left: 20%;
+      width: 10%;
+      height: 12%;
     }
     
-    /* Example Area 3 - Center zone */
+    /* Instagram - Bottom center-right */
+    .area-instagram {
+      top: 72%;
+      left: 45%;
+      width: 12%;
+      height: 13%;
+    }
+    
+    /* TikTok - Top right */
+    .area-tiktok {
+      top: 18%;
+      left: 78%;
+      width: 10%;
+      height: 12%;
+    }
+    
+    /* YouTube - Right side */
+    .area-youtube {
+      top: 58%;
+      left: 82%;
+      width: 12%;
+      height: 12%;
+    }
+    
+    /* Email (Charlie@TheBenaresClub.com) - Top center */
     .area-email {
-      top: 40%;
+      top: 8%;
       left: 35%;
       width: 30%;
-      height: 20%;
+      height: 8%;
     }
     
-    /* Example Area 4 - Bottom left zone */
-    .area-youtube {
-      bottom: 10%;
+    /* Phone numbers - Top left */
+    .area-phone {
+      top: 15%;
       left: 5%;
-      width: 20%;
-      height: 15%;
+      width: 12%;
+      height: 8%;
     }
     
-    /* Example Area 5 - Bottom right zone */
-    .area-twitter {
-      bottom: 10%;
-      right: 5%;
-      width: 20%;
-      height: 15%;
-    }
-    
-    /* Example Area 6 - Middle left zone */
-    .area-tiktok {
+    /* Central accessibility icon (if needed) */
+    .area-central {
       top: 40%;
-      left: 5%;
-      width: 20%;
+      left: 42%;
+      width: 16%;
       height: 20%;
+    }
+    
+    /* CB? text area (if clickable) */
+    .area-cb {
+      top: 25%;
+      left: 45%;
+      width: 15%;
+      height: 10%;
     }
     
     /* Tooltip that appears on hover (optional) */
@@ -132,31 +155,55 @@
       <img class="Tablacontacto" src="./Imagenes/01_Tabla_Contactos_(1).png" alt="Tabla de Contactos">
       
       <!-- Clickable areas overlaid on the image -->
-      <!-- Adjust the classes and positions according to your image layout -->
       
-      <a href="https://www.instagram.com/thebenaresclub" target="_blank" class="clickable-area area-instagram">
-        <span class="area-tooltip">Instagram</span>
+      <!-- Email - Top center -->
+      <a href="mailto:charlie@thebenaresclub.com" class="clickable-area area-email">
+        <span class="area-tooltip">Charlie@TheBenaresClub.com</span>
       </a>
       
+      <!-- Phone - Top left (if visible in your image) -->
+      <a href="tel:+351931677965" class="clickable-area area-phone">
+        <span class="area-tooltip">Call Us</span>
+      </a>
+      
+      <!-- X (Twitter) - Left side -->
+      <a href="https://x.com/thebenaresclub" target="_blank" class="clickable-area area-twitter">
+        <span class="area-tooltip">X</span>
+      </a>
+      
+      <!-- Facebook - Bottom left -->
       <a href="https://www.facebook.com/people/Club-Benares/100092833234889/" target="_blank" class="clickable-area area-facebook">
         <span class="area-tooltip">Facebook</span>
       </a>
       
-      <a href="mailto:charlie@thebenaresclub.com" class="clickable-area area-email">
-        <span class="area-tooltip">Email</span>
+      <!-- Instagram - Bottom center -->
+      <a href="https://www.instagram.com/thebenaresclub" target="_blank" class="clickable-area area-instagram">
+        <span class="area-tooltip">Instagram</span>
       </a>
       
+      <!-- TikTok - Top right -->
+      <a href="https://tiktok.com/@thebenaresclub" target="_blank" class="clickable-area area-tiktok">
+        <span class="area-tooltip">TikTok</span>
+      </a>
+      
+      <!-- YouTube - Right side -->
       <a href="https://www.youtube.com/@TheBenaresClub" target="_blank" class="clickable-area area-youtube">
         <span class="area-tooltip">YouTube</span>
       </a>
       
-      <a href="https://x.com/thebenaresclub" target="_blank" class="clickable-area area-twitter">
-        <span class="area-tooltip">X (Twitter)</span>
+      <!-- Optional: Central icon (uncomment if needed) -->
+      <!--
+      <a href="index.html" class="clickable-area area-central">
+        <span class="area-tooltip">Accessibility</span>
       </a>
+      -->
       
-      <a href="https://tiktok.com/@thebenaresclub" target="_blank" class="clickable-area area-tiktok">
-        <span class="area-tooltip">TikTok</span>
+      <!-- Optional: CB? area (uncomment if needed) -->
+      <!--
+      <a href="index.html" class="clickable-area area-cb">
+        <span class="area-tooltip">Club Benares</span>
       </a>
+      -->
     </div>
     
     <!-- Keep the original buttons as fallback or additional elements -->
