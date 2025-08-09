@@ -57,8 +57,8 @@
       display: flex;
       gap: 1%;
       align-items: flex-end;
-      left: 35%;
-      bottom: 38%;
+      left: 30%;  /* Adjusted for bigger books */
+      bottom: 35%;  /* Adjusted for bigger books */
       flex-direction: row;
     }
     
@@ -74,9 +74,9 @@
     }
     
     .LIVRO img {
-      height: calc(900px * 0.18);
-      max-height: 160px;
-      min-height: 100px;
+      height: calc(900px * 0.27); /* 1.5x bigger (was 0.18) */
+      max-height: 240px; /* 1.5x bigger (was 160px) */
+      min-height: 150px; /* 1.5x bigger (was 100px) */
       width: auto;
       border-radius: 2px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -84,9 +84,9 @@
     
     @media (max-width: 900px) {
       .LIVRO img {
-        height: 18vw;
-        max-height: 160px;
-        min-height: 80px;
+        height: 27vw; /* 1.5x bigger (was 18vw) */
+        max-height: 240px;
+        min-height: 120px;
       }
     }
     
@@ -114,7 +114,7 @@
     /* Book Cover (Tapa) */
     .book-cover {
       position: absolute;
-      width: 600px;
+      width: 700px;  /* Bigger from 600px */
       max-width: 90%;
       height: auto;
       cursor: pointer;
@@ -181,15 +181,15 @@
       max-width: 1270px;
     }
     
-    /* Navigation Menu */
+    /* Navigation Menu - positioned like left page */
     .book-nav-menu {
       position: fixed;
-      left: 50px;
-      top: 50%;
+      left: 280px;  /* Moved right from 50px */
+      top: 45%;     /* Moved up from 50% */
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 10px;    /* Smaller gap */
       z-index: 10002;
     }
     
@@ -198,11 +198,11 @@
       border: none;
       color: white;
       font-family: 'Montserrat', sans-serif;
-      font-size: 40px;
+      font-size: 32px;  /* Smaller from 40px */
       font-weight: 500;
       cursor: pointer;
       text-align: left;
-      padding: 10px 0;
+      padding: 8px 0;   /* Smaller padding */
       transition: all 0.3s ease;
       white-space: nowrap;
     }
@@ -222,13 +222,13 @@
     /* Close Button */
     .book-close-btn {
       position: fixed;
-      bottom: 50px;
-      left: 50px;
+      bottom: 100px;  /* Adjusted position */
+      left: 280px;    /* Aligned with navigation */
       background: transparent;
       border: none;
       color: white;
       font-family: 'Montserrat', sans-serif;
-      font-size: 40px;
+      font-size: 32px;  /* Smaller to match navigation */
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -322,6 +322,16 @@
     }
     
     /* Responsive adjustments */
+    @media (max-width: 1200px) {
+      .book-nav-menu {
+        left: 100px;  /* Adjusted for smaller screens */
+      }
+      
+      .book-close-btn {
+        left: 100px;
+      }
+    }
+    
     @media (max-width: 768px) {
       .book-content-container {
         width: 95vw;
@@ -330,21 +340,22 @@
       
       .book-nav-menu {
         left: 20px;
-        gap: 10px;
+        top: 45%;
+        gap: 8px;
       }
       
       .book-nav-btn {
-        font-size: 24px;
+        font-size: 20px;
       }
       
       .book-close-btn {
-        font-size: 28px;
+        font-size: 24px;
         left: 20px;
         bottom: 30px;
       }
       
       .book-cover {
-        width: 400px;
+        width: 450px;  /* Bigger from 400px */
       }
       
       .section-link {
