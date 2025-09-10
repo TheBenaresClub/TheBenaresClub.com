@@ -882,3 +882,39 @@ body.bg-contactos {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+
+/* Add this to your existing footer styles in styles.css */
+
+.shadow-toggle-btn {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  font-weight: 600;
+  font-size: 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+  font-family: var(--font-family);
+  user-select: none;
+}
+
+.shadow-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.shadow-toggle-btn.shadows-off {
+  background-color: rgba(255, 79, 79, 0.3);
+  border-color: rgba(255, 79, 79, 0.4);
+  box-shadow: 0 0 6px rgba(255, 79, 79, 0.3);
+}
+
+.shadow-toggle-btn.shadows-off:hover {
+  background-color: rgba(255, 79, 79, 0.5);
+  box-shadow: 0 0 12px rgba(255, 79, 79, 0.4);
+}

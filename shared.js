@@ -1,4 +1,4 @@
-console.log("Complete shared-header.js loaded");
+console.log("Complete shared.js loaded");
 
 // =================================
 // HEADER CREATION
