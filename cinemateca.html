@@ -116,7 +116,7 @@
 
     /* Bottom controls section - 9% of tv-menu height */
     .tv-internal-controls {
-      height: 9%;
+      height: 7%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -295,8 +295,8 @@
 
     .close-video {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 50px;
+      right: 40px;
       background: #ff0000;
       color: white;
       border: none;
@@ -308,10 +308,30 @@
     }
 
     /* Custom fonts for specific elements */
+    @font-face {
+      font-family: 'A_DAY_WITHOUT_SUN';
+      src: url('./fuentes/A_DAY_WITHOUT_SUN.ttf') format('truetype');
+      font-display: swap;
+    }
+    
+    @font-face {
+      font-family: 'Afrah-Bold';
+      src: url('./fuentes/Afrah-Bold.otf') format('truetype');
+      font-display: swap;
+    }
+    
     .special-title {
-      font-family: 'Courier New', monospace;
+      font-family: 'A_DAY_WITHOUT_SUN', 'Courier New', monospace;
+      font-size: 2.3rem !important;
+      font-weight: normal;
+      letter-spacing: .2rem;
+    }
+    
+    .inexistente-title {
+      font-family: 'Afrah-Bold', 'Courier New', monospace;
       font-size: 1.2rem !important;
-      font-weight: bold;
+      font-weight: normal;
+      letter-spacing: .15rem;
     }
   </style>
 </head>
@@ -349,15 +369,15 @@
               
               <!-- Internal Navigation Controls -->
               <div class="tv-internal-controls" id="internal-controls">
-                <button class="tv-internal-button" id="prev-btn">◀ Prev</button>
-                <button class="tv-internal-button" id="next-btn">Next ▶</button>
+                <button class="tv-internal-button" id="prev-btn">◀ Anterior</button>
+                <button class="tv-internal-button" id="next-btn">Próximo ▶</button>
               </div>
             </div>
           </div>
 
           <!-- Video Players -->
           <div id="video-inexistente" class="video-player">
-            <button class="close-video" onclick="closeVideo('video-inexistente')">✕ Close</button>
+            <button class="close-video" onclick="closeVideo('video-inexistente')">✕</button>
             <iframe src="https://player.vimeo.com/video/930451906?badge=0&autopause=0&player_id=0&app_id=58479" 
                     frameborder="0" 
                     allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
@@ -366,7 +386,7 @@
           </div>
 
           <div id="video-artista" class="video-player">
-            <button class="close-video" onclick="closeVideo('video-artista')">✕ Close</button>
+            <button class="close-video" onclick="closeVideo('video-artista')">✕</button>
             <iframe src="https://player.vimeo.com/video/930022904?badge=0&autopause=0&player_id=0&app_id=58479" 
                     frameborder="0" 
                     allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
@@ -415,7 +435,8 @@
         duration: '11m12s',
         director: 'Charlie Chaves',
         poster: './media/poster-inexistente.png',
-        synopsis: 'Hélder Saramago visita a antiga casa do seu melhor amigo, Pedro Amaral, que desapareceu há algum tempo atrás sem deixar rasto. O objetivo de Hélder é relembrar memórias esquecidas, mas acabará por descobrir ainda mais.'
+        synopsis: 'Hélder Saramago visita a antiga casa do seu melhor amigo, Pedro Amaral, que desapareceu há algum tempo atrás sem deixar rasto. O objetivo de Hélder é relembrar memórias esquecidas, mas acabará por descobrir ainda mais.',
+        inexistenteTitle: true
       },
       {
         id: 'artista',
@@ -478,7 +499,7 @@
               <div class="movie-poster" style="background-image: url('${movie.poster}');"></div>
               <div class="movie-info">
                 <div class="movie-meta">${movie.date} • ${movie.duration}</div>
-                <h3 ${movie.specialTitle ? 'class="special-title"' : ''}>${movie.title}</h3>
+                <h3 ${movie.specialTitle ? 'class="special-title"' : movie.inexistenteTitle ? 'class="inexistente-title"' : ''}>${movie.title}</h3>
                 <div class="movie-meta">${movie.director}</div>
               </div>
             </div>
@@ -521,12 +542,16 @@ powerBtn.addEventListener('click', function() {
   playSound(powerSound);
   
   if (!tvIsOn) {
-    // Turn TV on - direct to menu
+    // Turn TV on - show on state for 1 second, then menu
     tvOff.classList.remove('active');
-    tvBackground.src = './media/canal14_menu.png';
-    tvOn.classList.add('active');
-    tvIsOn = true;
-    renderMovies();
+    tvBackground.src = './media/canal14_on.png';
+    
+    setTimeout(() => {
+      tvBackground.src = './media/canal14_menu.png';
+      tvOn.classList.add('active');
+      tvIsOn = true;
+      renderMovies();
+    }, 900);
   } else {
     // Turn TV off
     closeAllVideos();
