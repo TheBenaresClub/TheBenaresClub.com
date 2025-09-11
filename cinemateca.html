@@ -174,6 +174,13 @@
       background-position: center;
       background-repeat: no-repeat;
       flex-shrink: 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .movie-poster:hover {
+      transform: scale(1.05);
+      border: 1px solid rgba(255, 255, 255, 0.4);
     }
 
     .movie-info {
@@ -333,6 +340,31 @@
       font-weight: normal;
       letter-spacing: .15rem;
     }
+
+    /* Magnified Poster Popup */
+    .poster-popup {
+      position: fixed;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: scale(0.8);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #222;
+      width: 300px;
+      height: 450px;
+    }
+
+    .poster-popup.show {
+      opacity: 1;
+      transform: scale(1);
+    }
   </style>
 </head>
 <body class="bg-cinemateca">
@@ -402,6 +434,9 @@
       </div>
 
     </div>
+
+    <!-- Magnified Poster Popup -->
+    <div id="poster-popup" class="poster-popup"></div>
 
     <!-- Audio elements -->
     <audio id="power-sound" preload="auto">
@@ -496,7 +531,7 @@
         movieSlot.innerHTML = `
           ${!movie.empty ? `
             <div class="movie-top-section">
-              <div class="movie-poster" style="background-image: url('${movie.poster}');"></div>
+              <div class="movie-poster" style="background-image: url('${movie.poster}');" data-poster="${movie.poster}"></div>
               <div class="movie-info">
                 <div class="movie-meta">${movie.date} • ${movie.duration}</div>
                 <h3 ${movie.specialTitle ? 'class="special-title"' : movie.inexistenteTitle ? 'class="inexistente-title"' : ''}>${movie.title}</h3>
@@ -529,7 +564,81 @@
           }
         });
       });
+
+      // Add poster hover listeners for magnified popup
+      setTimeout(() => {
+        addPosterHoverListeners();
+      }, 100);
     }
+
+    // Poster Popup Functionality
+    function addPosterHoverListeners() {
+      const posterPopup = document.getElementById('poster-popup');
+      
+      movieGrid.querySelectorAll('.movie-poster[data-poster]').forEach(poster => {
+        const posterUrl = poster.getAttribute('data-poster');
+        
+        if (posterUrl) {
+          poster.addEventListener('mouseenter', function(e) {
+            if (tvIsOn && !activeVideo) {
+              posterPopup.style.backgroundImage = `url('${posterUrl}')`;
+              showPosterPopup(e, posterPopup);
+            }
+          });
+
+          poster.addEventListener('mousemove', function(e) {
+            if (tvIsOn && !activeVideo && posterPopup.classList.contains('show')) {
+              updatePosterPopupPosition(e, posterPopup);
+            }
+          });
+
+          poster.addEventListener('mouseleave', function() {
+            hidePosterPopup(posterPopup);
+          });
+        }
+      });
+    }
+
+    function showPosterPopup(e, popup) {
+      updatePosterPopupPosition(e, popup);
+      popup.classList.add('show');
+    }
+
+    function updatePosterPopupPosition(e, popup) {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      const popupWidth = 300;
+      const popupHeight = 450;
+      const offset = 20;
+      
+      // Calculate position to keep popup within viewport
+      let left = mouseX + offset;
+      let top = mouseY - (popupHeight / 2);
+      
+      // Adjust if popup would go off screen
+      if (left + popupWidth > window.innerWidth) {
+        left = mouseX - popupWidth - offset;
+      }
+      
+      if (top < 0) {
+        top = offset;
+      } else if (top + popupHeight > window.innerHeight) {
+        top = window.innerHeight - popupHeight - offset;
+      }
+      
+      popup.style.left = left + 'px';
+      popup.style.top = top + 'px';
+    }
+
+    function hidePosterPopup(popup) {
+      popup.classList.remove('show');
+    }
+
+    // Hide popup when mouse leaves TV screen area
+    document.querySelector('.tv-screen').addEventListener('mouseleave', function() {
+      const posterPopup = document.getElementById('poster-popup');
+      hidePosterPopup(posterPopup);
+    });
 
     // Power Button Functionality
 powerBtn.addEventListener('click', function() {
