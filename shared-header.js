@@ -17,7 +17,6 @@ function createHeader() {
         <li><a href="eventos.html">Eventos</a></li>
         <li><a href="biblioteca.html">Biblioteca</a></li>
         <li><a href="cinemateca.html">Cinemateca</a></li>
-        <li><a href="laboratorio.html">Laboratório</a></li>
         <li><a href="mercado.html">Mercado</a></li>
         <li><a href="comunidad.html">Comunidad</a></li>
         <li><a href="contactos.html">Contactos</a></li>
